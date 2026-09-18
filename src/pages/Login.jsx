@@ -1,55 +1,72 @@
-import './Login.css'
+import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
+
+import logo from '../assets/Logo_Web.jpeg'
 import loginGif from '../assets/video-login.gif'
+import './Login.css'
 
 function Login() {
   return (
-    <main className="login">
-      <section className="login-video">
-        <img
-          className="login-gif"
-          src={loginGif}
-          alt="Presentación de The Big Foot"
-        />
-      </section>
+    <div className="login-pagina">
+      <nav className="login-navegacion">
+        <Link to="/" className="login-nav-logo">
+          <img src={logo} alt="The Big Foot" />
+        </Link>
 
-      <section className="login-formulario-contenedor">
-        <div className="login-formulario">
-          <h1>Iniciar sesión</h1>
+        <Link to="/" className="login-volver">
+          <ArrowLeft size={21} strokeWidth={2} />
+          <span>Volver al inicio</span>
+        </Link>
+      </nav>
 
-          <p className="login-descripcion">
-            Ingresá a tu cuenta de The Big Foot.
-          </p>
+      <main className="login">
+        <section className="login-video">
+          <img
+            className="login-gif"
+            src={loginGif}
+            alt="Presentación de The Big Foot"
+          />
+        </section>
 
-          <form>
-            <div className="login-campo">
-              <label htmlFor="correo">Correo electrónico</label>
+        <section className="login-formulario-contenedor">
+          <div className="login-formulario">
+            <h1>Iniciar sesión</h1>
 
-              <input
-                id="correo"
-                name="correo"
-                type="email"
-                placeholder="correo@ejemplo.com"
-              />
-            </div>
+            <p className="login-descripcion">
+              Ingresá a tu cuenta de The Big Foot.
+            </p>
 
-            <div className="login-campo">
-              <label htmlFor="contrasena">Contraseña</label>
+            <form>
+              <div className="login-campo">
+                <label htmlFor="correo">Correo electrónico</label>
 
-              <input
-                id="contrasena"
-                name="contrasena"
-                type="password"
-                placeholder="Ingresá tu contraseña"
-              />
-            </div>
+                <input
+                  id="correo"
+                  name="correo"
+                  type="email"
+                  placeholder="correo@ejemplo.com"
+                />
+              </div>
 
-            <button type="button" className="login-boton">
-              Ingresar
-            </button>
-          </form>
-        </div>
-      </section>
-    </main>
+              <div className="login-campo">
+                <label htmlFor="contrasena">Contraseña</label>
+
+                <input
+                  id="contrasena"
+                  name="contrasena"
+                  type="password"
+                  placeholder="Ingresá tu contraseña"
+                />
+              </div>
+
+              <button type="button" className="login-boton">
+                Ingresar
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
   )
 }
 
