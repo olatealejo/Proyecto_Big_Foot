@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
+import logo from '../assets/Logo_Web.jpeg'
 import './Inicio.css'
 
 function Inicio() {
   return (
     <>
       <nav className="navbar">
-        <Link to="/" className="logo-texto">
-          The Big Foot
+        <Link to="/" className="navbar-logo">
+          <img src={logo} alt="The Big Foot" />
         </Link>
-
         <div className="navbar-menu">
           <Link to="/productos">Modelos</Link>
           <Link to="/nosotros">Confección</Link>

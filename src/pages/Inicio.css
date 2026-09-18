@@ -11,11 +11,14 @@
   border-bottom: 3px solid #168000;
 }
 
-.logo-texto {
+.navbar-logo {
   justify-self: start;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
+}
+
+.navbar-logo img {
+  display: block;
+  width: 145px;
+  height: auto;
 }
 
 .navbar-menu {
