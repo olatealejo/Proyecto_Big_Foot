@@ -1,0 +1,32 @@
+.login {
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login-contenedor {
+  width: 100%;
+  max-width: 450px;
+  padding: 35px;
+
+  color: white;
+  background-color: #000000;
+  border-radius: 8px;
+  border-bottom: 3px solid #168000;
+}
+
+.login-contenedor h1 {
+  margin-bottom: 10px;
+
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 36px;
+  text-transform: uppercase;
+}
+
+.login-contenedor p {
+  color: #cccccc;
+}
