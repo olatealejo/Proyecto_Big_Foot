@@ -1,32 +1,152 @@
 .login {
   width: 100%;
   min-height: 100vh;
-  padding: 60px 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background-color: #000000;
+}
+
+
+/* Mitad destinada al video */
+
+.login-video {
+  min-height: 100vh;
 
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
+
+  background:
+    radial-gradient(circle at center, #1d4628, transparent 65%),
+    #07130a;
 }
 
-.login-contenedor {
-  width: 100%;
-  max-width: 450px;
-  padding: 35px;
+.login-video-placeholder {
+  width: 80%;
+  height: 70%;
 
-  color: white;
-  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed #168000;
   border-radius: 8px;
-  border-bottom: 3px solid #168000;
-}
 
-.login-contenedor h1 {
-  margin-bottom: 10px;
-
+  color: #aaaaaa;
   font-family: 'Oswald', Arial, sans-serif;
-  font-size: 36px;
+  font-size: 20px;
   text-transform: uppercase;
 }
 
-.login-contenedor p {
-  color: #cccccc;
+
+/* Mitad destinada al formulario */
+
+.login-formulario-contenedor {
+  min-height: 100vh;
+  padding: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #000000;
+}
+
+.login-formulario {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-formulario h1 {
+  margin-bottom: 10px;
+
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 42px;
+  text-transform: uppercase;
+}
+
+.login-descripcion {
+  margin-bottom: 30px;
+  color: #aaaaaa;
+}
+
+.login-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-campo label {
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 18px;
+}
+
+.login-campo input {
+  width: 100%;
+  padding: 13px;
+
+  border: 1px solid #555555;
+  border-radius: 5px;
+
+  color: white;
+  background-color: #171717;
+
+  font: inherit;
+}
+
+.login-campo input:focus {
+  border-color: #29a815;
+  outline: none;
+}
+
+.login-boton {
+  margin-top: 5px;
+  padding: 13px;
+
+  border: none;
+  border-radius: 5px;
+
+  color: white;
+  background-color: #168000;
+
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+.login-boton:hover {
+  background-color: #29a815;
+}
+
+
+/* Adaptación para celulares */
+
+@media (max-width: 768px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+
+  .login-video {
+    min-height: 300px;
+  }
+
+  .login-video-placeholder {
+    height: 220px;
+  }
+
+  .login-formulario-contenedor {
+    min-height: auto;
+    padding: 50px 25px;
+  }
 }
