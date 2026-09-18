@@ -11,6 +11,9 @@
   border-bottom: 3px solid #168000;
 }
 
+
+/* Logo */
+
 .navbar-logo {
   justify-self: start;
 }
@@ -20,6 +23,9 @@
   width: 145px;
   height: auto;
 }
+
+
+/* Enlaces centrales */
 
 .navbar-menu {
   display: flex;
@@ -44,6 +50,9 @@
   color: #29a815;
 }
 
+
+/* Iconos */
+
 .navbar-iconos {
   display: flex;
   justify-self: end;
@@ -51,6 +60,7 @@
   gap: 22px;
 }
 
+.navbar-iconos a,
 .navbar-iconos button {
   display: flex;
   align-items: center;
@@ -66,13 +76,21 @@
   transition: color 0.2s;
 }
 
+.navbar-iconos a:hover,
 .navbar-iconos button:hover {
   color: #29a815;
 }
 
+
+/* Contenido de Inicio */
+
 .inicio {
-  min-height: calc(100vh - 124px);
+  width: 100%;
+  min-height: calc(100vh - 120px);
 }
+
+
+/* Adaptación para celulares */
 
 @media (max-width: 768px) {
   .navbar {
@@ -102,5 +120,9 @@
 
   .navbar-iconos {
     gap: 12px;
+  }
+
+  .inicio {
+    min-height: calc(100vh - 170px);
   }
 }

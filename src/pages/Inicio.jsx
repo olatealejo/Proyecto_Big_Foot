@@ -13,20 +13,20 @@ function Inicio() {
         </Link>
 
         <div className="navbar-menu">
-          <Link to="/productos">Modelos</Link>
-          <Link to="/nosotros">Confección</Link>
-          <Link to="/">Menú</Link>
-          <Link to="/contacto">Plantillas</Link>
+          <Link to="/catalogo">Modelos</Link>
+          <Link to="/personalizar">Personalizar</Link>
+          <Link to="/comunidad">Comunidad</Link>
+          <Link to="/contacto">Contacto</Link>
         </div>
 
         <div className="navbar-iconos">
-          <button type="button" aria-label="Usuario">
+          <Link to="/login" aria-label="Iniciar sesión">
             <UserRound size={25} strokeWidth={1.8} />
-          </button>
+          </Link>
 
-          <button type="button" aria-label="Carrito">
+          <Link to="/carrito" aria-label="Carrito">
             <ShoppingCart size={25} strokeWidth={1.8} />
-          </button>
+          </Link>
 
           <button type="button" aria-label="Buscar">
             <Search size={25} strokeWidth={1.8} />
