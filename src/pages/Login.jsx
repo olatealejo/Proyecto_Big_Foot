@@ -1,12 +1,15 @@
 import './Login.css'
+import loginGif from '../assets/video-login.gif'
 
 function Login() {
   return (
     <main className="login">
       <section className="login-video">
-       <video autoPlay muted loop playsInline>
-          <source src="..\assets\video-login.gif" type="video/mp4" />
-        </video>
+        <img
+          className="login-gif"
+          src={loginGif}
+          alt="Presentación de The Big Foot"
+        />
       </section>
 
       <section className="login-formulario-contenedor">
