@@ -177,6 +177,25 @@
   background-color: #29a815;
 }
 
+.login-registro {
+  margin-top: 25px;
+
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+
+  color: #aaaaaa;
+  font-size: 15px;
+}
+
+.login-registro a {
+  color: #29a815;
+  font-weight: bold;
+}
+
+.login-registro a:hover {
+  text-decoration: underline;
+}
 
 /* Adaptación para celulares */
 

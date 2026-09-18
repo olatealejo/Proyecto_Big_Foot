@@ -63,6 +63,13 @@ function Login() {
                 Ingresar
               </button>
             </form>
+            <div className="login-registro">
+            <span>¿No tenés una cuenta?</span>
+
+          <Link to="/registro">
+    Crear una cuenta
+  </Link>
+</div>
           </div>
         </section>
       </main>
