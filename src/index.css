@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -14,14 +16,13 @@ body,
 body {
   min-width: 320px;
   min-height: 100vh;
+
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 
   background:
     radial-gradient(circle at top right, #1d4628 0%, transparent 40%),
     linear-gradient(135deg, #07130a, #102b17);
-
-  border-top: 4px solid #837657;
 }
 
 a {
