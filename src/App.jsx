@@ -5,7 +5,6 @@ import Login from './pages/Login'
 import Productos from './pages/Productos'
 import Nosotros from './pages/Nosotros'
 import Contacto from './pages/Contacto'
-import Comunidad from './pages/Comunidad'
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
       <Route path="/productos" element={<Productos />} />
       <Route path="/nosotros" element={<Nosotros />} />
       <Route path="/contacto" element={<Contacto />} />
-      <Route path="/comunidad" element={<Comunidad />} />
     </Routes>
   )
 }

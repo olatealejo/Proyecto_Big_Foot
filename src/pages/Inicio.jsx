@@ -1,6 +1,9 @@
+jsx
 import { Link } from "react-router-dom";
 import { UserRound, ShoppingCart, Search } from "lucide-react";
 import logo from "../assets/Logo_Web.jpeg";
+import Publicidad1 from "../assets/Publicidad1.jpeg";
+import Publicidad2 from "../assets/Publicidad2.png";
 import Footer from "../components/Footer";
 import "./Inicio.css";
 
@@ -13,7 +16,7 @@ function Inicio() {
         </Link>
 
         <div className="navbar-menu">
-          <Link to="/catalogo">Modelos</Link>
+          <Link to="/productos">Modelos</Link>
           <Link to="/personalizar">Personalizar</Link>
           <Link to="/comunidad">Comunidad</Link>
           <Link to="/contacto">Contacto</Link>
@@ -35,7 +38,23 @@ function Inicio() {
       </nav>
 
       <main className="contenido-inicio">
-        {/* Aquí irá el contenido principal de la página */}
+
+        <section className="publicidades">
+          <Link to="/productos" className="publicidad">
+            <img
+              src={Publicidad1.jpeg}
+              alt="Publicidad de zapatillas de básquet"
+            />
+          </Link>
+
+          <Link to="/productos" className="publicidad">
+            <img
+              src={Publicidad2.png}
+              alt="Segunda publicidad de The Big Foot"
+            />
+          </Link>
+        </section>
+
       </main>
 
       <Footer />
