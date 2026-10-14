@@ -85,6 +85,7 @@
 
 /* Contenido principal */
 .contenido-inicio {
+  width: 100%;
   min-height: calc(100vh - 90px);
   padding: 40px;
 
@@ -94,6 +95,23 @@
     #102c18 50%,
     #203d24 100%
   );
+}
+
+.publicidades {
+  width: 100%;
+}
+
+.publicidad {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.publicidad img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2.17 / 1;
+  object-fit: cover;
 }
 
 /* Adaptación para celulares */
@@ -131,35 +149,10 @@
   .contenido-inicio {
     padding: 24px 20px;
   }
-  
-
-.contenido-inicio {
-  width: 100%;
 }
-
-.publicidades {
-  width: 100%;
-}
-
-.publicidad {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-}
-
-.publicidad img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 2.17 / 1;
-  object-fit: cover;
-}
-
-/* Ajustes para celulares */
 
 @media (max-width: 600px) {
   .publicidad img {
     aspect-ratio: 1 / 1;
   }
-}
-
 }

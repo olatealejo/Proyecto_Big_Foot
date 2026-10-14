@@ -1,3 +1,4 @@
+jsx
 import { Link } from "react-router-dom";
 import { UserRound, ShoppingCart, Search } from "lucide-react";
 import logo from "../assets/Logo_Web.jpeg";
