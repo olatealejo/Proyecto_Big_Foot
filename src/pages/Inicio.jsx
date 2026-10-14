@@ -1,9 +1,9 @@
-jsx
 import { Link } from "react-router-dom";
 import { UserRound, ShoppingCart, Search } from "lucide-react";
+
 import logo from "../assets/Logo_Web.jpeg";
-import Publicidad1 from "../assets/Publicidad1.jpeg";
-import Publicidad2 from "../assets/Publicidad2.png";
+import publicidad1 from "../assets/Publicidad1.jpeg";
+import publicidad2 from "../assets/Publicidad2.png";
 import Footer from "../components/Footer";
 import "./Inicio.css";
 
@@ -38,23 +38,21 @@ function Inicio() {
       </nav>
 
       <main className="contenido-inicio">
-
         <section className="publicidades">
           <Link to="/productos" className="publicidad">
             <img
-              src={Publicidad1.jpeg}
+              src={publicidad1}
               alt="Publicidad de zapatillas de básquet"
             />
           </Link>
 
           <Link to="/productos" className="publicidad">
             <img
-              src={Publicidad2.png}
+              src={publicidad2}
               alt="Segunda publicidad de The Big Foot"
             />
           </Link>
         </section>
-
       </main>
 
       <Footer />
