@@ -175,7 +175,7 @@
   gap: 14px;
 }
 
-.boton {
+.inicio-boton {
   min-height: 48px;
   padding: 0 23px;
 
@@ -198,28 +198,28 @@
     border-color 0.2s ease;
 }
 
-.boton:hover,
-.boton:focus-visible {
+.inicio-boton:hover,
+.inicio-boton:focus-visible {
   transform: translateY(-2px);
 }
 
-.boton-principal {
+.inicio-boton-principal {
   background-color: #228d2b;
 }
 
-.boton-principal:hover,
-.boton-principal:focus-visible {
+.inicio-boton-principal:hover,
+.inicio-boton-principal:focus-visible {
   background-color: #2eaa38;
 }
 
-.boton-secundario {
+.inicio-boton-secundario {
   color: #e6ece7;
   background-color: rgba(255, 255, 255, 0.04);
   border-color: rgba(255, 255, 255, 0.24);
 }
 
-.boton-secundario:hover,
-.boton-secundario:focus-visible {
+.inicio-boton-secundario:hover,
+.inicio-boton-secundario:focus-visible {
   border-color: #4bc354;
   background-color: rgba(75, 195, 84, 0.08);
 }
@@ -487,7 +487,7 @@
     align-items: stretch;
   }
 
-  .boton {
+  .inicio-boton {
     flex: 1 1 100%;
   }
 
@@ -504,7 +504,7 @@
   .navbar-menu a,
   .navbar-menu a::after,
   .navbar-iconos a,
-  .boton,
+  .inicio-boton,
   .publicidad img,
   .publicidad-capa span svg {
     transition: none;
