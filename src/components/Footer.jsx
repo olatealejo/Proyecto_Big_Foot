@@ -25,9 +25,8 @@ function Footer() {
           <Link to="/productos">Modelos</Link>
         </nav>
 
-        <nav className="footer-seccion" aria-label="Ayuda">
-          <h3>Ayuda</h3>
-          <Link to="/contacto">Contacto</Link>
+        <nav className="footer-seccion" aria-label="Cuenta">
+          <h3>Cuenta</h3>
           <Link to="/login">Mi cuenta</Link>
         </nav>
 
