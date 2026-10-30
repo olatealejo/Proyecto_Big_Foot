@@ -121,10 +121,25 @@
   overflow: hidden;
   padding: 0 clamp(20px, 4vw, 64px) clamp(56px, 8vw, 100px);
 
-  background:
-    radial-gradient(circle at 85% 8%, rgba(49, 113, 57, 0.34), transparent 28%),
-    radial-gradient(circle at 8% 52%, rgba(22, 128, 0, 0.14), transparent 26%),
-    linear-gradient(135deg, #050d07 0%, #0b1f10 48%, #142d18 100%);
+  background-color: #090909;
+  background-image:
+    linear-gradient(90deg, rgba(255, 122, 24, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 88% 6%, rgba(255, 122, 24, 0.22), transparent 26%),
+    radial-gradient(circle at 8% 58%, rgba(255, 90, 0, 0.1), transparent 24%),
+    linear-gradient(160deg, #070707 0%, #101010 52%, #16110c 100%);
+  background-size:
+    80px 80px,
+    80px 80px,
+    auto,
+    auto,
+    auto;
+  background-position:
+    center top,
+    center top,
+    0 0,
+    0 0,
+    0 0;
 }
 
 .inicio-hero {
