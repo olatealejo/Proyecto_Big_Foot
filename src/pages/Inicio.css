@@ -224,24 +224,135 @@
 }
 
 .inicio-boton-principal {
-  background-color: #228d2b;
+  color: #111;
+  background-color: #ff7a18;
 }
 
 .inicio-boton-principal:hover,
 .inicio-boton-principal:focus-visible {
-  background-color: #2eaa38;
+  background-color: #ff9326;
 }
 
 .inicio-boton-secundario {
-  color: #e6ece7;
+  color: #f4eee8;
   background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .inicio-boton-secundario:hover,
 .inicio-boton-secundario:focus-visible {
-  border-color: #4bc354;
-  background-color: rgba(75, 195, 84, 0.08);
+  border-color: #ff7a18;
+  background-color: rgba(255, 122, 24, 0.1);
+}
+
+.inicio-stats {
+  margin: 42px 0 0;
+  padding: 0;
+  list-style: none;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.inicio-stats li {
+  padding-top: 14px;
+  border-top: 2px solid #ff7a18;
+}
+
+.inicio-stats strong {
+  display: block;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.inicio-stats span {
+  display: block;
+  margin-top: 4px;
+  color: #9d948b;
+  font-size: 13px;
+}
+
+.inicio-hero-visual {
+  position: relative;
+  margin: 0;
+  min-height: 460px;
+
+  display: grid;
+  place-items: center;
+}
+
+.inicio-hero-disco {
+  position: absolute;
+  width: min(420px, 86%);
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 122, 24, 0.45);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 18px rgba(255, 122, 24, 0.08),
+    inset 0 0 0 56px rgba(0, 0, 0, 0.35);
+  background:
+    radial-gradient(circle at center, transparent 54%, rgba(255, 122, 24, 0.16) 55% 57%, transparent 58%),
+    repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.08) 0 2deg, transparent 2deg 18deg);
+}
+
+.inicio-hero-visual img {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+.inicio-hero-visual figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 18px;
+  z-index: 2;
+
+  min-width: 210px;
+  padding: 16px 18px;
+
+  background-color: rgba(10, 10, 10, 0.88);
+  border: 1px solid rgba(255, 122, 24, 0.4);
+  border-radius: 8px;
+}
+
+.inicio-hero-visual figcaption p {
+  margin: 0 0 4px;
+  color: #ff7a18;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+
+.inicio-hero-visual figcaption h2 {
+  margin: 0;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.inicio-hero-visual figcaption a {
+  margin-top: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #f4eee8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.inicio-hero-visual figcaption a:hover,
+.inicio-hero-visual figcaption a:focus-visible {
+  color: #ff9a45;
 }
 
 /* Colecciones */
