@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Search, ShoppingCart, UserRound } from "lucide-react";
 
 import logo from "../assets/Logo_Web.jpeg";
+import hero from "../assets/hero.png";
 import publicidad1 from "../assets/Publicidad1.jpeg";
 import publicidad2 from "../assets/Publicidad2.png";
 import Footer from "../components/Footer";
@@ -17,8 +18,8 @@ function Inicio() {
 
         <div className="navbar-menu">
           <Link to="/productos">Modelos</Link>
-          <Link to="/personalizar">Personalizar</Link>
-          <Link to="/comunidad">Comunidad</Link>
+          <Link to="/nosotros">Nosotros</Link>
+          <Link to="/contacto">Contacto</Link>
         </div>
 
         <div className="navbar-iconos">
@@ -26,7 +27,7 @@ function Inicio() {
             <UserRound />
           </Link>
 
-          <Link to="/carrito" aria-label="Ver carrito">
+          <Link to="/productos" aria-label="Ver productos">
             <ShoppingCart />
           </Link>
 
