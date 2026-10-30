@@ -167,8 +167,9 @@
   display: block;
   width: min(822px, 100%);
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
-  object-position: left center;
+  object-position: center;
 }
 
 .footer-final {
