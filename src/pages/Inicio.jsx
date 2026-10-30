@@ -26,11 +26,9 @@ function Inicio() {
           <Link to="/login" aria-label="Iniciar sesión">
             <UserRound />
           </Link>
-
           <Link to="/productos" aria-label="Ver productos">
             <ShoppingCart />
           </Link>
-
           <Link to="/productos" aria-label="Buscar productos">
             <Search />
           </Link>
@@ -99,19 +97,14 @@ function Inicio() {
         </section>
 
         <section className="publicidades" aria-label="Colecciones destacadas">
-          <Link
-            to="/productos"
-            className="publicidad publicidad-principal"
-          >
+          <Link to="/productos" className="publicidad publicidad-principal">
             <img
               src={publicidad1}
               alt="Colección de zapatillas de básquet The Big Foot"
             />
-
             <div className="publicidad-capa">
               <p>Nueva colección</p>
               <h2>Diseñadas para destacar</h2>
-
               <span>
                 Ver colección
                 <ArrowRight size={18} />
@@ -119,20 +112,15 @@ function Inicio() {
             </div>
           </Link>
 
-          <Link
-            to="/productos"
-            className="publicidad publicidad-secundaria"
-          >
+          <Link to="/productos" className="publicidad publicidad-secundaria">
             <img
               src={publicidad2}
               alt="Colección urbana de The Big Foot"
               loading="lazy"
             />
-
             <div className="publicidad-capa">
               <p>Estilo urbano</p>
               <h2>Marcá tu propio camino</h2>
-
               <span>
                 Descubrir
                 <ArrowRight size={18} />
@@ -149,7 +137,6 @@ function Inicio() {
               <p>Diseños creados para salir de lo común.</p>
             </div>
           </article>
-
           <article>
             <span>02</span>
             <div>
@@ -157,7 +144,6 @@ function Inicio() {
               <p>Cada modelo combina presencia y comodidad.</p>
             </div>
           </article>
-
           <article>
             <span>03</span>
             <div>
