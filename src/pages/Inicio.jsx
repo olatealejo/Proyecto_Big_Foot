@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Search, ShoppingCart, UserRound } from "lucide-react";
 
 import logo from "../assets/Logo_Web.jpeg";
-import hero from "../assets/hero.png";
 import publicidad1 from "../assets/Publicidad1.jpeg";
 import publicidad2 from "../assets/Publicidad2.png";
+import zapatillaHero from "../assets/The-Big-Foot-ChorizoParmezano1.jpeg";
 import Footer from "../components/Footer";
 import "./Inicio.css";
 
@@ -18,17 +18,19 @@ function Inicio() {
 
         <div className="navbar-menu">
           <Link to="/productos">Modelos</Link>
-          <Link to="/nosotros">Nosotros</Link>
-          <Link to="/contacto">Contacto</Link>
+          <Link to="/personalizar">Personalizar</Link>
+          <Link to="/comunidad">Comunidad</Link>
         </div>
 
         <div className="navbar-iconos">
           <Link to="/login" aria-label="Iniciar sesión">
             <UserRound />
           </Link>
-          <Link to="/productos" aria-label="Ver productos">
+
+          <Link to="/carrito" aria-label="Ver carrito">
             <ShoppingCart />
           </Link>
+
           <Link to="/productos" aria-label="Buscar productos">
             <Search />
           </Link>
@@ -36,18 +38,19 @@ function Inicio() {
       </nav>
 
       <main className="contenido-inicio">
-        <section className="inicio-hero" aria-labelledby="inicio-titulo">
+        <section className="inicio-hero">
           <div className="inicio-copy">
-            <p className="inicio-etiqueta">The Big Foot Store</p>
+            <p className="inicio-etiqueta">Zapatillas de básquet</p>
 
-            <h1 id="inicio-titulo">
-              Tu próxima pisada
-              <span> empieza acá.</span>
+            <h1>
+              Dominá la cancha
+              <span> con cada pisada.</span>
             </h1>
 
             <p className="inicio-descripcion">
-              Modelos con identidad propia, pensados para quienes no siguen el
-              camino: lo marcan.
+              High-tops con identidad Big Foot: agarre para el primer paso,
+              amortiguación para el salto y un look que se ve desde la última
+              fila.
             </p>
 
             <div className="inicio-acciones">
@@ -58,38 +61,42 @@ function Inicio() {
                 Ver modelos
                 <ArrowRight size={19} />
               </Link>
+
               <Link
-                to="/nosotros"
+                to="/productos"
                 className="inicio-boton inicio-boton-secundario"
               >
-                Conocé Big Foot
+                Colección de cancha
               </Link>
             </div>
 
-            <ul className="inicio-stats" aria-label="Nuestra identidad">
+            <ul className="inicio-stats" aria-label="Características de juego">
               <li>
-                <strong>Estilo urbano</strong>
-                <span>Diseños con personalidad</span>
+                <strong>Agarre</strong>
+                <span>Pivote y corte</span>
               </li>
               <li>
-                <strong>Actitud propia</strong>
-                <span>Marcá tu camino</span>
+                <strong>Soporte</strong>
+                <span>Caña alta</span>
               </li>
               <li>
-                <strong>Big Foot</strong>
-                <span>Dejá tu huella</span>
+                <strong>Impacto</strong>
+                <span>Aterrizaje suave</span>
               </li>
             </ul>
           </div>
 
           <figure className="inicio-hero-visual">
             <div className="inicio-hero-disco" aria-hidden="true" />
-            <img src={hero} alt="Big Foot, la figura de nuestra tienda" />
+            <img
+              src={zapatillaHero}
+              alt="Zapatilla de básquet The Big Foot Chorizo Parmesano"
+            />
             <figcaption>
-              <p>Conocé nuestra identidad</p>
-              <h2>The Big Foot</h2>
-              <Link to="/nosotros">
-                Nuestra historia
+              <p>Modelo destacado</p>
+              <h2>Chorizo Parmesano</h2>
+              <Link to="/productos">
+                Ver producto
                 <ArrowRight size={16} />
               </Link>
             </figcaption>
@@ -102,9 +109,11 @@ function Inicio() {
               src={publicidad1}
               alt="Colección de zapatillas de básquet The Big Foot"
             />
+
             <div className="publicidad-capa">
               <p>Nueva colección</p>
-              <h2>Diseñadas para destacar</h2>
+              <h2>Hechas para el juego</h2>
+
               <span>
                 Ver colección
                 <ArrowRight size={18} />
@@ -115,12 +124,14 @@ function Inicio() {
           <Link to="/productos" className="publicidad publicidad-secundaria">
             <img
               src={publicidad2}
-              alt="Colección urbana de The Big Foot"
+              alt="Línea de cancha The Big Foot"
               loading="lazy"
             />
+
             <div className="publicidad-capa">
-              <p>Estilo urbano</p>
-              <h2>Marcá tu propio camino</h2>
+              <p>De la cancha a la calle</p>
+              <h2>Marcá tu territorio</h2>
+
               <span>
                 Descubrir
                 <ArrowRight size={18} />
@@ -133,22 +144,24 @@ function Inicio() {
           <article>
             <span>01</span>
             <div>
-              <h3>Identidad propia</h3>
-              <p>Diseños creados para salir de lo común.</p>
+              <h3>Agarre de cancha</h3>
+              <p>Suela pensada para cortes, paradas y el primer paso.</p>
             </div>
           </article>
+
           <article>
             <span>02</span>
             <div>
-              <h3>Calidad y detalle</h3>
-              <p>Cada modelo combina presencia y comodidad.</p>
+              <h3>Salto y aterrizaje</h3>
+              <p>Amortiguación para el impacto y soporte en cada jugada.</p>
             </div>
           </article>
+
           <article>
             <span>03</span>
             <div>
-              <h3>Comunidad Big Foot</h3>
-              <p>Un espacio para compartir estilos e inspiración.</p>
+              <h3>Identidad Big Foot</h3>
+              <p>Diseños con carácter, para destacar dentro y fuera.</p>
             </div>
           </article>
         </section>
