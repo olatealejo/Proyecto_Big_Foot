@@ -52,12 +52,12 @@ function Inicio() {
           </p>
 
           <div className="inicio-acciones">
-            <Link to="/productos" className="boton boton-principal">
+            <Link to="/productos" className="inicio-boton inicio-boton-principal">
               Ver modelos
               <ArrowRight size={19} />
             </Link>
 
-            <Link to="/contacto" className="boton boton-secundario">
+            <Link to="/contacto" className="inicio-boton inicio-boton-secundario">
               Contactanos
             </Link>
           </div>
