@@ -372,10 +372,10 @@
   min-height: 430px;
   overflow: hidden;
 
-  background-color: #0a180d;
-  border: 1px solid rgba(104, 145, 109, 0.3);
+  background-color: #111;
+  border: 1px solid rgba(255, 140, 60, 0.28);
   border-radius: 10px;
-  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4);
 }
 
 .publicidad img {
@@ -397,8 +397,8 @@
   z-index: -1;
 
   background:
-    linear-gradient(180deg, transparent 28%, rgba(0, 0, 0, 0.86) 100%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.32), transparent 65%);
+    linear-gradient(180deg, transparent 28%, rgba(0, 0, 0, 0.88) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 65%);
 }
 
 .publicidad:hover img,
@@ -417,7 +417,7 @@
 
 .publicidad-capa p {
   margin-bottom: 7px;
-  color: #72dc79;
+  color: #ff8c32;
   font-family: "Oswald", Arial, sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -441,7 +441,7 @@
   align-items: center;
   gap: 8px;
 
-  color: #e5eae6;
+  color: #f4eee8;
   font-size: 14px;
   font-weight: 600;
 }
