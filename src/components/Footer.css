@@ -157,6 +157,20 @@
   transform: translateX(4px);
 }
 
+.footer-pagos {
+  width: 100%;
+  margin-top: clamp(34px, 5vw, 56px);
+  overflow: hidden;
+}
+
+.footer-pagos img {
+  display: block;
+  width: min(822px, 100%);
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .footer-final {
   width: 100%;
   margin: clamp(42px, 6vw, 70px) 0 0;
