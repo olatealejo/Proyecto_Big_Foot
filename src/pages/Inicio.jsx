@@ -38,28 +38,64 @@ function Inicio() {
       </nav>
 
       <main className="contenido-inicio">
-        <section className="inicio-hero">
-          <p className="inicio-etiqueta">The Big Foot Store</p>
+        <section className="inicio-hero" aria-labelledby="inicio-titulo">
+          <div className="inicio-copy">
+            <p className="inicio-etiqueta">The Big Foot Store</p>
 
-          <h1>
-            Tu próxima pisada
-            <span> empieza acá.</span>
-          </h1>
+            <h1 id="inicio-titulo">
+              Tu próxima pisada
+              <span> empieza acá.</span>
+            </h1>
 
-          <p className="inicio-descripcion">
-            Modelos con identidad propia, pensados para quienes no siguen el
-            camino: lo marcan.
-          </p>
+            <p className="inicio-descripcion">
+              Modelos con identidad propia, pensados para quienes no siguen el
+              camino: lo marcan.
+            </p>
 
-          <div className="inicio-acciones">
-            <Link
-              to="/productos"
-              className="inicio-boton inicio-boton-principal"
-            >
-              Ver modelos
-              <ArrowRight size={19} />
-            </Link>
+            <div className="inicio-acciones">
+              <Link
+                to="/productos"
+                className="inicio-boton inicio-boton-principal"
+              >
+                Ver modelos
+                <ArrowRight size={19} />
+              </Link>
+              <Link
+                to="/nosotros"
+                className="inicio-boton inicio-boton-secundario"
+              >
+                Conocé Big Foot
+              </Link>
+            </div>
+
+            <ul className="inicio-stats" aria-label="Nuestra identidad">
+              <li>
+                <strong>Estilo urbano</strong>
+                <span>Diseños con personalidad</span>
+              </li>
+              <li>
+                <strong>Actitud propia</strong>
+                <span>Marcá tu camino</span>
+              </li>
+              <li>
+                <strong>Big Foot</strong>
+                <span>Dejá tu huella</span>
+              </li>
+            </ul>
           </div>
+
+          <figure className="inicio-hero-visual">
+            <div className="inicio-hero-disco" aria-hidden="true" />
+            <img src={hero} alt="Big Foot, la figura de nuestra tienda" />
+            <figcaption>
+              <p>Conocé nuestra identidad</p>
+              <h2>The Big Foot</h2>
+              <Link to="/nosotros">
+                Nuestra historia
+                <ArrowRight size={16} />
+              </Link>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="publicidades" aria-label="Colecciones destacadas">
