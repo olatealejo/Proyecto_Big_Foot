@@ -145,12 +145,17 @@
 .inicio-hero {
   width: min(1180px, 100%);
   margin: 0 auto;
-  padding: clamp(72px, 10vw, 132px) 0 clamp(58px, 8vw, 96px);
+  padding: clamp(56px, 8vw, 108px) 0 clamp(52px, 7vw, 88px);
+
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 64px);
 }
 
 .inicio-etiqueta {
   margin-bottom: 18px;
-  color: #5bd162;
+  color: #ff7a18;
   font-family: "Oswald", Arial, sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -163,7 +168,7 @@
   margin: 0;
 
   font-family: "Oswald", Arial, sans-serif;
-  font-size: clamp(48px, 7.5vw, 92px);
+  font-size: clamp(46px, 6.6vw, 84px);
   font-weight: 600;
   line-height: 0.98;
   text-transform: uppercase;
@@ -172,13 +177,13 @@
 
 .inicio-hero h1 span {
   display: block;
-  color: #4bc354;
+  color: #ff7a18;
 }
 
 .inicio-descripcion {
-  max-width: 620px;
+  max-width: 560px;
   margin: 28px 0 0;
-  color: #b9c5bb;
+  color: #c4bdb4;
   font-size: clamp(16px, 1.8vw, 19px);
   line-height: 1.7;
 }
