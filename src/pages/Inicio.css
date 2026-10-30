@@ -487,7 +487,7 @@
 }
 
 .inicio-valores article > span {
-  color: #4bc354;
+  color: #ff7a18;
   font-family: "Oswald", Arial, sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -503,9 +503,46 @@
 
 .inicio-valores p {
   margin: 0;
-  color: #99a79c;
+  color: #a39a91;
   font-size: 14px;
   line-height: 1.55;
+}
+
+/* Footer de esta página */
+.inicio .footer {
+  background-color: #050505;
+  border-top: 1px solid rgba(255, 122, 24, 0.4);
+}
+
+.inicio .footer-marca > p,
+.inicio .footer-seccion h3,
+.inicio .footer-contacto p,
+.inicio .footer-final {
+  color: #8d857c;
+}
+
+.inicio .footer-seccion a::after {
+  background-color: #ff7a18;
+}
+
+.inicio .footer-seccion a:hover,
+.inicio .footer-seccion a:focus-visible,
+.inicio .footer-contacto a:hover,
+.inicio .footer-contacto a:focus-visible {
+  color: #ff9a45;
+}
+
+.inicio .footer-contacto {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 122, 24, 0.14),
+    rgba(255, 255, 255, 0.03)
+  );
+  border-color: rgba(255, 122, 24, 0.38);
+}
+
+.inicio .footer-contacto > svg {
+  color: #ff7a18;
 }
 
 /* Tablets */
