@@ -1,4 +1,5 @@
-import { Camera } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ArrowRight, Mail } from 'lucide-react'
 
 import logo from '../assets/Logo_Web.jpeg'
 import './Footer.css'
@@ -7,31 +8,47 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-contenido">
-        <div className="footer-logo">
-          <img src={logo} alt="The Big Foot" />
+        <div className="footer-marca">
+          <Link to="/" className="footer-logo" aria-label="Ir al inicio">
+            <img src={logo} alt="The Big Foot" />
+          </Link>
+
+          <p>
+            Zapatillas con identidad propia para quienes eligen marcar su
+            camino.
+          </p>
         </div>
 
-        <div className="footer-seccion">
-          <h3>THE BIG FOOT</h3>
-          <a href="#">La primera pisada</a>
-        </div>
+        <nav className="footer-seccion" aria-label="The Big Foot">
+          <h3>The Big Foot</h3>
+          <Link to="/nosotros">Nosotros</Link>
+          <Link to="/productos">Modelos</Link>
+        </nav>
 
-        <div className="footer-seccion">
-          <h3>COMUNIDAD</h3>
-          <a href="#">Reseñas</a>
-        </div>
+        <nav className="footer-seccion" aria-label="Ayuda">
+          <h3>Ayuda</h3>
+          <Link to="/contacto">Contacto</Link>
+          <Link to="/login">Mi cuenta</Link>
+        </nav>
 
-        <div className="footer-seccion">
-          <h3>REDES</h3>
+        <div className="footer-contacto">
+          <Mail size={22} strokeWidth={1.7} />
 
-          <a href="#" aria-label="Instagram">
-            <Camera size={20} strokeWidth={1.8} />
-          </a>
+          <div>
+            <p>¿Necesitás ayuda?</p>
+            <h3>Estamos para ayudarte.</h3>
+          </div>
+
+          <Link to="/contacto">
+            Ir a contacto
+            <ArrowRight size={18} />
+          </Link>
         </div>
       </div>
 
       <div className="footer-final">
         <p>© 2026 The Big Foot Store</p>
+        <p>Diseñá tu camino. Dejá tu huella.</p>
       </div>
     </footer>
   )
