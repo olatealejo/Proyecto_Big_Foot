@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Search, ShoppingCart, UserRound } from "lucide-react";
+import { ArrowRight, ShoppingCart, UserRound } from "lucide-react";
 
 import logo from "../assets/Logo_Web.jpeg";
 import publicidad1 from "../assets/Publicidad1.jpeg";
@@ -29,10 +29,6 @@ function Inicio() {
 
           <Link to="/carrito" aria-label="Ver carrito">
             <ShoppingCart />
-          </Link>
-
-          <Link to="/productos" aria-label="Buscar productos">
-            <Search />
           </Link>
         </div>
       </nav>
