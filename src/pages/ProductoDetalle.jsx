@@ -1,15 +1,33 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Check, ShieldCheck, Truck } from 'lucide-react'
+import { ArrowLeft, Check, ChevronLeft, ChevronRight, ShieldCheck, Truck } from 'lucide-react'
 
 import zapatilla from '../assets/The-Big-Foot-ChorizoParmezano1.jpeg'
 import './ProductoDetalle.css'
+import './ProductoDetalle.galeria.css'
 
 const talles = [38, 39, 40, 41, 42, 43, 44, 45]
+
+// Las vistas adicionales se incorporan automáticamente al subir los WebP a assets.
+const vistasDisponibles = import.meta.glob('../assets/chorizo-parmesano-*.webp', { eager: true, query: '?url', import: 'default' })
+const imagenes = [
+  { src: zapatilla, nombre: 'Lateral izquierda' },
+  ...[
+    ['chorizo-parmesano-lateral-derecha.webp', 'Lateral derecha'],
+    ['chorizo-parmesano-vista-superior.webp', 'Vista superior'],
+    ['chorizo-parmesano-suela.webp', 'Suela'],
+    ['chorizo-parmesano-vista-trasera.webp', 'Vista trasera'],
+  ].filter(([archivo]) => Boolean(vistasDisponibles[`../assets/${archivo}`])).map(([archivo, nombre]) => ({ src: vistasDisponibles[`../assets/${archivo}`], nombre })),
+]
 
 function ProductoDetalle() {
   const [talleSeleccionado, setTalleSeleccionado] = useState(null)
   const [agregado, setAgregado] = useState(false)
+  const [imagenActiva, setImagenActiva] = useState(0)
+
+  const cambiarImagen = (direccion) => {
+    setImagenActiva((indice) => (indice + direccion + imagenes.length) % imagenes.length)
+  }
 
   const agregarAlCarrito = () => {
     if (!talleSeleccionado) return
@@ -28,12 +46,20 @@ function ProductoDetalle() {
       <main className="detalle-contenido">
         <section className="detalle-galeria" aria-label="Imágenes del producto">
           <div className="detalle-imagen-principal">
-            <img
-              src={zapatilla}
-              alt="Big Foot Chorizo Parmesano, zapatilla de básquet de caña alta"
-            />
+            <img src={imagenes[imagenActiva].src} alt={`Big Foot Chorizo Parmesano — ${imagenes[imagenActiva].nombre}`} />
+            {imagenes.length > 1 && <>
+              <button type="button" className="detalle-flecha detalle-flecha-izquierda" onClick={() => cambiarImagen(-1)} aria-label="Imagen anterior"><ChevronLeft size={24} /></button>
+              <button type="button" className="detalle-flecha detalle-flecha-derecha" onClick={() => cambiarImagen(1)} aria-label="Imagen siguiente"><ChevronRight size={24} /></button>
+            </>}
           </div>
-          <p className="detalle-imagen-nota">THE BIG FOOT · COLECCIÓN DE CANCHA</p>
+          {imagenes.length > 1 && <div className="detalle-miniaturas" aria-label="Elegir vista de la zapatilla">
+            {imagenes.map((imagen, indice) => (
+              <button key={imagen.nombre} type="button" className={`detalle-miniatura${imagenActiva === indice ? ' detalle-miniatura-activa' : ''}`} aria-label={`Mostrar ${imagen.nombre.toLowerCase()}`} aria-pressed={imagenActiva === indice} onClick={() => setImagenActiva(indice)}>
+                <img src={imagen.src} alt="" loading="lazy" />
+              </button>
+            ))}
+          </div>}
+          <p className="detalle-imagen-nota">{imagenes[imagenActiva].nombre} · THE BIG FOOT · COLECCIÓN DE CANCHA</p>
         </section>
 
         <section className="detalle-info">
