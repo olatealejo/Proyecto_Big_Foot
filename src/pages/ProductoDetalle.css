@@ -1,0 +1,254 @@
+.detalle-pagina {
+  min-height: 100vh;
+  background: #102c18;
+  color: #fff;
+}
+
+.detalle-nav {
+  padding: 18px 5%;
+  background: #000;
+  border-bottom: 3px solid #168000;
+}
+
+.detalle-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Oswald", Arial, sans-serif;
+  font-weight: 600;
+}
+
+.detalle-volver:hover {
+  color: #42c52d;
+}
+
+.detalle-contenido {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  padding: 55px 0 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+  gap: 65px;
+  align-items: start;
+}
+
+.detalle-galeria {
+  position: sticky;
+  top: 30px;
+}
+
+.detalle-imagen-principal {
+  min-height: 510px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: #0b2112;
+  border: 1px solid #315539;
+}
+
+.detalle-imagen-principal img {
+  display: block;
+  width: 100%;
+  max-height: 470px;
+  object-fit: contain;
+}
+
+.detalle-imagen-nota {
+  margin-top: 14px;
+  color: #a7b9aa;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.detalle-info {
+  padding-top: 8px;
+}
+
+.detalle-categoria {
+  margin: 0 0 12px;
+  color: #55c83d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.detalle-info h1 {
+  margin: 0;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.detalle-subtitulo {
+  margin: 12px 0 22px;
+  color: #c4d0c6;
+  font-size: 16px;
+}
+
+.detalle-precio {
+  margin: 0 0 22px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.detalle-descripcion {
+  color: #d1dbd3;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.detalle-talles {
+  margin-top: 32px;
+}
+
+.detalle-talles-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.detalle-talles-cabecera h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.detalle-talles-cabecera span {
+  color: #a7b9aa;
+  font-size: 13px;
+}
+
+.detalle-talles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.talle {
+  min-height: 48px;
+  color: #fff;
+  background: #0b2112;
+  border: 1px solid #52715a;
+  border-radius: 3px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+
+.talle:hover,
+.talle-activo {
+  background: #168000;
+  border-color: #42c52d;
+}
+
+.detalle-ayuda {
+  margin: 10px 0 0;
+  color: #a7b9aa;
+  font-size: 12px;
+}
+
+.detalle-agregar {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  color: #fff;
+  background: #168000;
+  border: 0;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.detalle-agregar:hover:not(:disabled) {
+  background: #25a51c;
+}
+
+.detalle-agregar:disabled {
+  background: #435447;
+  color: #c1c9c2;
+  cursor: not-allowed;
+}
+
+.detalle-confirmacion {
+  margin: 10px 0 0;
+  color: #8ce47b;
+  font-size: 13px;
+}
+
+.detalle-beneficios {
+  margin: 25px 0;
+  padding: 18px 0;
+  border-top: 1px solid #315539;
+  border-bottom: 1px solid #315539;
+}
+
+.detalle-beneficios p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  color: #d1dbd3;
+  font-size: 14px;
+}
+
+.detalle-acordeon details {
+  padding: 17px 0;
+  border-bottom: 1px solid #315539;
+}
+
+.detalle-acordeon summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.detalle-acordeon details p {
+  color: #c4d0c6;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+@media (max-width: 800px) {
+  .detalle-contenido {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 30px;
+  }
+
+  .detalle-galeria {
+    position: static;
+  }
+
+  .detalle-imagen-principal {
+    min-height: 320px;
+  }
+
+  .detalle-imagen-principal img {
+    max-height: 330px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detalle-contenido {
+    width: 92%;
+  }
+
+  .detalle-imagen-principal {
+    min-height: 250px;
+    padding: 12px;
+  }
+
+  .detalle-talles-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
