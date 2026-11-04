@@ -1,0 +1,26 @@
+/* Galería de imágenes del producto. Complementa ProductoDetalle.css. */
+.detalle-imagen-principal { position: relative; overflow: hidden; }
+.detalle-imagen-principal img { aspect-ratio: 1 / 1; object-fit: contain; }
+.detalle-flecha {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid #52715a; border-radius: 50%; color: #fff;
+  background: rgb(0 0 0 / 70%); cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.detalle-flecha:hover, .detalle-flecha:focus-visible { background: #168000; border-color: #42c52d; }
+.detalle-flecha-izquierda { left: 12px; }
+.detalle-flecha-derecha { right: 12px; }
+.detalle-miniaturas { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; margin-top: 12px; }
+.detalle-miniatura {
+  min-width: 0; aspect-ratio: 1 / 1; padding: 4px;
+  border: 2px solid #315539; border-radius: 3px;
+  background: #0b2112; cursor: pointer;
+}
+.detalle-miniatura:hover, .detalle-miniatura:focus-visible, .detalle-miniatura-activa { border-color: #55c83d; }
+.detalle-miniatura img { display: block; width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 480px) {
+  .detalle-flecha { width: 34px; height: 34px; }
+  .detalle-miniaturas { gap: 5px; }
+  .detalle-miniatura { padding: 2px; }
+}
