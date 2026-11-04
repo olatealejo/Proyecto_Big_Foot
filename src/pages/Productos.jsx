@@ -33,15 +33,26 @@ function Productos() {
               />
               <h2>Big Foot Chorizo Parmesano</h2>
             </Link>
-
             <p>$80.000</p>
-
-            <Link
-              to="/productos/chorizo-parmesano"
-              className="producto-boton"
-            >
+            <Link to="/productos/chorizo-parmesano" className="producto-boton">
               Ver producto
             </Link>
+          </article>
+
+          <article className="producto producto-proximamente">
+            <div className="producto-imagen-vacia">
+              <span>Próximamente</span>
+            </div>
+            <h2>Nuevo modelo</h2>
+            <p className="producto-texto-proximamente">Espacio para tu próxima zapatilla</p>
+          </article>
+
+          <article className="producto producto-proximamente">
+            <div className="producto-imagen-vacia">
+              <span>Próximamente</span>
+            </div>
+            <h2>Nuevo modelo</h2>
+            <p className="producto-texto-proximamente">Espacio para tu próxima zapatilla</p>
           </article>
         </section>
       </main>
