@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
-import { UserRound, ShoppingCart, Search } from 'lucide-react'
-
-import logo from '../assets/Logo_Web.jpeg'
-import './Inicio.css'
+import { Link } from "react-router-dom";
+import { UserRound, ShoppingCart, Search } from "lucide-react";
+import logo from "../assets/Logo_Web.jpeg";
+import Footer from "../components/Footer";
+import "./Inicio.css";
 
 function Inicio() {
   return (
-    <>
+    <div className="inicio">
       <nav className="navbar">
         <Link to="/" className="navbar-logo">
-          <img src={logo} alt="The Big Foot" />
+          <img src={logo} alt="Logo The Big Foot" />
         </Link>
 
         <div className="navbar-menu">
@@ -21,22 +21,26 @@ function Inicio() {
 
         <div className="navbar-iconos">
           <Link to="/login" aria-label="Iniciar sesión">
-            <UserRound size={25} strokeWidth={1.8} />
+            <UserRound />
           </Link>
 
           <Link to="/carrito" aria-label="Carrito">
-            <ShoppingCart size={25} strokeWidth={1.8} />
+            <ShoppingCart />
           </Link>
 
           <button type="button" aria-label="Buscar">
-            <Search size={25} strokeWidth={1.8} />
+            <Search />
           </button>
         </div>
       </nav>
 
-      <main className="inicio"></main>
-    </>
-  )
+      <main className="contenido-inicio">
+        {/* Aquí irá el contenido principal de la página */}
+      </main>
+
+      <Footer />
+    </div>
+  );
 }
 
-export default Inicio
+export default Inicio;
