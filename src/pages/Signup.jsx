@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 
@@ -5,8 +6,21 @@ import logo from '../assets/Logo_Web_transparente.png'
 import './Signup.css'
 
 function Signup() {
+  const [errorContrasena, setErrorContrasena] = useState('')
+
   function manejarRegistro(evento) {
     evento.preventDefault()
+
+    const datos = new FormData(evento.currentTarget)
+    const contrasena = datos.get('contrasena')
+    const confirmarContrasena = datos.get('confirmarContrasena')
+
+    if (contrasena !== confirmarContrasena) {
+      setErrorContrasena('Las contraseñas no coinciden.')
+      return
+    }
+
+    setErrorContrasena('')
   }
 
   return (
@@ -93,6 +107,7 @@ function Signup() {
                     placeholder="Mínimo 8 caracteres"
                     autoComplete="new-password"
                     minLength={8}
+                    onChange={() => setErrorContrasena('')}
                     required
                   />
                 </div>
@@ -108,8 +123,23 @@ function Signup() {
                     placeholder="Repetí tu contraseña"
                     autoComplete="new-password"
                     minLength={8}
+                    onChange={() => setErrorContrasena('')}
+                    aria-invalid={Boolean(errorContrasena)}
+                    aria-describedby={
+                      errorContrasena ? 'error-confirmar-contrasena' : undefined
+                    }
                     required
                   />
+
+                  {errorContrasena && (
+                    <p
+                      id="error-confirmar-contrasena"
+                      className="signup-error"
+                      role="alert"
+                    >
+                      {errorContrasena}
+                    </p>
+                  )}
                 </div>
               </div>
 
