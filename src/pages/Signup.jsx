@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Eye, EyeOff } from 'lucide-react'
 
 import logo from '../assets/Logo_Web_transparente.png'
 import './Signup.css'
 
 function Signup() {
   const [errorContrasena, setErrorContrasena] = useState('')
+  const [mostrarContrasena, setMostrarContrasena] = useState(false)
 
   function manejarRegistro(evento) {
     evento.preventDefault()
@@ -100,36 +101,78 @@ function Signup() {
               <div className="signup-fila">
                 <div className="signup-campo">
                   <label htmlFor="contrasena-registro">Contraseña</label>
-                  <input
-                    id="contrasena-registro"
-                    name="contrasena"
-                    type="password"
-                    placeholder="Mínimo 8 caracteres"
-                    autoComplete="new-password"
-                    minLength={8}
-                    onChange={() => setErrorContrasena('')}
-                    required
-                  />
+                  <div className="signup-password">
+                    <input
+                      id="contrasena-registro"
+                      name="contrasena"
+                      type={mostrarContrasena ? 'text' : 'password'}
+                      placeholder="Mínimo 8 caracteres"
+                      autoComplete="new-password"
+                      minLength={8}
+                      onChange={() => setErrorContrasena('')}
+                      required
+                    />
+
+                    <button
+                      type="button"
+                      className="signup-password-boton"
+                      onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                      aria-label={
+                        mostrarContrasena
+                          ? 'Ocultar contraseñas'
+                          : 'Mostrar contraseñas'
+                      }
+                      aria-pressed={mostrarContrasena}
+                    >
+                      {mostrarContrasena ? (
+                        <EyeOff size={19} strokeWidth={1.9} />
+                      ) : (
+                        <Eye size={19} strokeWidth={1.9} />
+                      )}
+                    </button>
+                  </div>
                 </div>
 
                 <div className="signup-campo">
                   <label htmlFor="confirmar-contrasena">
                     Confirmar contraseña
                   </label>
-                  <input
-                    id="confirmar-contrasena"
-                    name="confirmarContrasena"
-                    type="password"
-                    placeholder="Repetí tu contraseña"
-                    autoComplete="new-password"
-                    minLength={8}
-                    onChange={() => setErrorContrasena('')}
-                    aria-invalid={Boolean(errorContrasena)}
-                    aria-describedby={
-                      errorContrasena ? 'error-confirmar-contrasena' : undefined
-                    }
-                    required
-                  />
+                  <div className="signup-password">
+                    <input
+                      id="confirmar-contrasena"
+                      name="confirmarContrasena"
+                      type={mostrarContrasena ? 'text' : 'password'}
+                      placeholder="Repetí tu contraseña"
+                      autoComplete="new-password"
+                      minLength={8}
+                      onChange={() => setErrorContrasena('')}
+                      aria-invalid={Boolean(errorContrasena)}
+                      aria-describedby={
+                        errorContrasena
+                          ? 'error-confirmar-contrasena'
+                          : undefined
+                      }
+                      required
+                    />
+
+                    <button
+                      type="button"
+                      className="signup-password-boton"
+                      onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                      aria-label={
+                        mostrarContrasena
+                          ? 'Ocultar contraseñas'
+                          : 'Mostrar contraseñas'
+                      }
+                      aria-pressed={mostrarContrasena}
+                    >
+                      {mostrarContrasena ? (
+                        <EyeOff size={19} strokeWidth={1.9} />
+                      ) : (
+                        <Eye size={19} strokeWidth={1.9} />
+                      )}
+                    </button>
+                  </div>
 
                   {errorContrasena && (
                     <p

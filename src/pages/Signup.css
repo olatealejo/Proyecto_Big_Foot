@@ -261,6 +261,41 @@
   border-color: #ff6b55;
 }
 
+.signup-password {
+  position: relative;
+}
+
+.signup-password input {
+  padding-right: 48px;
+}
+
+.signup-password-boton {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: #a59d96;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.signup-password-boton:hover,
+.signup-password-boton:focus-visible {
+  color: #ff9a45;
+  background-color: rgba(255, 122, 24, 0.1);
+  outline: none;
+}
+
 .signup-error {
   margin: 0;
   color: #ff826c;
