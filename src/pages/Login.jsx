@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 
-import logo from '../assets/Logo_Web.jpeg'
+import logo from '../assets/Logo_Web_transparente.png'
 import loginGif from '../assets/video-login.gif'
 import './Login.css'
 
