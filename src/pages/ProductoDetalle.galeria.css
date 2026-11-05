@@ -24,3 +24,7 @@
   .detalle-miniaturas { gap: 5px; }
   .detalle-miniatura { padding: 2px; }
 }
+
+/* Seis vistas para el modelo Molino 1. */
+.molino-miniaturas { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+@media (max-width: 480px) { .molino-miniaturas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

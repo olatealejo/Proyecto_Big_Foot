@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 
 import zapatilla1 from '../assets/The-Big-Foot-ChorizoParmezano1.jpeg'
+import molino1 from '../assets/molino-1-lateral-izquierda.webp'
 import './Productos.css'
 
 function Productos() {
@@ -39,12 +40,15 @@ function Productos() {
             </Link>
           </article>
 
-          <article className="producto producto-proximamente">
-            <div className="producto-imagen-vacia">
-              <span>Próximamente</span>
-            </div>
-            <h2>Nuevo modelo</h2>
-            <p className="producto-texto-proximamente">Espacio para tu próxima zapatilla</p>
+          <article className="producto">
+            <Link to="/productos/molino-1" className="producto-enlace" aria-label="Ver Big Foot Molino 1">
+              <img src={molino1} alt="Zapatilla Big Foot Molino 1, negra y blanca" />
+              <h2>Big Foot Molino 1</h2>
+            </Link>
+            <p>Precio a confirmar</p>
+            <Link to="/productos/molino-1" className="producto-boton">
+              Ver producto
+            </Link>
           </article>
 
           <article className="producto producto-proximamente">
