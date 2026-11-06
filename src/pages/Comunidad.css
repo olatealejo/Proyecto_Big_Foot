@@ -895,3 +895,72 @@
     width: 100%;
   }
 }
+
+/* Calificación de reseñas */
+.comunidad-calificacion {
+  margin: 0;
+  padding: 15px 16px;
+
+  background-color: #090909;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+}
+
+.comunidad-calificacion legend {
+  padding: 0 7px;
+
+  color: #d9d3ce;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.comunidad-estrellas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.comunidad-estrella {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: #655f5a;
+  background-color: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.comunidad-estrella:hover,
+.comunidad-estrella:focus-visible {
+  color: #ff9a45;
+  background-color: rgba(255, 122, 24, 0.1);
+  transform: translateY(-1px);
+}
+
+.comunidad-estrella-activa {
+  color: #ff7a18;
+}
+
+.comunidad-estrella-activa svg {
+  fill: currentColor;
+}
+
+.comunidad-estrellas span {
+  margin-left: 8px;
+  color: #9b938d;
+  font-size: 12px;
+}
