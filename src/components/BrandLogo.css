@@ -1,5 +1,5 @@
 /* El PNG original tiene espacio transparente.
-   El contenedor recorta ese espacio para mostrar el logo correctamente. */
+   El contenedor recorta solamente ese espacio sin cortar el logotipo. */
 .bigfoot-brand {
   position: relative;
   display: inline-flex;
@@ -7,8 +7,8 @@
   align-items: center;
   justify-content: center;
   justify-self: start;
-  width: clamp(160px, 15vw, 190px);
-  height: 58px;
+  width: clamp(145px, 13vw, 170px);
+  height: 64px;
   overflow: hidden;
   background: transparent;
   text-decoration: none;
@@ -22,7 +22,6 @@
   max-height: none;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.04);
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
 }
 
@@ -33,14 +32,14 @@
 
 @media (max-width: 900px) {
   .bigfoot-brand {
-    width: 174px;
-    height: 54px;
+    width: 155px;
+    height: 60px;
   }
 }
 
 @media (max-width: 600px) {
   .bigfoot-brand {
-    width: 145px;
-    height: 46px;
+    width: 132px;
+    height: 52px;
   }
 }
