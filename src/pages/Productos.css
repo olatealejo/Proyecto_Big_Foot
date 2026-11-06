@@ -43,6 +43,10 @@
   width: clamp(238px, 22vw, 292px);
   height: 76px;
 }
+
+.productos-logo > img {
+  object-fit: contain;
+}
 .productos-carrito { display: flex; justify-content: flex-end; align-items: center; }
 .productos { padding: 0 clamp(20px, 4vw, 64px) 90px; }
 .productos-presentacion {
@@ -92,6 +96,11 @@
   letter-spacing: -1px;
 }
 .productos-presentacion h1 span { color: var(--bigfoot-naranja); }
+
+.productos-presentacion h1 .productos-j {
+  position: relative;
+  top: -0.055em;
+}
 .productos-bajada {
   position: relative;
   z-index: 1;
