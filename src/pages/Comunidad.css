@@ -1024,3 +1024,10 @@
   border: 1px dashed rgba(255, 122, 24, 0.3);
   border-radius: 8px;
 }
+
+.comunidad-categoria-activa:hover,
+.comunidad-categoria-activa:focus-visible {
+  color: #16100b;
+  background-color: #ff9748;
+  border-color: #ff9748;
+}
