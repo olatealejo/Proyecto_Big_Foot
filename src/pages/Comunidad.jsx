@@ -171,6 +171,7 @@ function Comunidad() {
               type="button"
               className="comunidad-crear-boton"
               aria-expanded={mostrarFormulario}
+              aria-controls="formulario-publicacion"
               onClick={() => setMostrarFormulario((visible) => !visible)}
             >
               <Plus size={19} strokeWidth={2} />
@@ -180,6 +181,7 @@ function Comunidad() {
 
           {mostrarFormulario && (
           <section
+            id="formulario-publicacion"
             className="comunidad-formulario-panel"
             aria-labelledby="titulo-nueva-publicacion"
           >
@@ -205,6 +207,7 @@ function Comunidad() {
                     onChange={manejarCambio}
                     maxLength="30"
                     placeholder="Tu nombre"
+                    autoComplete="name"
                     required
                   />
                 </label>
