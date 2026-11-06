@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   MessageCircle,
@@ -55,6 +56,8 @@ const publicaciones = [
 ]
 
 function Comunidad() {
+  const [mostrarFormulario, setMostrarFormulario] = useState(false)
+
   return (
     <div className="comunidad-pagina">
       <nav className="navbar" aria-label="Navegación principal">
@@ -100,12 +103,18 @@ function Comunidad() {
               </p>
             </div>
 
-            <button type="button" className="comunidad-crear-boton">
+            <button
+              type="button"
+              className="comunidad-crear-boton"
+              aria-expanded={mostrarFormulario}
+              onClick={() => setMostrarFormulario((visible) => !visible)}
+            >
               <Plus size={19} strokeWidth={2} />
-              Nueva publicación
+              {mostrarFormulario ? 'Cerrar formulario' : 'Nueva publicación'}
             </button>
           </section>
 
+          {mostrarFormulario && (
           <section
             className="comunidad-formulario-panel"
             aria-labelledby="titulo-nueva-publicacion"
@@ -180,7 +189,11 @@ function Comunidad() {
                 <span className="comunidad-contador">0 / 600</span>
 
                 <div className="comunidad-formulario-acciones">
-                  <button type="button" className="comunidad-boton-secundario">
+                  <button
+                    type="button"
+                    className="comunidad-boton-secundario"
+                    onClick={() => setMostrarFormulario(false)}
+                  >
                     Cancelar
                   </button>
                   <button type="submit" className="comunidad-boton-publicar">
@@ -195,6 +208,7 @@ function Comunidad() {
               esta sesión hasta conectar la base de datos.
             </p>
           </section>
+          )}
 
           <div className="comunidad-feed-encabezado">
             <div>
