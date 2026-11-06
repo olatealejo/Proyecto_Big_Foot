@@ -1009,3 +1009,18 @@
   border: 1px solid rgba(255, 112, 60, 0.36);
   border-radius: 4px;
 }
+
+/* Estado sin publicaciones */
+.comunidad-sin-resultados {
+  margin: 0;
+  padding: 34px 24px;
+
+  color: #918a84;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+
+  background-color: #101010;
+  border: 1px dashed rgba(255, 122, 24, 0.3);
+  border-radius: 8px;
+}
