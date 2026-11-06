@@ -982,3 +982,17 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Mensajes de validación */
+.comunidad-error-formulario {
+  margin: 0;
+  padding: 11px 13px;
+
+  color: #ffc7a3;
+  font-size: 13px;
+  line-height: 1.5;
+
+  background-color: rgba(201, 65, 22, 0.13);
+  border: 1px solid rgba(255, 112, 60, 0.36);
+  border-radius: 4px;
+}
