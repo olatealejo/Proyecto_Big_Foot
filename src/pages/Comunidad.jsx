@@ -242,6 +242,42 @@ function Comunidad() {
                 </select>
               </label>
 
+              {formulario.tipo === 'Reseña' && (
+                <fieldset className="comunidad-calificacion">
+                  <legend>Calificación</legend>
+
+                  <div className="comunidad-estrellas">
+                    {[1, 2, 3, 4, 5].map((estrella) => (
+                      <button
+                        key={estrella}
+                        type="button"
+                        className={
+                          estrella <= formulario.calificacion
+                            ? 'comunidad-estrella comunidad-estrella-activa'
+                            : 'comunidad-estrella'
+                        }
+                        aria-label={`${estrella} ${estrella === 1 ? 'estrella' : 'estrellas'}`}
+                        aria-pressed={estrella === formulario.calificacion}
+                        onClick={() =>
+                          setFormulario((datosActuales) => ({
+                            ...datosActuales,
+                            calificacion: estrella,
+                          }))
+                        }
+                      >
+                        <Star size={27} strokeWidth={1.8} />
+                      </button>
+                    ))}
+
+                    <span>
+                      {formulario.calificacion
+                        ? `${formulario.calificacion} de 5`
+                        : 'Sin calificar'}
+                    </span>
+                  </div>
+                </fieldset>
+              )}
+
               <label>
                 Título
                 <input
