@@ -321,7 +321,11 @@ function Comunidad() {
                             ? 'comunidad-estrella comunidad-estrella-activa'
                             : 'comunidad-estrella'
                         }
-                        aria-label={`${estrella} ${estrella === 1 ? 'estrella' : 'estrellas'}`}
+                        aria-label={
+                          estrella === formulario.calificacion
+                            ? `Quitar calificación de ${estrella} ${estrella === 1 ? 'estrella' : 'estrellas'}`
+                            : `Calificar con ${estrella} ${estrella === 1 ? 'estrella' : 'estrellas'}`
+                        }
                         aria-pressed={estrella === formulario.calificacion}
                         onClick={() => seleccionarCalificacion(estrella)}
                       >
