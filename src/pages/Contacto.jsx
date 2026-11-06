@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import {
   ArrowRight,
   ArrowUpRight,
-  Instagram,
+  AtSign,
   MapPin,
   MessageCircle,
   Phone,
@@ -180,7 +180,7 @@ function Contacto() {
                       rel="noopener noreferrer"
                       aria-label={`Instagram de ${contacto.nombre}: @${contacto.instagram}`}
                     >
-                      <Instagram size={18} aria-hidden="true" />
+                      <AtSign size={18} aria-hidden="true" />
                       Instagram
                       <ArrowUpRight size={16} aria-hidden="true" />
                     </a>
