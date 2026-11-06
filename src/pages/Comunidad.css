@@ -570,3 +570,22 @@
   color: #ff9a45;
 }
 
+/* Tarjeta de contacto del footer para la página Comunidad */
+.comunidad-pagina .footer-contacto {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 122, 24, 0.14),
+    rgba(255, 255, 255, 0.03)
+  );
+  border-color: rgba(255, 122, 24, 0.38);
+}
+
+.comunidad-pagina .footer-contacto > svg {
+  color: #ff7a18;
+}
+
+.comunidad-pagina .footer-contacto a:hover,
+.comunidad-pagina .footer-contacto a:focus-visible {
+  color: #ff9a45;
+}
+
