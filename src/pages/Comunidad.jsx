@@ -158,6 +158,13 @@ function Comunidad() {
     setMensajePublicacion('La publicación se agregó al comienzo del foro.')
   }
 
+  const publicacionesFiltradas =
+    filtroActivo === 'Todos'
+      ? publicacionesActuales
+      : publicacionesActuales.filter(
+          (publicacion) => publicacion.tipo === filtroActivo,
+        )
+
   return (
     <div className="comunidad-pagina">
       <nav className="navbar" aria-label="Navegación principal">
