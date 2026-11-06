@@ -12,7 +12,10 @@ import {
 import logo from '../assets/Logo_Web_transparente.png'
 import Footer from '../components/Footer'
 import './Comunidad.css'
-import { obtenerPublicaciones } from '../services/publicacionesService'
+import {
+  crearPublicacion,
+  obtenerPublicaciones,
+} from '../services/publicacionesService'
 
 const formularioInicial = {
   usuario: '',
@@ -68,6 +71,7 @@ function Comunidad() {
   const [publicacionesActuales, setPublicacionesActuales] = useState([])
   const [cargandoPublicaciones, setCargandoPublicaciones] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
+  const [publicando, setPublicando] = useState(false)
 
   useEffect(() => {
   let componenteActivo = true
@@ -125,7 +129,7 @@ function Comunidad() {
     setMostrarFormulario(false)
   }
 
-  const manejarPublicacion = (evento) => {
+  const manejarPublicacion = async (evento) => {
     evento.preventDefault()
 
     const usuario = formulario.usuario.trim()
@@ -133,6 +137,7 @@ function Comunidad() {
     const resumen = formulario.resumen.trim()
 
     if (!usuario || !titulo || !resumen) {
+      setErrorFormulario('Completá todos los campos obligatorios.')
       return
     }
 
@@ -149,38 +154,52 @@ function Comunidad() {
       return
     }
 
-    setErrorFormulario('')
-
-    const iniciales = usuario
-      .split(/\s+/)
-      .slice(0, 2)
-      .map((parte) => parte[0])
-      .join('')
-      .toUpperCase()
-
-    const nuevaPublicacion = {
-      id: Date.now(),
-      iniciales,
-      usuario,
-      modelo:
-        formulario.tipo === 'Comparación'
-          ? `${formulario.modelo} vs. ${formulario.modeloSecundario}`
-          : formulario.modelo,
-      tipo: formulario.tipo,
-      titulo,
-      resumen,
-      votos: 0,
-      comentarios: 0,
-      calificacion:
-        formulario.tipo === 'Reseña'
-          ? String(formulario.calificacion)
-          : '—',
+    const tiposFirebase = {
+      Reseña: 'resena',
+      Pregunta: 'pregunta',
+      Comparación: 'comparacion',
     }
 
-    setPublicacionesActuales((actuales) => [nuevaPublicacion, ...actuales])
-    setFormulario(formularioInicial)
-    setMostrarFormulario(false)
-    setMensajePublicacion('La publicación se agregó al comienzo del foro.')
+    const datosPublicacion = {
+      autor: usuario,
+      autorId: null,
+      tipo: tiposFirebase[formulario.tipo],
+      modelo: formulario.modelo,
+      modeloComparado:
+        formulario.tipo === 'Comparación'
+          ? formulario.modeloSecundario
+          : null,
+      calificacion:
+        formulario.tipo === 'Reseña'
+          ? Number(formulario.calificacion)
+          : null,
+      titulo,
+      contenido: resumen,
+    }
+
+    try {
+      setPublicando(true)
+      setErrorFormulario('')
+      setMensajePublicacion('')
+
+      const documentoCreado = await crearPublicacion(datosPublicacion)
+      const publicacionAdaptada = adaptarPublicacion(documentoCreado)
+
+      setPublicacionesActuales((actuales) => [
+        publicacionAdaptada,
+        ...actuales,
+      ])
+      setFormulario(formularioInicial)
+      setMostrarFormulario(false)
+      setMensajePublicacion('La publicación se guardó correctamente.')
+    } catch (error) {
+      console.error('Error al publicar:', error)
+      setErrorFormulario(
+        'No se pudo guardar la publicación en Firebase.',
+      )
+    } finally {
+      setPublicando(false)
+    }
   }
 
   const publicacionesFiltradas =
@@ -420,17 +439,17 @@ function Comunidad() {
                   >
                     Cancelar
                   </button>
-                  <button type="submit" className="comunidad-boton-publicar">
-                    Publicar
+                  <button
+                    type="submit"
+                    className="comunidad-boton-publicar"
+                    disabled={publicando}
+                  >
+                    {publicando ? 'Publicando...' : 'Publicar'}
                   </button>
                 </div>
               </div>
             </form>
 
-            <p className="comunidad-aviso-temporal">
-              Versión de prueba: la publicación se conservará solamente durante
-              esta sesión hasta conectar la base de datos.
-            </p>
           </section>
           )}
 
