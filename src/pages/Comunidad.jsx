@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, Star, TrendingUp } from 'lucide-react'
+import {
+  MessageCircle,
+  Search,
+  ShoppingCart,
+  Star,
+  TrendingUp,
+  UserRound,
+} from 'lucide-react'
 
-import logo from '../assets/Logo_Web_transparente.png'
+import logo from '../assets/Logo_Web.jpeg'
+import './Inicio.css'
 import './Comunidad.css'
 
 const publicaciones = [
@@ -49,15 +57,31 @@ const publicaciones = [
 function Comunidad() {
   return (
     <div className="comunidad-pagina">
-      <nav className="comunidad-navegacion" aria-label="Navegación de comunidad">
-        <Link to="/" className="comunidad-logo" aria-label="Ir al inicio">
-          <img src={logo} alt="The Big Foot" />
+      <nav className="navbar">
+        <Link to="/" className="navbar-logo">
+          <img src={logo} alt="Logo The Big Foot" />
         </Link>
 
-        <Link to="/" className="comunidad-volver">
-          <ArrowLeft size={20} strokeWidth={1.9} />
-          <span>Volver al inicio</span>
-        </Link>
+        <div className="navbar-menu">
+          <Link to="/catalogo">Modelos</Link>
+          <Link to="/personalizar">Personalizar</Link>
+          <Link to="/comunidad">Comunidad</Link>
+          <Link to="/contacto">Contacto</Link>
+        </div>
+
+        <div className="navbar-iconos">
+          <Link to="/login" aria-label="Iniciar sesión">
+            <UserRound />
+          </Link>
+
+          <Link to="/carrito" aria-label="Carrito">
+            <ShoppingCart />
+          </Link>
+
+          <button type="button" aria-label="Buscar">
+            <Search />
+          </button>
+        </div>
       </nav>
 
       <header className="comunidad-encabezado">
