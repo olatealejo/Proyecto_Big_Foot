@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 
 import logo from '../assets/Logo_Web.jpeg'
+import Footer from '../components/Footer'
 import './Inicio.css'
 import './Comunidad.css'
 
@@ -177,6 +178,8 @@ function Comunidad() {
           </section>
         </aside>
       </main>
+
+      <Footer />
     </div>
   )
 }
