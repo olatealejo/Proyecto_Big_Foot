@@ -139,3 +139,10 @@
   color: #9caf9f;
   font-size: 14px !important;
 }
+
+/* Imágenes cuadradas con transparencia y tarjetas de igual altura. */
+.productos-lista { align-items: stretch; }
+.producto { display: flex; flex-direction: column; align-items: center; }
+.producto-enlace { width: 100%; }
+.producto img { display: block; width: 100%; height: 220px; object-fit: contain; object-position: center; margin: 0 auto; background: transparent; }
+.producto-boton { margin-top: auto; }

@@ -2,22 +2,20 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Check, ChevronLeft, ChevronRight, ShieldCheck, Truck } from 'lucide-react'
 
-import zapatilla from '../assets/The-Big-Foot-ChorizoParmezano1.jpeg'
+import zapatilla from '../assets/chorizo-parmesano-lateral-izquierda.png'
+import suela from '../assets/chorizo-parmesano-suela.png'
+import superior from '../assets/chorizo-parmesano-vista-superior.png'
+import trasera from '../assets/chorizo-parmesano-vista-trasera.png'
 import './ProductoDetalle.css'
 import './ProductoDetalle.galeria.css'
 
 const talles = [38, 39, 40, 41, 42, 43, 44, 45]
 
-// Las vistas adicionales se incorporan automáticamente al subir los WebP a assets.
-const vistasDisponibles = import.meta.glob('../assets/chorizo-parmesano-*.webp', { eager: true, query: '?url', import: 'default' })
 const imagenes = [
   { src: zapatilla, nombre: 'Lateral izquierda' },
-  ...[
-    ['chorizo-parmesano-lateral-derecha.webp', 'Lateral derecha'],
-    ['chorizo-parmesano-vista-superior.webp', 'Vista superior'],
-    ['chorizo-parmesano-suela.webp', 'Suela'],
-    ['chorizo-parmesano-vista-trasera.webp', 'Vista trasera'],
-  ].filter(([archivo]) => Boolean(vistasDisponibles[`../assets/${archivo}`])).map(([archivo, nombre]) => ({ src: vistasDisponibles[`../assets/${archivo}`], nombre })),
+  { src: superior, nombre: 'Vista superior' },
+  { src: suela, nombre: 'Suela' },
+  { src: trasera, nombre: 'Vista trasera' },
 ]
 
 function ProductoDetalle() {

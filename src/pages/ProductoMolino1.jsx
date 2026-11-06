@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 
-import lateralIzquierda from '../assets/molino-1-lateral-izquierda.webp'
-import lateralDerecha from '../assets/molino-1-lateral-derecha.webp'
-import diagonal from '../assets/molino-1-diagonal.webp'
-import superior from '../assets/molino-1-superior.webp'
-import trasera from '../assets/molino-1-trasera.webp'
-import suela from '../assets/molino-1-suela.webp'
+import lateralIzquierda from '../assets/molino-1-lateral-izquierda.png'
+import lateralDerecha from '../assets/molino-1-lateral-derecha.png'
+import diagonal from '../assets/molino-1-diagonal.png'
+import superior from '../assets/molino-1-superior.png'
+import trasera from '../assets/molino-1-trasera.png'
+import suela from '../assets/molino-1-suela.png'
 import './ProductoDetalle.css'
 import './ProductoDetalle.galeria.css'
 
@@ -67,7 +67,7 @@ function ProductoMolino1() {
           <p className="detalle-categoria">ZAPATILLAS / MOLINO 1</p>
           <h1>Big Foot Molino 1</h1>
           <p className="detalle-subtitulo">Diseño en negro y blanco con identidad propia.</p>
-          <p className="detalle-precio">Precio a confirmar</p>
+          <p className="detalle-precio">$110.000</p>
           <p className="detalle-descripcion">
             Conocé Molino 1 desde todos sus ángulos: laterales, frente en perspectiva,
             parte superior, talón y suela. Su diseño combina una capellada negra con

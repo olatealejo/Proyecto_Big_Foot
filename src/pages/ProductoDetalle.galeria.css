@@ -28,3 +28,10 @@
 /* Seis vistas para el modelo Molino 1. */
 .molino-miniaturas { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 @media (max-width: 480px) { .molino-miniaturas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Todas las vistas comparten el mismo encuadre y conservan fondo transparente. */
+.detalle-imagen-principal img, .detalle-miniatura img { background: transparent; object-position: center; }
+.detalle-imagen-principal { aspect-ratio: 1 / 1; min-height: 0; }
+.detalle-miniaturas { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.molino-miniaturas { grid-template-columns: repeat(6,minmax(0,1fr)); }
+@media (max-width: 600px) { .molino-miniaturas { grid-template-columns: repeat(3,minmax(0,1fr)); } }
