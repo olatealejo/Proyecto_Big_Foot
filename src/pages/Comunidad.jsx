@@ -13,6 +13,14 @@ import logo from '../assets/Logo_Web_transparente.png'
 import Footer from '../components/Footer'
 import './Comunidad.css'
 
+const formularioInicial = {
+  usuario: '',
+  tipo: 'Reseña',
+  modelo: 'Chorizo Parmesano',
+  titulo: '',
+  resumen: '',
+}
+
 const publicaciones = [
   {
     id: 1,
@@ -57,6 +65,16 @@ const publicaciones = [
 
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  const [formulario, setFormulario] = useState(formularioInicial)
+
+  const manejarCambio = (evento) => {
+    const { name, value } = evento.target
+
+    setFormulario((datosActuales) => ({
+      ...datosActuales,
+      [name]: value,
+    }))
+  }
 
   return (
     <div className="comunidad-pagina">
@@ -137,6 +155,8 @@ function Comunidad() {
                   <input
                     type="text"
                     name="usuario"
+                    value={formulario.usuario}
+                    onChange={manejarCambio}
                     maxLength="30"
                     placeholder="Tu nombre"
                     required
@@ -145,7 +165,11 @@ function Comunidad() {
 
                 <label>
                   Tipo de publicación
-                  <select name="tipo">
+                  <select
+                    name="tipo"
+                    value={formulario.tipo}
+                    onChange={manejarCambio}
+                  >
                     <option value="Reseña">Reseña</option>
                     <option value="Pregunta">Pregunta</option>
                     <option value="Comparación">Comparación</option>
@@ -155,7 +179,11 @@ function Comunidad() {
 
               <label>
                 Modelo
-                <select name="modelo">
+                <select
+                  name="modelo"
+                  value={formulario.modelo}
+                  onChange={manejarCambio}
+                >
                   <option value="Chorizo Parmesano">Chorizo Parmesano</option>
                   <option value="Molino 1">Molino 1</option>
                   <option value="Molino 2">Molino 2</option>
@@ -168,6 +196,8 @@ function Comunidad() {
                 <input
                   type="text"
                   name="titulo"
+                  value={formulario.titulo}
+                  onChange={manejarCambio}
                   maxLength="90"
                   placeholder="Escribí un título claro"
                   required
@@ -178,6 +208,8 @@ function Comunidad() {
                 Contenido
                 <textarea
                   name="resumen"
+                  value={formulario.resumen}
+                  onChange={manejarCambio}
                   rows="6"
                   maxLength="600"
                   placeholder="Contá tu experiencia o escribí tu pregunta"
@@ -186,7 +218,9 @@ function Comunidad() {
               </label>
 
               <div className="comunidad-formulario-final">
-                <span className="comunidad-contador">0 / 600</span>
+                <span className="comunidad-contador">
+                  {formulario.resumen.length} / 600
+                </span>
 
                 <div className="comunidad-formulario-acciones">
                   <button
