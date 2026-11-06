@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
 import {
   MessageCircle,
-  Search,
   ShoppingCart,
   Star,
   TrendingUp,
   UserRound,
 } from 'lucide-react'
 
-import logo from '../assets/Logo_Web.jpeg'
+import logo from '../assets/Logo_Web_transparente.png'
 import Footer from '../components/Footer'
-import './Inicio.css'
 import './Comunidad.css'
 
 const publicaciones = [
@@ -58,16 +56,15 @@ const publicaciones = [
 function Comunidad() {
   return (
     <div className="comunidad-pagina">
-      <nav className="navbar">
-        <Link to="/" className="navbar-logo">
-          <img src={logo} alt="Logo The Big Foot" />
+      <nav className="navbar" aria-label="Navegación principal">
+        <Link to="/" className="navbar-logo" aria-label="Ir al inicio">
+          <img src={logo} alt="The Big Foot" />
         </Link>
 
         <div className="navbar-menu">
-          <Link to="/catalogo">Modelos</Link>
+          <Link to="/productos">Modelos</Link>
           <Link to="/personalizar">Personalizar</Link>
           <Link to="/comunidad">Comunidad</Link>
-          <Link to="/contacto">Contacto</Link>
         </div>
 
         <div className="navbar-iconos">
@@ -75,13 +72,9 @@ function Comunidad() {
             <UserRound />
           </Link>
 
-          <Link to="/carrito" aria-label="Carrito">
+          <Link to="/carrito" aria-label="Ver carrito">
             <ShoppingCart />
           </Link>
-
-          <button type="button" aria-label="Buscar">
-            <Search />
-          </button>
         </div>
       </nav>
 
