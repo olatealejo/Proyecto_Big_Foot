@@ -228,19 +228,51 @@ function Comunidad() {
                 </label>
               </div>
 
-              <label>
-                Modelo
-                <select
-                  name="modelo"
-                  value={formulario.modelo}
-                  onChange={manejarCambio}
-                >
-                  <option value="Chorizo Parmesano">Chorizo Parmesano</option>
-                  <option value="Molino 1">Molino 1</option>
-                  <option value="Molino 2">Molino 2</option>
-                  <option value="Otro modelo">Otro modelo</option>
-                </select>
-              </label>
+              {formulario.tipo === 'Comparación' ? (
+                <div className="comunidad-comparacion-campos">
+                  <label>
+                    Primer modelo
+                    <select
+                      name="modelo"
+                      value={formulario.modelo}
+                      onChange={manejarCambio}
+                    >
+                      <option value="Chorizo Parmesano">Chorizo Parmesano</option>
+                      <option value="Molino 1">Molino 1</option>
+                      <option value="Molino 2">Molino 2</option>
+                      <option value="Otro modelo">Otro modelo</option>
+                    </select>
+                  </label>
+
+                  <label>
+                    Segundo modelo
+                    <select
+                      name="modeloSecundario"
+                      value={formulario.modeloSecundario}
+                      onChange={manejarCambio}
+                    >
+                      <option value="Chorizo Parmesano">Chorizo Parmesano</option>
+                      <option value="Molino 1">Molino 1</option>
+                      <option value="Molino 2">Molino 2</option>
+                      <option value="Otro modelo">Otro modelo</option>
+                    </select>
+                  </label>
+                </div>
+              ) : (
+                <label>
+                  Modelo
+                  <select
+                    name="modelo"
+                    value={formulario.modelo}
+                    onChange={manejarCambio}
+                  >
+                    <option value="Chorizo Parmesano">Chorizo Parmesano</option>
+                    <option value="Molino 1">Molino 1</option>
+                    <option value="Molino 2">Molino 2</option>
+                    <option value="Otro modelo">Otro modelo</option>
+                  </select>
+                </label>
+              )}
 
               {formulario.tipo === 'Reseña' && (
                 <fieldset className="comunidad-calificacion">
