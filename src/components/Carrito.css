@@ -1,34 +1,40 @@
+/* The Big Foot: carrito lateral negro y naranja. */
 .cart-trigger {
   position: relative;
+  display: inline-grid;
+  place-items: center;
   width: 40px;
   height: 40px;
   padding: 0;
-  display: inline-grid;
-  place-items: center;
   border: 1px solid transparent;
   border-radius: 50%;
-  background: transparent;
   color: #fff;
+  background: transparent;
   cursor: pointer;
+  transition: color .18s, background .18s, border-color .18s;
 }
-.cart-trigger:hover, .cart-trigger:focus-visible {
-  color: #ff9a45;
-  background: rgba(255, 122, 24, .12);
-  border-color: rgba(255, 122, 24, .4);
+.cart-trigger:hover, .cart-trigger:focus-visible, .cart-trigger[aria-expanded="true"] {
+  color: #ff8732;
+  background: rgb(255 122 24 / 13%);
+  border-color: rgb(255 122 24 / 45%);
 }
+.cart-trigger:focus-visible,
+.carrito-panel button:focus-visible,
+.carrito-panel a:focus-visible { outline: 2px solid #ff8732; outline-offset: 3px; }
 .cart-badge {
   position: absolute;
-  top: -5px;
-  right: -6px;
-  min-width: 19px;
-  height: 19px;
-  padding: 0 4px;
+  top: -6px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
+  padding: 0 5px;
+  border: 2px solid #101010;
+  border-radius: 20px;
+  color: #111;
   background: #ff7a18;
-  color: #101010;
-  border-radius: 13px;
-  font: 700 11px/1 Arial, sans-serif;
+  font: 800 10px/1 Arial, sans-serif;
 }
 .carrito-capa {
   position: fixed;
@@ -36,7 +42,7 @@
   z-index: 2000;
   visibility: hidden;
   pointer-events: none;
-  transition: visibility 0s linear .3s;
+  transition: visibility 0s linear .32s;
 }
 .carrito-capa.carrito-abierto {
   visibility: visible;
@@ -48,141 +54,242 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  padding: 0;
   border: 0;
-  background: rgba(0,0,0,.64);
+  background: rgb(0 0 0 / 72%);
   opacity: 0;
   cursor: pointer;
-  transition: opacity .3s ease;
+  transition: opacity .32s ease;
 }
 .carrito-abierto .carrito-overlay { opacity: 1; }
 .carrito-panel {
   position: absolute;
   top: 0;
   right: 0;
-  width: min(460px, 100vw);
-  height: 100%;
   display: flex;
   flex-direction: column;
-  background: #fff;
-  color: #141414;
-  box-shadow: -12px 0 32px rgba(0,0,0,.2);
+  width: min(470px, 100vw);
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  color: #f7f7f7;
+  background: #0c0c0e;
+  border-left: 1px solid #36302c;
+  box-shadow: -22px 0 72px rgb(0 0 0 / 65%);
   transform: translateX(105%);
-  transition: transform .3s ease;
+  transition: transform .32s cubic-bezier(.22,.68,0,1);
+  font-family: Arial, sans-serif;
 }
 .carrito-abierto .carrito-panel { transform: translateX(0); }
 .carrito-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  flex: 0 0 auto;
   align-items: center;
-  gap: 10px;
-  padding: 22px 24px 18px;
-  border-bottom: 2px solid #168000;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 28px 23px;
+  border-bottom: 1px solid #392b20;
+  background: linear-gradient(125deg, #141112 0%, #0c0c0e 72%);
 }
-.carrito-header h2, .carrito-vacio h3 {
+.carrito-header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 28px;
+  width: 84px;
+  height: 2px;
+  background: #ff7a18;
+}
+.carrito-header h2 {
   margin: 0;
+  color: #fff;
   font: 700 24px/1.2 "Oswald", Arial, sans-serif;
-  color: #111;
+  letter-spacing: .55px;
 }
 .carrito-cerrar, .carrito-eliminar {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 0;
-  background: transparent;
-  color: #111;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: #ded7d1;
+  background: #1a1a1e;
+  border: 1px solid #343437;
+  border-radius: 8px;
   cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
 }
-.carrito-cerrar:hover, .carrito-eliminar:hover { color: #168000; }
+.carrito-cerrar:hover, .carrito-eliminar:hover {
+  color: #ff8c32;
+  border-color: #ff7a18;
+  background: #2b1c14;
+}
 .carrito-vacio {
-  flex: 1;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 30px;
+  gap: 18px;
+  min-height: 0;
+  padding: 36px 26px;
   text-align: center;
+  background: radial-gradient(ellipse at center 42%, rgb(255 122 24 / 7%), transparent 56%);
 }
-.carrito-vacio h3 { font-size: 28px; }
-.carrito-vacio p { margin: 0; color: #666; line-height: 1.6; }
+.carrito-vacio > svg { color: #ff7a18; }
+.carrito-vacio h3 {
+  max-width: 320px;
+  margin: 0;
+  color: #fff;
+  font: 700 clamp(24px, 5vw, 32px)/1.15 "Oswald", Arial, sans-serif;
+  letter-spacing: .3px;
+}
+.carrito-vacio p {
+  max-width: 300px;
+  margin: 0;
+  color: #aaa5a1;
+  font-size: 14px;
+  line-height: 1.65;
+}
 .carrito-ver {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0 26px;
-  color: #fff;
-  background: #168000;
-  font-family: "Oswald", Arial, sans-serif;
-  font-weight: 700;
+  min-height: 49px;
+  margin-top: 8px;
+  padding: 0 32px;
+  color: #14100c;
+  background: #ff7a18;
+  border: 1px solid #ff7a18;
+  border-radius: 4px;
+  font: 700 15px/1 "Oswald", Arial, sans-serif;
+  letter-spacing: .5px;
   text-decoration: none;
+  transition: background .2s, transform .2s;
 }
-.carrito-ver:hover { background: #259a1c; color: #fff; }
+.carrito-ver:hover {
+  color: #0c0c0c;
+  background: #ffa04e;
+  border-color: #ffa04e;
+  transform: translateY(-1px);
+}
 .carrito-lista {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 12px 24px 24px;
+  padding: 11px 25px 25px;
+  scrollbar-width: thin;
+  scrollbar-color: #584032 #111;
 }
 .carrito-item {
   display: grid;
-  grid-template-columns: 106px minmax(0,1fr);
-  gap: 13px;
-  padding: 20px 0;
-  border-bottom: 1px solid #dedede;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 17px;
+  padding: 24px 0;
+  border-bottom: 1px solid #2b2b2f;
+}
+.carrito-item > a {
+  display: block;
+  height: fit-content;
+  padding: 7px;
+  background: #000;
+  border: 1px solid #29292c;
+  border-radius: 8px;
 }
 .carrito-item img {
   display: block;
-  width: 106px;
+  width: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: contain;
-  background: #f4f4f4;
+  background: #000;
 }
-.carrito-item-info { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-.carrito-item-info > span { font-size: 13px; color: #636363; }
+.carrito-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.carrito-item-info > span {
+  color: #b9b2ac;
+  font-size: 13px;
+  line-height: 1.35;
+}
 .carrito-nombre {
-  color: #161616;
-  font: 700 17px/1.3 "Oswald", Arial, sans-serif;
+  color: #f8f8f8;
+  font: 700 18px/1.3 "Oswald", Arial, sans-serif;
   text-decoration: none;
+  transition: color .2s;
 }
-.carrito-acciones { display: flex; align-items: center; gap: 13px; }
-.carrito-cantidad { display: flex; align-items: center; border: 1px solid #c5c5c5; }
+.carrito-nombre:hover { color: #ff9345; }
+.carrito-item-info > strong { color: #ff9345; font-size: 16px; }
+.carrito-acciones { display: flex; align-items: center; gap: 12px; }
+.carrito-cantidad {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #484144;
+  border-radius: 5px;
+  background: #151517;
+}
 .carrito-cantidad button {
   display: grid;
   place-items: center;
-  width: 33px;
-  height: 33px;
-  background: white;
-  color: #111;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border: 0;
+  color: #f4f0ed;
+  background: #1c1c20;
   cursor: pointer;
+  transition: color .2s, background .2s;
 }
+.carrito-cantidad button:hover:not(:disabled) { color: #ff9b48; background: #352218; }
 .carrito-cantidad button:disabled { opacity: .3; cursor: not-allowed; }
-.carrito-cantidad span { min-width: 28px; text-align: center; font-size: 14px; }
+.carrito-cantidad span { min-width: 30px; text-align: center; color: #fff; font-size: 14px; }
 .carrito-footer {
-  padding: 22px 24px 24px;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -6px 22px rgba(0,0,0,.05);
+  flex: 0 0 auto;
+  padding: 23px 27px 26px;
+  border-top: 1px solid #483225;
+  background: linear-gradient(180deg, #161214, #0c0c0e);
+  box-shadow: 0 -13px 30px rgb(0 0 0 / 30%);
 }
-.carrito-subtotal { display: flex; justify-content: space-between; gap: 14px; font-size: 18px; }
-.carrito-footer p { color: #666; font-size: 13px; }
+.carrito-subtotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  font: 700 19px/1.3 "Oswald", Arial, sans-serif;
+}
+.carrito-subtotal strong:last-child { color: #ff8c32; font-size: 25px; white-space: nowrap; }
+.carrito-footer p { margin: 14px 0 18px; color: #ada49f; font-size: 12px; line-height: 1.5; }
 .carrito-footer button {
-  min-height: 48px;
+  display: block;
   width: 100%;
-  border: 0;
-  background: #292929;
-  color: #fff;
-  font-family: "Oswald", Arial, sans-serif;
-  font-weight: 700;
+  min-height: 50px;
+  padding: 8px 12px;
+  color: #a7a09b;
+  background: #242123;
+  border: 1px solid #46372d;
+  border-radius: 4px;
+  font: 700 14px/1.3 "Oswald", Arial, sans-serif;
+  letter-spacing: .4px;
 }
-.carrito-footer button:disabled { opacity: .7; cursor: not-allowed; }
-.productos-navegacion, .detalle-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.carrito-footer button:disabled { cursor: not-allowed; }
+.productos-navegacion, .detalle-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 @media (max-width: 600px) {
-  .carrito-header, .carrito-footer { padding-left: 18px; padding-right: 18px; }
+  .carrito-header, .carrito-footer { padding-left: 19px; padding-right: 19px; }
   .carrito-lista { padding-left: 18px; padding-right: 18px; }
-  .carrito-item { grid-template-columns: 87px minmax(0, 1fr); gap: 11px; }
-  .carrito-item img { width: 87px; }
+  .carrito-item { grid-template-columns: 94px minmax(0, 1fr); gap: 12px; }
+  .carrito-vacio { padding-inline: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .carrito-capa, .carrito-overlay, .carrito-panel { transition: none; }
