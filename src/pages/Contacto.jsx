@@ -3,7 +3,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   AtSign,
-  MapPin,
   MessageCircle,
   Phone,
   Users,
@@ -50,6 +49,13 @@ const contactos = [
 ]
 
 function Contacto() {
+  const irAContactos = () => {
+    document.getElementById('equipo')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+
   return (
     <div className="contacto-pagina">
       <Navbar />
@@ -66,16 +72,15 @@ function Contacto() {
               Hablemos de tu próxima <span>jugada.</span>
             </h1>
 
-            <p className="contacto-hero-texto">
-              Consultas sobre modelos, pedidos o la comunidad. Elegí un contacto
-              y escribinos directamente.
-            </p>
-
             <div className="contacto-hero-acciones">
-              <a className="contacto-boton contacto-boton-principal" href="#equipo">
+              <button
+                type="button"
+                className="contacto-boton contacto-boton-principal"
+                onClick={irAContactos}
+              >
                 Ver contactos
                 <ArrowRight size={18} aria-hidden="true" />
-              </a>
+              </button>
 
               <Link
                 className="contacto-boton contacto-boton-secundario"
@@ -86,42 +91,7 @@ function Contacto() {
             </div>
           </div>
 
-          <aside className="contacto-resumen" aria-label="Información de contacto">
-            <div className="contacto-resumen-cabecera">
-              <span>Contacto directo</span>
-              <span>BF / 03</span>
-            </div>
 
-            <p className="contacto-resumen-numero" aria-hidden="true">
-              03
-            </p>
-
-            <div className="contacto-resumen-datos">
-              <div>
-                <MapPin size={19} aria-hidden="true" />
-                <span>
-                  <small>Ubicación</small>
-                  <strong>Neuquén, Argentina</strong>
-                </span>
-              </div>
-
-              <div>
-                <Users size={19} aria-hidden="true" />
-                <span>
-                  <small>Equipo</small>
-                  <strong>Tres contactos disponibles</strong>
-                </span>
-              </div>
-
-              <div>
-                <MessageCircle size={19} aria-hidden="true" />
-                <span>
-                  <small>Canales</small>
-                  <strong>Instagram, WhatsApp y teléfono</strong>
-                </span>
-              </div>
-            </div>
-          </aside>
         </section>
 
         <section
@@ -135,9 +105,6 @@ function Contacto() {
               <h2 id="contacto-equipo-titulo">Elegí a quién escribirle.</h2>
             </div>
 
-            <p>
-              Cada perfil tiene acceso directo a Instagram, WhatsApp y llamada.
-            </p>
           </header>
 
           <div className="contacto-listado">
