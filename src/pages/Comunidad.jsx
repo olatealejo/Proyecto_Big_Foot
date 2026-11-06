@@ -88,7 +88,8 @@ function Comunidad() {
     setErrorFormulario('')
     setFormulario((datosActuales) => ({
       ...datosActuales,
-      calificacion,
+      calificacion:
+        datosActuales.calificacion === calificacion ? 0 : calificacion,
     }))
   }
 
