@@ -1,0 +1,108 @@
+.comunidad-pagina,
+.comunidad-pagina * {
+  box-sizing: border-box;
+}
+
+.comunidad-pagina {
+  width: 100%;
+  min-height: 100vh;
+  color: #ffffff;
+  background-color: #090909;
+}
+
+.comunidad-navegacion {
+  min-height: 82px;
+  padding: 0 clamp(20px, 4vw, 64px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgba(8, 8, 8, 0.96);
+  border-bottom: 1px solid rgba(255, 122, 24, 0.55);
+}
+
+.comunidad-logo img {
+  display: block;
+  width: 118px;
+  height: auto;
+}
+
+.comunidad-volver {
+  min-height: 42px;
+  padding: 0 15px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #f3f3f3;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.comunidad-volver:hover,
+.comunidad-volver:focus-visible {
+  color: #ff9a45;
+  background-color: rgba(255, 122, 24, 0.1);
+  border-color: rgba(255, 122, 24, 0.48);
+}
+
+.comunidad-encabezado {
+  padding: clamp(60px, 8vw, 110px) clamp(20px, 7vw, 110px);
+
+  background:
+    linear-gradient(90deg, rgba(255, 122, 24, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 80% 25%, rgba(255, 122, 24, 0.22), transparent 30%),
+    linear-gradient(145deg, #070707 0%, #11100f 58%, #171009 100%);
+  background-size:
+    72px 72px,
+    72px 72px,
+    auto,
+    auto;
+
+  border-bottom: 1px solid rgba(255, 122, 24, 0.2);
+}
+
+.comunidad-encabezado-contenido {
+  max-width: 850px;
+}
+
+.comunidad-etiqueta {
+  margin: 0 0 15px;
+
+  color: #ff7a18;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.6px;
+}
+
+.comunidad-encabezado h1 {
+  margin: 0;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: clamp(50px, 8vw, 94px);
+  font-weight: 600;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.comunidad-introduccion {
+  max-width: 650px;
+  margin: 25px 0 0;
+
+  color: #b0a79f;
+  font-size: 17px;
+  line-height: 1.7;
+}
