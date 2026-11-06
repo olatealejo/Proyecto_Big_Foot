@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
-import logo from '../assets/Logo_Web_transparente.png'
+import BrandLogo from '../components/BrandLogo'
 import loginGif from '../assets/video-login.gif'
 import './Login.css'
 
@@ -9,9 +9,7 @@ function Login() {
   return (
     <div className="login-pagina">
       <nav className="login-navegacion" aria-label="Navegación de acceso">
-        <Link to="/" className="login-nav-logo" aria-label="Ir al inicio">
-          <img src={logo} alt="The Big Foot" />
-        </Link>
+        <BrandLogo />
 
         <Link to="/" className="login-volver">
           <ArrowLeft size={20} strokeWidth={1.9} />

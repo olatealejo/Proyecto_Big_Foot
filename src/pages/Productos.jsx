@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Search, SlidersHorizontal } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal } from 'lucide-react'
 import CartTrigger from '../components/CartTrigger'
 import { PRODUCTOS, formatoPrecio } from '../cart/catalogo'
 import { filtrarProductos } from '../cart/filtros.js'
+import BrandLogo from '../components/BrandLogo'
 import './Productos.css'
 
 const listaProductos = Object.values(PRODUCTOS)
@@ -32,24 +33,33 @@ function Productos() {
 
   return (
     <div className="productos-pagina">
-      <nav className="productos-navegacion">
+      <nav className="productos-navegacion" aria-label="Navegación de modelos">
         <Link to="/" className="productos-volver">
-          <ArrowLeft size={21} />
+          <ArrowLeft size={20} aria-hidden="true" />
           <span>Volver al inicio</span>
         </Link>
-        <CartTrigger />
+        <BrandLogo className="productos-logo" />
+        <div className="productos-carrito"><CartTrigger /></div>
       </nav>
 
       <main className="productos">
-        <section className="productos-presentacion">
-          <h1>Productos</h1>
-          <p>Conocé nuestras zapatillas y encontrá tu próximo par.</p>
-        </section>
+        <header className="productos-presentacion">
+          <p className="productos-eyebrow"><span aria-hidden="true" /> COLECCIÓN THE BIG FOOT</p>
+          <h1>MODELOS <span>QUE DEJAN HUELLA.</span></h1>
+          <p className="productos-bajada">Explorá nuestros diseños de básquet. Elegí el modelo que va con tu juego.</p>
+          <div className="productos-presentacion-pie">
+            <span>DISEÑADOS PARA DESTACAR</span>
+            <span>{listaProductos.length} MODELOS EN EL CATÁLOGO</span>
+          </div>
+        </header>
 
         <section className="productos-filtros" aria-label="Filtrar catálogo">
-          <div className="productos-filtros-titulo">
-            <SlidersHorizontal size={19} aria-hidden="true" />
-            <h2>Encontrá tu modelo</h2>
+          <div className="productos-filtros-encabezado">
+            <div className="productos-filtros-titulo">
+              <SlidersHorizontal size={19} aria-hidden="true" />
+              <h2>ENCONTRÁ TU MODELO</h2>
+            </div>
+            <span>BUSCÁ, COMPARÁ Y ELEGÍ</span>
           </div>
           <div className="productos-filtros-grid">
             <div className="productos-campo productos-campo-busqueda">
@@ -80,7 +90,7 @@ function Productos() {
               </select>
             </div>
             <div className="productos-campo">
-              <label htmlFor="filtro-orden">Ordenar</label>
+              <label htmlFor="filtro-orden">Ordenar por</label>
               <select id="filtro-orden" value={orden}
                 onChange={(evento) => setOrden(evento.target.value)}>
                 <option value="destacados">Orden original</option>
@@ -92,7 +102,7 @@ function Productos() {
           </div>
           <div className="productos-filtros-pie">
             <p role="status" aria-live="polite">
-              {visibles.length} {visibles.length === 1 ? 'modelo encontrado' : 'modelos encontrados'}
+              <strong>{visibles.length}</strong> {visibles.length === 1 ? 'modelo encontrado' : 'modelos encontrados'}
             </p>
             {filtrosActivos && (
               <button type="button" className="productos-limpiar" onClick={limpiarFiltros}>
@@ -103,21 +113,39 @@ function Productos() {
         </section>
 
         {visibles.length > 0 ? (
-          <section className="productos-lista" aria-label="Zapatillas disponibles en el catálogo">
+          <section className="productos-lista" aria-label="Zapatillas del catálogo">
             {visibles.map((producto) => (
               <article className="producto" key={producto.sku}>
                 <Link to={producto.ruta} className="producto-enlace"
                   aria-label={'Ver ' + producto.nombre}>
-                  <img src={producto.imagen} alt={'Zapatilla ' + producto.nombre} />
-                  <h2>{producto.nombre}</h2>
+                  <div className="producto-foto">
+                    <span className="producto-coleccion">THE BIG FOOT / BÁSQUET</span>
+                    <img src={producto.imagen} alt={'Zapatilla ' + producto.nombre} />
+                    <span className="producto-explorar" aria-hidden="true">
+                      VER DETALLES <ArrowUpRight size={16} />
+                    </span>
+                  </div>
+                  <div className="producto-datos">
+                    <p className="producto-serie">COLECCIÓN DE CANCHA</p>
+                    <h2>{producto.nombre}</h2>
+                  </div>
                 </Link>
-                <p>{formatoPrecio(producto.precio)}</p>
-                <Link to={producto.ruta} className="producto-boton">Ver producto</Link>
+                <div className="producto-pie">
+                  <div className="producto-precio">
+                    <span>PRECIO</span>
+                    <strong>{formatoPrecio(producto.precio)}</strong>
+                  </div>
+                  <Link to={producto.ruta} className="producto-boton" aria-label={'Explorar ' + producto.nombre}>
+                    <span>VER MODELO</span>
+                    <ArrowUpRight size={19} aria-hidden="true" />
+                  </Link>
+                </div>
               </article>
             ))}
           </section>
         ) : (
           <div className="productos-sin-resultados">
+            <Search size={32} aria-hidden="true" />
             <h2>No encontramos modelos con esos filtros</h2>
             <p>Probá con otro nombre, modelo o precio máximo.</p>
             <button type="button" className="producto-boton" onClick={limpiarFiltros}>
