@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, Crosshair, Instagram, Phone } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, Crosshair, AtSign, Phone } from 'lucide-react'
 import CartTrigger from '../components/CartTrigger'
 import logo from '../assets/Logo_BigFoot_Naranja_Header.png'
 import fotoAlejo from '../assets/contactos/alejo.webp'
@@ -103,7 +103,7 @@ function Contacto() {
                     rel="noopener noreferrer"
                     aria-label={`Instagram de ${contacto.nombre}: @${contacto.instagram} (abre en nueva pestaña)`}
                   >
-                    <Instagram size={19} aria-hidden="true" />
+                    <AtSign size={19} aria-hidden="true" />
                     <span>@{contacto.instagram}</span>
                     <ArrowUpRight size={17} aria-hidden="true" />
                   </a>
