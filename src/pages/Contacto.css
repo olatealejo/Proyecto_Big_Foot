@@ -600,7 +600,7 @@
   .contacto-hero,
   .contacto-equipo,
   .contacto-cta {
-    width: min(100% - 32px, 1240px);
+    width: min(1240px, calc(100% - 32px));
   }
 
   .contacto-hero {
