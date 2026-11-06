@@ -125,13 +125,19 @@ function Comunidad() {
       id: Date.now(),
       iniciales,
       usuario,
-      modelo: formulario.modelo,
+      modelo:
+        formulario.tipo === 'Comparación'
+          ? `${formulario.modelo} vs. ${formulario.modeloSecundario}`
+          : formulario.modelo,
       tipo: formulario.tipo,
       titulo,
       resumen,
       votos: 0,
       comentarios: 0,
-      calificacion: '—',
+      calificacion:
+        formulario.tipo === 'Reseña'
+          ? String(formulario.calificacion)
+          : '—',
     }
 
     setPublicacionesActuales((actuales) => [nuevaPublicacion, ...actuales])
