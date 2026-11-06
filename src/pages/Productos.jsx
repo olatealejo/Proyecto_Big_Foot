@@ -45,7 +45,7 @@ function Productos() {
       <main className="productos">
         <header className="productos-presentacion">
           <p className="productos-eyebrow"><span aria-hidden="true" /> COLECCIÓN THE BIG FOOT</p>
-          <h1>MODELOS <span>QUE DEJAN HUELLA.</span></h1>
+          <h1>MODELOS <span>QUE DE<span className="productos-j">J</span>AN HUELLA.</span></h1>
           <p className="productos-bajada">Explorá nuestros diseños de básquet. Elegí el modelo que va con tu juego.</p>
           <div className="productos-presentacion-pie">
             <span>DISEÑADOS PARA DESTACAR</span>
