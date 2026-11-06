@@ -554,3 +554,19 @@
     font-size: 14px;
   }
 }
+
+/* Acentos del footer para la página Comunidad */
+.comunidad-pagina .footer {
+  background-color: #050505;
+  border-top-color: rgba(255, 122, 24, 0.4);
+}
+
+.comunidad-pagina .footer-seccion a::after {
+  background-color: #ff7a18;
+}
+
+.comunidad-pagina .footer-seccion a:hover,
+.comunidad-pagina .footer-seccion a:focus-visible {
+  color: #ff9a45;
+}
+
