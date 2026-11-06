@@ -10,6 +10,116 @@
   background-color: #090909;
 }
 
+.comunidad-pagina .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+  min-height: 82px;
+  padding: 0 clamp(20px, 4vw, 64px);
+
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) auto minmax(130px, 1fr);
+  align-items: center;
+
+  background-color: rgba(8, 8, 8, 0.94);
+  border-bottom: 1px solid rgba(255, 122, 24, 0.55);
+  backdrop-filter: blur(12px);
+}
+
+.comunidad-pagina .navbar-logo {
+  width: fit-content;
+  justify-self: start;
+}
+
+.comunidad-pagina .navbar-logo img {
+  display: block;
+  width: 118px;
+  height: auto;
+}
+
+.comunidad-pagina .navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 38px);
+}
+
+.comunidad-pagina .navbar-menu a {
+  position: relative;
+
+  padding: 30px 0;
+  color: #f3f3f3;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+
+  transition: color 0.2s ease;
+}
+
+.comunidad-pagina .navbar-menu a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 23px;
+  left: 0;
+
+  height: 2px;
+  background-color: #ff7a18;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.comunidad-pagina .navbar-menu a:hover,
+.comunidad-pagina .navbar-menu a:focus-visible {
+  color: #ff9a45;
+}
+
+.comunidad-pagina .navbar-menu a:hover::after,
+.comunidad-pagina .navbar-menu a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.comunidad-pagina .navbar-iconos {
+  display: flex;
+  justify-self: end;
+  align-items: center;
+  gap: 10px;
+}
+
+.comunidad-pagina .navbar-iconos a {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.comunidad-pagina .navbar-iconos a:hover,
+.comunidad-pagina .navbar-iconos a:focus-visible {
+  color: #ff9a45;
+  background-color: rgba(255, 122, 24, 0.12);
+  border-color: rgba(255, 122, 24, 0.4);
+}
+
+.comunidad-pagina .navbar-iconos svg {
+  width: 21px;
+  height: 21px;
+}
+
 .comunidad-encabezado {
   padding: clamp(60px, 8vw, 110px) clamp(20px, 7vw, 110px);
 
