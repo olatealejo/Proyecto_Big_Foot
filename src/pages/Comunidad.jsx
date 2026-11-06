@@ -445,8 +445,14 @@ function Comunidad() {
             </div>
           </div>
 
-          <div className="comunidad-publicaciones">
-            {publicacionesActuales.map((publicacion) => (
+          <div className="comunidad-publicaciones" aria-live="polite">
+            {publicacionesFiltradas.length === 0 && (
+              <p className="comunidad-sin-resultados">
+                Todavía no hay publicaciones en esta categoría.
+              </p>
+            )}
+
+            {publicacionesFiltradas.map((publicacion) => (
               <article className="comunidad-publicacion" key={publicacion.id}>
                 <div className="comunidad-avatar" aria-hidden="true">
                   {publicacion.iniciales}
