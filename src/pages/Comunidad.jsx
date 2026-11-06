@@ -21,7 +21,7 @@ const formularioInicial = {
   resumen: '',
 }
 
-const publicaciones = [
+const publicacionesIniciales = [
   {
     id: 1,
     iniciales: 'AO',
@@ -66,6 +66,9 @@ const publicaciones = [
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [formulario, setFormulario] = useState(formularioInicial)
+  const [publicacionesActuales, setPublicacionesActuales] = useState(
+    publicacionesIniciales,
+  )
 
   const manejarCambio = (evento) => {
     const { name, value } = evento.target
@@ -74,6 +77,42 @@ function Comunidad() {
       ...datosActuales,
       [name]: value,
     }))
+  }
+
+  const manejarPublicacion = (evento) => {
+    evento.preventDefault()
+
+    const usuario = formulario.usuario.trim()
+    const titulo = formulario.titulo.trim()
+    const resumen = formulario.resumen.trim()
+
+    if (!usuario || !titulo || !resumen) {
+      return
+    }
+
+    const iniciales = usuario
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((parte) => parte[0])
+      .join('')
+      .toUpperCase()
+
+    const nuevaPublicacion = {
+      id: Date.now(),
+      iniciales,
+      usuario,
+      modelo: formulario.modelo,
+      tipo: formulario.tipo,
+      titulo,
+      resumen,
+      votos: 0,
+      comentarios: 0,
+      calificacion: '—',
+    }
+
+    setPublicacionesActuales((actuales) => [nuevaPublicacion, ...actuales])
+    setFormulario(formularioInicial)
+    setMostrarFormulario(false)
   }
 
   return (
@@ -147,7 +186,7 @@ function Comunidad() {
 
             <form
               className="comunidad-formulario"
-              onSubmit={(evento) => evento.preventDefault()}
+              onSubmit={manejarPublicacion}
             >
               <div className="comunidad-formulario-fila">
                 <label>
@@ -261,7 +300,7 @@ function Comunidad() {
           </div>
 
           <div className="comunidad-publicaciones">
-            {publicaciones.map((publicacion) => (
+            {publicacionesActuales.map((publicacion) => (
               <article className="comunidad-publicacion" key={publicacion.id}>
                 <div className="comunidad-avatar" aria-hidden="true">
                   {publicacion.iniciales}
