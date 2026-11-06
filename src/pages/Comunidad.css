@@ -833,3 +833,17 @@
   background-color: #ff9748;
   border-color: #ff9748;
 }
+
+/* Confirmación de publicación */
+.comunidad-mensaje-publicacion {
+  margin: -14px 0 30px;
+  padding: 12px 14px;
+
+  color: #ffc18f;
+  font-size: 13px;
+  line-height: 1.5;
+
+  background-color: rgba(255, 122, 24, 0.09);
+  border: 1px solid rgba(255, 122, 24, 0.28);
+  border-radius: 4px;
+}
