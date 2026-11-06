@@ -10,51 +10,6 @@
   background-color: #090909;
 }
 
-.comunidad-navegacion {
-  min-height: 82px;
-  padding: 0 clamp(20px, 4vw, 64px);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background-color: rgba(8, 8, 8, 0.96);
-  border-bottom: 1px solid rgba(255, 122, 24, 0.55);
-}
-
-.comunidad-logo img {
-  display: block;
-  width: 118px;
-  height: auto;
-}
-
-.comunidad-volver {
-  min-height: 42px;
-  padding: 0 15px;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-
-  color: #f3f3f3;
-  font-family: "Oswald", Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-
-  background-color: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-}
-
-.comunidad-volver:hover,
-.comunidad-volver:focus-visible {
-  color: #ff9a45;
-  background-color: rgba(255, 122, 24, 0.1);
-  border-color: rgba(255, 122, 24, 0.48);
-}
-
 .comunidad-encabezado {
   padding: clamp(60px, 8vw, 110px) clamp(20px, 7vw, 110px);
 
@@ -366,28 +321,6 @@
 }
 
 @media (max-width: 700px) {
-  .comunidad-navegacion {
-    min-height: 68px;
-    padding: 0 18px;
-  }
-
-  .comunidad-logo img {
-    width: 104px;
-  }
-
-  .comunidad-volver {
-    width: 40px;
-    min-height: 40px;
-    padding: 0;
-
-    justify-content: center;
-    border-radius: 50%;
-  }
-
-  .comunidad-volver span {
-    display: none;
-  }
-
   .comunidad-encabezado {
     padding: 54px 20px;
   }
