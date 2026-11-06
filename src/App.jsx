@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
+import { CartProvider } from './cart/CartProvider'
+import CartDrawer from './components/CartDrawer'
 
 import Inicio from './pages/Inicio'
 import Login from './pages/Login'
@@ -11,7 +13,8 @@ import Contacto from './pages/Contacto'
 
 function App() {
   return (
-    <Routes>
+    <CartProvider>
+      <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Inicio />} />
       <Route path="/productos" element={<Productos />} />
@@ -20,7 +23,9 @@ function App() {
       <Route path="/productos/molino-2" element={<ProductoMolino2 />} />
       <Route path="/nosotros" element={<Nosotros />} />
       <Route path="/contacto" element={<Contacto />} />
-    </Routes>
+      </Routes>
+      <CartDrawer />
+    </CartProvider>
   )
 }
 

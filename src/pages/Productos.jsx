@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import CartTrigger from '../components/CartTrigger'
 import { ArrowLeft } from 'lucide-react'
 
 import zapatilla1 from '../assets/chorizo-parmesano-lateral-izquierda.png'
@@ -14,6 +15,7 @@ function Productos() {
           <ArrowLeft size={21} />
           <span>Volver al inicio</span>
         </Link>
+        <CartTrigger />
       </nav>
 
       <main className="productos">

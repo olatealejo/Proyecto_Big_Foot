@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import CartTrigger from '../components/CartTrigger'
+import AddToCart from '../components/AddToCart'
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 
 import lateralIzquierda from '../assets/molino-1-lateral-izquierda.png'
@@ -33,6 +35,7 @@ function ProductoMolino1() {
           <ArrowLeft size={20} />
           <span>Volver a productos</span>
         </Link>
+        <CartTrigger />
       </nav>
 
       <main className="detalle-contenido">
@@ -73,6 +76,7 @@ function ProductoMolino1() {
             parte superior, talón y suela. Su diseño combina una capellada negra con
             detalles blancos y una suela de perfil deportivo.
           </p>
+          <AddToCart sku="molino-1" />
           <div className="detalle-acordeon">
             <details>
               <summary>Descripción del producto</summary>

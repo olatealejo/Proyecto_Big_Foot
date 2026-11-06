@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Check, ChevronLeft, ChevronRight, ShieldCheck, Truck } from 'lucide-react'
+import CartTrigger from '../components/CartTrigger'
+import AddToCart from '../components/AddToCart'
+import { ArrowLeft, ChevronLeft, ChevronRight, ShieldCheck, Truck } from 'lucide-react'
 
 import zapatilla from '../assets/chorizo-parmesano-lateral-izquierda.png'
 import suela from '../assets/chorizo-parmesano-suela.png'
@@ -8,8 +10,6 @@ import superior from '../assets/chorizo-parmesano-vista-superior.png'
 import trasera from '../assets/chorizo-parmesano-vista-trasera.png'
 import './ProductoDetalle.css'
 import './ProductoDetalle.galeria.css'
-
-const talles = [38, 39, 40, 41, 42, 43, 44, 45]
 
 const imagenes = [
   { src: zapatilla, nombre: 'Lateral izquierda' },
@@ -19,17 +19,10 @@ const imagenes = [
 ]
 
 function ProductoDetalle() {
-  const [talleSeleccionado, setTalleSeleccionado] = useState(null)
-  const [agregado, setAgregado] = useState(false)
   const [imagenActiva, setImagenActiva] = useState(0)
 
   const cambiarImagen = (direccion) => {
     setImagenActiva((indice) => (indice + direccion + imagenes.length) % imagenes.length)
-  }
-
-  const agregarAlCarrito = () => {
-    if (!talleSeleccionado) return
-    setAgregado(true)
   }
 
   return (
@@ -39,6 +32,7 @@ function ProductoDetalle() {
           <ArrowLeft size={20} />
           <span>Volver a productos</span>
         </Link>
+        <CartTrigger />
       </nav>
 
       <main className="detalle-contenido">
@@ -72,46 +66,7 @@ function ProductoDetalle() {
             dan personalidad a cada paso.
           </p>
 
-          <div className="detalle-talles">
-            <div className="detalle-talles-cabecera">
-              <h2>Seleccioná tu talle</h2>
-              <span>AR</span>
-            </div>
-            <div className="detalle-talles-grid">
-              {talles.map((talle) => (
-                <button
-                  key={talle}
-                  type="button"
-                  className={talleSeleccionado === talle ? 'talle talle-activo' : 'talle'}
-                  aria-pressed={talleSeleccionado === talle}
-                  onClick={() => {
-                    setTalleSeleccionado(talle)
-                    setAgregado(false)
-                  }}
-                >
-                  {talle}
-                </button>
-              ))}
-            </div>
-            {!talleSeleccionado && (
-              <p className="detalle-ayuda">Elegí un talle para continuar.</p>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className="detalle-agregar"
-            onClick={agregarAlCarrito}
-            disabled={!talleSeleccionado}
-          >
-            {agregado ? <><Check size={19} /> Producto agregado</> : 'Agregar al carrito'}
-          </button>
-
-          {agregado && (
-            <p className="detalle-confirmacion" role="status">
-              Big Foot Chorizo Parmesano · Talle {talleSeleccionado} seleccionado.
-            </p>
-          )}
+          <AddToCart sku="chorizo-parmesano" />
 
           <div className="detalle-beneficios">
             <p><Truck size={19} /> Envíos a todo el país</p>
