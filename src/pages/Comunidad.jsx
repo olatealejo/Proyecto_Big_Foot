@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   MessageCircle,
+  Plus,
   ShoppingCart,
   Star,
   TrendingUp,
@@ -91,6 +92,20 @@ function Comunidad() {
 
       <main className="comunidad-contenido">
         <section className="comunidad-feed" aria-labelledby="titulo-conversaciones">
+          <section className="comunidad-compositor" aria-label="Crear publicación">
+            <div>
+              <p className="comunidad-compositor-titulo">Compartí tu experiencia</p>
+              <p className="comunidad-compositor-texto">
+                Publicá una reseña, una pregunta o una comparación.
+              </p>
+            </div>
+
+            <button type="button" className="comunidad-crear-boton">
+              <Plus size={19} strokeWidth={2} />
+              Nueva publicación
+            </button>
+          </section>
+
           <div className="comunidad-feed-encabezado">
             <div>
               <p className="comunidad-etiqueta">Foro</p>
