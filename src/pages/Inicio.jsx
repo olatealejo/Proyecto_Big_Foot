@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingCart, UserRound } from "lucide-react";
+import { ArrowRight, UserRound } from "lucide-react";
 
 import logo from "../assets/Logo_Web_transparente.png";
 import publicidad1 from "../assets/Publicidad1.jpeg";
 import publicidad2 from "../assets/Publicidad2.png";
 import zapatillaHero from "../assets/The-Big-Foot-ChorizoParmezano1.jpeg";
 import Footer from "../components/Footer";
+import CartTrigger from "../components/CartTrigger";
 import "./Inicio.css";
 
 function Inicio() {
@@ -27,9 +28,7 @@ function Inicio() {
             <UserRound />
           </Link>
 
-          <Link to="/carrito" aria-label="Ver carrito">
-            <ShoppingCart />
-          </Link>
+          <CartTrigger />
         </div>
       </nav>
 
