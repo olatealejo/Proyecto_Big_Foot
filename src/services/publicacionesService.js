@@ -1,9 +1,15 @@
-import { collection, getDocs } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  getDocs,
+  serverTimestamp,
+} from 'firebase/firestore'
 import { db } from './firebase'
 
 const publicacionesRef = collection(db, 'publicaciones')
 
 export async function obtenerPublicaciones() {
+    
   try {
     const resultado = await getDocs(publicacionesRef)
 
@@ -16,5 +22,23 @@ export async function obtenerPublicaciones() {
   } catch (error) {
     console.error('Error al obtener publicaciones:', error)
     throw error
+  }
+}
+export async function crearPublicacion(datosPublicacion) {
+  const nuevaPublicacion = {
+    ...datosPublicacion,
+    fechaCreacion: serverTimestamp(),
+    votos: 0,
+    comentarios: 0,
+  }
+
+  const documentoCreado = await addDoc(
+    publicacionesRef,
+    nuevaPublicacion,
+  )
+
+  return {
+    id: documentoCreado.id,
+    ...nuevaPublicacion,
   }
 }
