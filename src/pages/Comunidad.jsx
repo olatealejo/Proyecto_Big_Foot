@@ -67,6 +67,7 @@ const publicacionesIniciales = [
 
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  const [filtroActivo, setFiltroActivo] = useState('Todos')
   const [formulario, setFormulario] = useState(formularioInicial)
   const [mensajePublicacion, setMensajePublicacion] = useState('')
   const [errorFormulario, setErrorFormulario] = useState('')
