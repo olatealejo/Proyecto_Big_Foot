@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Search, UserRound } from "lucide-react";
+import { ArrowRight, UserRound } from "lucide-react";
 
-import logo from "../assets/Logo_Web.jpeg";
+import logo from "../assets/Logo_Web_transparente.png";
 import publicidad1 from "../assets/Publicidad1.jpeg";
 import publicidad2 from "../assets/Publicidad2.png";
 import zapatillaHero from "../assets/The-Big-Foot-ChorizoParmezano1.jpeg";
@@ -29,10 +29,6 @@ function Inicio() {
           </Link>
 
           <CartTrigger />
-
-          <Link to="/productos" aria-label="Buscar productos">
-            <Search />
-          </Link>
         </div>
       </nav>
 

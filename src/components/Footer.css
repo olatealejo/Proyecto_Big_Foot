@@ -170,6 +170,8 @@
   margin: 0 auto;
   object-fit: contain;
   object-position: center;
+  background-color: transparent;
+  mix-blend-mode: screen;
 }
 
 .footer-final {
