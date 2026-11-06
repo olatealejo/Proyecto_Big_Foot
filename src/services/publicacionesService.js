@@ -7,8 +7,7 @@ export async function obtenerPublicaciones() {
   try {
     const resultado = await getDocs(publicacionesRef)
 
-    console.log('Proyecto Firebase:', db.app.options.projectId)
-    console.log('Documentos recibidos:', resultado.size)
+    
 
     return resultado.docs.map((documento) => ({
       id: documento.id,
