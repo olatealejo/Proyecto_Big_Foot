@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartTrigger from '../components/CartTrigger'
+import BrandLogo from '../components/BrandLogo'
 import AddToCart from '../components/AddToCart'
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -35,6 +36,7 @@ function ProductoMolino1() {
           <ArrowLeft size={20} />
           <span>Volver a productos</span>
         </Link>
+        <BrandLogo className="detalle-logo" />
         <CartTrigger />
       </nav>
 

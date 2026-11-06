@@ -252,3 +252,22 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Logo blanco compartido en las fichas de producto. */
+.detalle-pagina .detalle-nav {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 88px;
+  padding: 7px clamp(18px,4vw,64px);
+  border-bottom: 1px solid rgba(255,122,24,.55);
+}
+.detalle-nav .detalle-logo { justify-self: center; }
+.detalle-nav > .cart-trigger { justify-self: end; }
+@media (max-width: 620px) {
+  .detalle-pagina .detalle-nav { grid-template-columns: minmax(0,1fr) auto; row-gap: 2px; }
+  .detalle-nav .detalle-logo { grid-column: 1 / -1; grid-row: 1; width: 195px; height: 62px; }
+  .detalle-nav .detalle-volver { grid-column: 1; grid-row: 2; font-size: 12px; }
+  .detalle-nav > .cart-trigger { grid-column: 2; grid-row: 2; }
+}

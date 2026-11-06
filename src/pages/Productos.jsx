@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal } from 'lucide-react
 import CartTrigger from '../components/CartTrigger'
 import { PRODUCTOS, formatoPrecio } from '../cart/catalogo'
 import { filtrarProductos } from '../cart/filtros.js'
-import logoBigFoot from '../assets/Logo_BigFoot_Naranja_Header.png'
+import BrandLogo from '../components/BrandLogo'
 import './Productos.css'
 
 const listaProductos = Object.values(PRODUCTOS)
@@ -38,9 +38,7 @@ function Productos() {
           <ArrowLeft size={20} aria-hidden="true" />
           <span>Volver al inicio</span>
         </Link>
-        <Link to="/" className="productos-logo" aria-label="The Big Foot, ir al inicio">
-          <img src={logoBigFoot} alt="The Big Foot" />
-        </Link>
+        <BrandLogo className="productos-logo" />
         <div className="productos-carrito"><CartTrigger /></div>
       </nav>
 

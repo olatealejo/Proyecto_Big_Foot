@@ -17,17 +17,6 @@
   backdrop-filter: blur(12px);
 }
 
-.navbar-logo {
-  width: fit-content;
-  justify-self: start;
-}
-
-.navbar-logo img {
-  display: block;
-  width: 118px;
-  height: auto;
-}
-
 .navbar-menu {
   display: flex;
   align-items: center;
@@ -144,11 +133,7 @@
     padding: 13px 18px;
   }
 
-  .navbar-logo img {
-    width: 104px;
-  }
-
-  .navbar-iconos {
+.navbar-iconos {
     gap: 2px;
   }
 
@@ -179,28 +164,4 @@
   .navbar-menu a,
   .navbar-menu a::after,
   .navbar-iconos a { transition: none; }
-}
-
-/* Logo horizontal The Big Foot — diseño adaptado al encabezado existente. */
-.navbar-logo {
-  width: clamp(175px, 16vw, 215px);
-  display: flex;
-  align-items: center;
-  justify-self: start;
-  min-height: 65px;
-}
-.navbar-logo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 72px;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .4));
-}
-@media (max-width: 900px) {
-  .navbar-logo { min-height: 55px; }
-}
-@media (max-width: 600px) {
-  .navbar-logo { width: 162px; min-height: 50px; }
-  .navbar-logo img { max-height: 58px; }
 }

@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom'
 import {
   MessageCircle,
   Plus,
-  ShoppingCart,
   Star,
   TrendingUp,
-  UserRound,
 } from 'lucide-react'
 
-import logo from '../assets/Logo_Web_transparente.png'
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import './Comunidad.css'
 
@@ -167,27 +165,7 @@ function Comunidad() {
 
   return (
     <div className="comunidad-pagina">
-      <nav className="navbar" aria-label="Navegación principal">
-        <Link to="/" className="navbar-logo" aria-label="Ir al inicio">
-          <img src={logo} alt="The Big Foot" />
-        </Link>
-
-        <div className="navbar-menu">
-          <Link to="/productos">Modelos</Link>
-          <Link to="/personalizar">Personalizar</Link>
-          <Link to="/comunidad">Comunidad</Link>
-        </div>
-
-        <div className="navbar-iconos">
-          <Link to="/login" aria-label="Iniciar sesión">
-            <UserRound />
-          </Link>
-
-          <Link to="/carrito" aria-label="Ver carrito">
-            <ShoppingCart />
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       <header className="comunidad-encabezado">
         <div className="comunidad-encabezado-contenido">

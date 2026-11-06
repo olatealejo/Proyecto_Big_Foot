@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { UserRound } from 'lucide-react'
-import logo from '../assets/Logo_BigFoot_Naranja_Header.png'
+import BrandLogo from './BrandLogo'
 import CartTrigger from './CartTrigger'
 import './Navbar.css'
 
@@ -8,9 +8,7 @@ import './Navbar.css'
 export default function Navbar() {
   return (
     <nav className="navbar" aria-label="Navegación principal">
-      <Link to="/" className="navbar-logo" aria-label="Ir al inicio">
-        <img src={logo} alt="The Big Foot" />
-      </Link>
+      <BrandLogo />
 
       <div className="navbar-menu">
         <Link to="/productos">Modelos</Link>

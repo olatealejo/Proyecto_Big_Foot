@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check, Eye, EyeOff } from 'lucide-react'
 
-import logo from '../assets/Logo_Web_transparente.png'
+import BrandLogo from '../components/BrandLogo'
 import './Signup.css'
 
 function Signup() {
@@ -27,9 +27,7 @@ function Signup() {
   return (
     <div className="signup-pagina">
       <nav className="signup-navegacion" aria-label="Navegación de registro">
-        <Link to="/" className="signup-nav-logo" aria-label="Ir al inicio">
-          <img src={logo} alt="The Big Foot" />
-        </Link>
+        <BrandLogo />
 
         <Link to="/" className="signup-volver">
           <ArrowLeft size={20} strokeWidth={1.9} />
