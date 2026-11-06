@@ -559,7 +559,39 @@
 }
 
 .contacto-pagina .footer {
-  border-top: 1px solid rgba(255, 122, 24, 0.35);
+  background-color: #050505;
+  border-top: 1px solid rgba(255, 122, 24, 0.4);
+}
+
+.contacto-pagina .footer-marca > p,
+.contacto-pagina .footer-seccion h3,
+.contacto-pagina .footer-contacto p,
+.contacto-pagina .footer-final {
+  color: #8d857c;
+}
+
+.contacto-pagina .footer-seccion a::after {
+  background-color: #ff7a18;
+}
+
+.contacto-pagina .footer-seccion a:hover,
+.contacto-pagina .footer-seccion a:focus-visible,
+.contacto-pagina .footer-contacto a:hover,
+.contacto-pagina .footer-contacto a:focus-visible {
+  color: #ff9a45;
+}
+
+.contacto-pagina .footer-contacto {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 122, 24, 0.14),
+    rgba(255, 255, 255, 0.03)
+  );
+  border-color: rgba(255, 122, 24, 0.38);
+}
+
+.contacto-pagina .footer-contacto > svg {
+  color: #ff7a18;
 }
 
 @media (max-width: 980px) {
