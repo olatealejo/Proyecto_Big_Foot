@@ -77,14 +77,24 @@ function Comunidad() {
   const manejarCambio = (evento) => {
     const { name, value } = evento.target
 
+    setErrorFormulario('')
     setFormulario((datosActuales) => ({
       ...datosActuales,
       [name]: value,
     }))
   }
 
+  const seleccionarCalificacion = (calificacion) => {
+    setErrorFormulario('')
+    setFormulario((datosActuales) => ({
+      ...datosActuales,
+      calificacion,
+    }))
+  }
+
   const cancelarPublicacion = () => {
     setFormulario(formularioInicial)
+    setErrorFormulario('')
     setMostrarFormulario(false)
   }
 
@@ -312,12 +322,7 @@ function Comunidad() {
                         }
                         aria-label={`${estrella} ${estrella === 1 ? 'estrella' : 'estrellas'}`}
                         aria-pressed={estrella === formulario.calificacion}
-                        onClick={() =>
-                          setFormulario((datosActuales) => ({
-                            ...datosActuales,
-                            calificacion: estrella,
-                          }))
-                        }
+                        onClick={() => seleccionarCalificacion(estrella)}
                       >
                         <Star size={27} strokeWidth={1.8} />
                       </button>
