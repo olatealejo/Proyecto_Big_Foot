@@ -415,12 +415,26 @@ function Comunidad() {
             </div>
 
             <div className="comunidad-categorias" aria-label="Categorías">
-              <span className="comunidad-categoria comunidad-categoria-activa">
-                Todos
-              </span>
-              <span className="comunidad-categoria">Reseñas</span>
-              <span className="comunidad-categoria">Preguntas</span>
-              <span className="comunidad-categoria">Comparaciones</span>
+              {[
+                { etiqueta: 'Todos', valor: 'Todos' },
+                { etiqueta: 'Reseñas', valor: 'Reseña' },
+                { etiqueta: 'Preguntas', valor: 'Pregunta' },
+                { etiqueta: 'Comparaciones', valor: 'Comparación' },
+              ].map((categoria) => (
+                <button
+                  key={categoria.valor}
+                  type="button"
+                  className={
+                    filtroActivo === categoria.valor
+                      ? 'comunidad-categoria comunidad-categoria-activa'
+                      : 'comunidad-categoria'
+                  }
+                  aria-pressed={filtroActivo === categoria.valor}
+                  onClick={() => setFiltroActivo(categoria.valor)}
+                >
+                  {categoria.etiqueta}
+                </button>
+              ))}
             </div>
           </div>
 
