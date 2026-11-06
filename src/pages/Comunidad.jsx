@@ -66,6 +66,7 @@ const publicacionesIniciales = [
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [formulario, setFormulario] = useState(formularioInicial)
+  const [mensajePublicacion, setMensajePublicacion] = useState('')
   const [publicacionesActuales, setPublicacionesActuales] = useState(
     publicacionesIniciales,
   )
@@ -118,6 +119,7 @@ function Comunidad() {
     setPublicacionesActuales((actuales) => [nuevaPublicacion, ...actuales])
     setFormulario(formularioInicial)
     setMostrarFormulario(false)
+    setMensajePublicacion('La publicación se agregó al comienzo del foro.')
   }
 
   return (
@@ -286,6 +288,12 @@ function Comunidad() {
               esta sesión hasta conectar la base de datos.
             </p>
           </section>
+          )}
+
+          {mensajePublicacion && (
+            <p className="comunidad-mensaje-publicacion" role="status">
+              {mensajePublicacion}
+            </p>
           )}
 
           <div className="comunidad-feed-encabezado">
