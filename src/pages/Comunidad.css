@@ -106,3 +106,251 @@
   font-size: 17px;
   line-height: 1.7;
 }
+
+.comunidad-contenido {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 64px clamp(20px, 5vw, 72px) 90px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 32px;
+
+  background-color: #090909;
+}
+
+.comunidad-feed {
+  min-width: 0;
+}
+
+.comunidad-feed-encabezado {
+  margin-bottom: 26px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.comunidad-feed h2,
+.comunidad-panel h2 {
+  margin: 0;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.comunidad-feed h2 {
+  font-size: clamp(30px, 4vw, 42px);
+}
+
+.comunidad-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.comunidad-categoria {
+  padding: 8px 12px;
+
+  color: #a9a19a;
+  font-size: 13px;
+  font-weight: 600;
+
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.comunidad-categoria-activa {
+  color: #16100b;
+  background-color: #ff7a18;
+  border-color: #ff7a18;
+}
+
+.comunidad-publicaciones {
+  display: grid;
+  gap: 14px;
+}
+
+.comunidad-publicacion {
+  padding: 24px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.comunidad-publicacion:hover {
+  background-color: #141414;
+  border-color: rgba(255, 122, 24, 0.42);
+  transform: translateY(-2px);
+}
+
+.comunidad-avatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+
+  display: grid;
+  place-items: center;
+
+  color: #101010;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  background-color: #ff7a18;
+  border-radius: 50%;
+}
+
+.comunidad-publicacion-contenido {
+  min-width: 0;
+  flex: 1;
+}
+
+.comunidad-publicacion-meta {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  color: #8f8882;
+  font-size: 12px;
+}
+
+.comunidad-publicacion-meta span:not(:last-child)::after {
+  content: "·";
+  margin-left: 7px;
+  color: #5f5a56;
+}
+
+.comunidad-publicacion-meta .comunidad-tipo {
+  padding: 3px 7px;
+
+  color: #ff9a45;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  background-color: rgba(255, 122, 24, 0.08);
+  border: 1px solid rgba(255, 122, 24, 0.25);
+  border-radius: 3px;
+}
+
+.comunidad-publicacion h3 {
+  margin: 0 0 10px;
+
+  color: #f7f4f1;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.comunidad-publicacion p {
+  margin: 0;
+
+  color: #aaa29b;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.comunidad-publicacion-datos {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  color: #87817b;
+  font-size: 12px;
+}
+
+.comunidad-publicacion-datos span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comunidad-publicacion-datos svg {
+  color: #ff8c32;
+}
+
+.comunidad-lateral {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.comunidad-panel {
+  padding: 24px;
+
+  background-color: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.comunidad-panel h2 {
+  font-size: 24px;
+}
+
+.comunidad-panel ul {
+  margin: 20px 0 0;
+  padding-left: 18px;
+
+  display: grid;
+  gap: 12px;
+
+  color: #aaa29b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.comunidad-panel li::marker {
+  color: #ff7a18;
+}
+
+.comunidad-modelos {
+  margin: 20px 0 0;
+  padding: 0;
+
+  display: grid;
+  gap: 10px;
+
+  list-style: none;
+  counter-reset: modelos;
+}
+
+.comunidad-modelos li {
+  padding: 11px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  color: #d7d1cb;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comunidad-modelos strong {
+  color: #ff8c32;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 16px;
+}
