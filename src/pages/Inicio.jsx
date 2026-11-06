@@ -1,36 +1,17 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, UserRound } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-import logo from "../assets/Logo_BigFoot_Naranja_Header.png";
 import publicidad1 from "../assets/Publicidad1.jpeg";
 import publicidad2 from "../assets/Publicidad2.png";
 import zapatillaHero from "../assets/The-Big-Foot-ChorizoParmezano1.jpeg";
 import Footer from "../components/Footer";
-import CartTrigger from "../components/CartTrigger";
+import Navbar from "../components/Navbar";
 import "./Inicio.css";
 
 function Inicio() {
   return (
     <div className="inicio">
-      <nav className="navbar" aria-label="Navegación principal">
-        <Link to="/" className="navbar-logo" aria-label="Ir al inicio">
-          <img src={logo} alt="The Big Foot" />
-        </Link>
-
-        <div className="navbar-menu">
-          <Link to="/productos">Modelos</Link>
-          <Link to="/personalizar">Personalizar</Link>
-          <Link to="/comunidad">Comunidad</Link>
-        </div>
-
-        <div className="navbar-iconos">
-          <Link to="/login" aria-label="Iniciar sesión">
-            <UserRound />
-          </Link>
-
-          <CartTrigger />
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="contenido-inicio">
         <section className="inicio-hero">

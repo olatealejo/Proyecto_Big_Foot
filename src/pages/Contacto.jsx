@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight, Crosshair, AtSign, Phone } from 'lucide-react'
-import CartTrigger from '../components/CartTrigger'
-import logo from '../assets/Logo_BigFoot_Naranja_Header.png'
+import Navbar from '../components/Navbar'
 import fotoAlejo from '../assets/contactos/alejo.webp'
 import fotoGino from '../assets/contactos/gino.webp'
 import fotoB1Plus from '../assets/contactos/b1plus.webp'
@@ -40,16 +39,7 @@ const contactos = [
 function Contacto() {
   return (
     <div className="contacto-pagina">
-      <nav className="contacto-nav" aria-label="Navegación de contacto">
-        <Link className="contacto-nav-logo" to="/" aria-label="Volver al inicio de The Big Foot">
-          <img src={logo} alt="The Big Foot" />
-        </Link>
-        <div className="contacto-nav-enlaces">
-          <Link to="/productos">MODELOS</Link>
-          <Link to="/contacto" aria-current="page">CONTACTO</Link>
-        </div>
-        <div className="contacto-nav-carrito"><CartTrigger /></div>
-      </nav>
+      <Navbar />
 
       <main className="contacto-contenido">
         <header className="contacto-hero">
