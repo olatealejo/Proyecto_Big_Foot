@@ -705,3 +705,69 @@
   line-height: 1.5;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* Campos del formulario */
+.comunidad-formulario {
+  display: grid;
+  gap: 18px;
+}
+
+.comunidad-formulario-fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.comunidad-formulario label {
+  display: grid;
+  gap: 8px;
+
+  color: #d9d3ce;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.comunidad-formulario input,
+.comunidad-formulario select,
+.comunidad-formulario textarea {
+  width: 100%;
+  padding: 12px 13px;
+
+  color: #f5f2ef;
+  font: inherit;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+
+  background-color: #090909;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.comunidad-formulario textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.comunidad-formulario input::placeholder,
+.comunidad-formulario textarea::placeholder {
+  color: #706a65;
+}
+
+.comunidad-formulario input:focus,
+.comunidad-formulario select:focus,
+.comunidad-formulario textarea:focus {
+  border-color: #ff7a18;
+  box-shadow: 0 0 0 3px rgba(255, 122, 24, 0.12);
+}
