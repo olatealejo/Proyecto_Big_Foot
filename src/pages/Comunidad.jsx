@@ -79,6 +79,11 @@ function Comunidad() {
     }))
   }
 
+  const cancelarPublicacion = () => {
+    setFormulario(formularioInicial)
+    setMostrarFormulario(false)
+  }
+
   const manejarPublicacion = (evento) => {
     evento.preventDefault()
 
@@ -265,7 +270,7 @@ function Comunidad() {
                   <button
                     type="button"
                     className="comunidad-boton-secundario"
-                    onClick={() => setMostrarFormulario(false)}
+                    onClick={cancelarPublicacion}
                   >
                     Cancelar
                   </button>
