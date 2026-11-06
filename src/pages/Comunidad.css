@@ -221,12 +221,25 @@
   padding: 8px 12px;
 
   color: #a9a19a;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 600;
 
   background-color: #111111;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.comunidad-categoria:hover,
+.comunidad-categoria:focus-visible {
+  color: #ffffff;
+  border-color: rgba(255, 122, 24, 0.5);
 }
 
 .comunidad-categoria-activa {
