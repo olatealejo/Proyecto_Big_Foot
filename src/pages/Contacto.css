@@ -60,7 +60,7 @@
   font-family: "Oswald", Impact, sans-serif;
   font-size: clamp(62px, 8.4vw, 118px);
   font-weight: 600;
-  line-height: 0.92;
+  line-height: 1.02;
   text-transform: uppercase;
   letter-spacing: -2px;
 }
