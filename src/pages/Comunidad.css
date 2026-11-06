@@ -771,3 +771,65 @@
   border-color: #ff7a18;
   box-shadow: 0 0 0 3px rgba(255, 122, 24, 0.12);
 }
+
+/* Acciones del formulario */
+.comunidad-formulario-final {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.comunidad-contador {
+  color: #817a74;
+  font-size: 12px;
+}
+
+.comunidad-formulario-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comunidad-boton-secundario,
+.comunidad-boton-publicar {
+  min-height: 41px;
+  padding: 0 17px;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.comunidad-boton-secundario {
+  color: #c6bfb9;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.comunidad-boton-secundario:hover,
+.comunidad-boton-secundario:focus-visible {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.comunidad-boton-publicar {
+  color: #15100b;
+  background-color: #ff7a18;
+  border: 1px solid #ff7a18;
+}
+
+.comunidad-boton-publicar:hover,
+.comunidad-boton-publicar:focus-visible {
+  background-color: #ff9748;
+  border-color: #ff9748;
+}
