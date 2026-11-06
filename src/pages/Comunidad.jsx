@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   MessageCircle,
@@ -12,6 +12,7 @@ import {
 import logo from '../assets/Logo_Web_transparente.png'
 import Footer from '../components/Footer'
 import './Comunidad.css'
+import { obtenerPublicaciones } from '../services/publicacionesService'
 
 const formularioInicial = {
   usuario: '',
@@ -23,47 +24,40 @@ const formularioInicial = {
   resumen: '',
 }
 
-const publicacionesIniciales = [
-  {
-    id: 1,
-    iniciales: 'AO',
-    usuario: 'Alejo',
-    modelo: 'Rayo Anaranjado',
-    tipo: 'Pregunta',
-    titulo: '¿Cómo responde este modelo en cancha exterior?',
-    resumen:
-      'Estoy buscando una zapatilla con buena tracción para cemento. ¿Alguien ya la probó durante varias semanas?',
-    votos: 24,
-    comentarios: 12,
-    calificacion: '4.8',
-  },
-  {
-    id: 2,
-    iniciales: 'GF',
-    usuario: 'Gino',
-    modelo: 'Chorizo Parmesano',
-    tipo: 'Reseña',
-    titulo: 'Cómodas desde el primer entrenamiento',
-    resumen:
-      'La amortiguación se siente firme y el ajuste del talón es muy bueno. El diseño llama bastante la atención.',
-    votos: 18,
-    comentarios: 7,
-    calificacion: '4.5',
-  },
-  {
-    id: 3,
-    iniciales: 'LV',
-    usuario: 'Lourdes',
-    modelo: 'Rayo Anaranjado',
-    tipo: 'Comparación',
-    titulo: 'Rayo Anaranjado frente a Chorizo Parmesano',
-    resumen:
-      'Los dos modelos tienen personalidades distintas. Comparto las diferencias que noté en comodidad y agarre.',
-    votos: 15,
-    comentarios: 9,
-    calificacion: '4.6',
-  },
-]
+const nombresTipo = {
+  resena: 'Reseña',
+  pregunta: 'Pregunta',
+  comparacion: 'Comparación',
+}
+
+function adaptarPublicacion(documento) {
+  const usuario = documento.autor || 'Usuario'
+  const tipo = nombresTipo[documento.tipo] || documento.tipo || 'Pregunta'
+
+  const iniciales = usuario
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((parte) => parte[0])
+    .join('')
+    .toUpperCase()
+
+  return {
+    id: documento.id,
+    iniciales,
+    usuario,
+    modelo:
+      tipo === 'Comparación'
+        ? `${documento.modelo} vs. ${documento.modeloComparado}`
+        : documento.modelo,
+    tipo,
+    titulo: documento.titulo,
+    resumen: documento.contenido,
+    votos: documento.votos || 0,
+    comentarios: documento.comentarios || 0,
+    calificacion:
+      tipo === 'Reseña' ? String(documento.calificacion || 0) : '—',
+  }
+}
 
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
@@ -71,9 +65,40 @@ function Comunidad() {
   const [formulario, setFormulario] = useState(formularioInicial)
   const [mensajePublicacion, setMensajePublicacion] = useState('')
   const [errorFormulario, setErrorFormulario] = useState('')
-  const [publicacionesActuales, setPublicacionesActuales] = useState(
-    publicacionesIniciales,
-  )
+  const [publicacionesActuales, setPublicacionesActuales] = useState([])
+  const [cargandoPublicaciones, setCargandoPublicaciones] = useState(true)
+  const [errorCarga, setErrorCarga] = useState('')
+
+  useEffect(() => {
+  let componenteActivo = true
+
+  async function cargarPublicaciones() {
+    try {
+      const documentos = await obtenerPublicaciones()
+      const publicacionesAdaptadas = documentos.map(adaptarPublicacion)
+
+      if (componenteActivo) {
+        setPublicacionesActuales(publicacionesAdaptadas)
+      }
+    } catch (error) {
+      console.error(error)
+
+      if (componenteActivo) {
+        setErrorCarga('No se pudieron cargar las publicaciones.')
+      }
+    } finally {
+      if (componenteActivo) {
+        setCargandoPublicaciones(false)
+      }
+    }
+  }
+
+  cargarPublicaciones()
+
+  return () => {
+    componenteActivo = false
+  }
+}, [])
 
   const manejarCambio = (evento) => {
     const { name, value } = evento.target
@@ -446,7 +471,20 @@ function Comunidad() {
           </div>
 
           <div className="comunidad-publicaciones" aria-live="polite">
-            {publicacionesFiltradas.length === 0 && (
+            {cargandoPublicaciones && (
+  <p className="comunidad-sin-resultados">
+    Cargando publicaciones...
+  </p>
+)}
+
+{errorCarga && (
+  <p className="comunidad-error-formulario" role="alert">
+    {errorCarga}
+  </p>
+)}
+            {!cargandoPublicaciones &&
+  !errorCarga &&
+  publicacionesFiltradas.length === 0 && (
               <p className="comunidad-sin-resultados">
                 Todavía no hay publicaciones en esta categoría.
               </p>
