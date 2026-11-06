@@ -106,6 +106,96 @@ function Comunidad() {
             </button>
           </section>
 
+          <section
+            className="comunidad-formulario-panel"
+            aria-labelledby="titulo-nueva-publicacion"
+          >
+            <div className="comunidad-formulario-encabezado">
+              <div>
+                <p className="comunidad-etiqueta">Nueva conversación</p>
+                <h2 id="titulo-nueva-publicacion">Agregar publicación</h2>
+              </div>
+              <p>Todos los campos son necesarios para publicar.</p>
+            </div>
+
+            <form
+              className="comunidad-formulario"
+              onSubmit={(evento) => evento.preventDefault()}
+            >
+              <div className="comunidad-formulario-fila">
+                <label>
+                  Nombre
+                  <input
+                    type="text"
+                    name="usuario"
+                    maxLength="30"
+                    placeholder="Tu nombre"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Tipo de publicación
+                  <select name="tipo">
+                    <option value="Reseña">Reseña</option>
+                    <option value="Pregunta">Pregunta</option>
+                    <option value="Comparación">Comparación</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Modelo
+                <select name="modelo">
+                  <option value="Chorizo Parmesano">Chorizo Parmesano</option>
+                  <option value="Molino 1">Molino 1</option>
+                  <option value="Molino 2">Molino 2</option>
+                  <option value="Otro modelo">Otro modelo</option>
+                </select>
+              </label>
+
+              <label>
+                Título
+                <input
+                  type="text"
+                  name="titulo"
+                  maxLength="90"
+                  placeholder="Escribí un título claro"
+                  required
+                />
+              </label>
+
+              <label>
+                Contenido
+                <textarea
+                  name="resumen"
+                  rows="6"
+                  maxLength="600"
+                  placeholder="Contá tu experiencia o escribí tu pregunta"
+                  required
+                />
+              </label>
+
+              <div className="comunidad-formulario-final">
+                <span className="comunidad-contador">0 / 600</span>
+
+                <div className="comunidad-formulario-acciones">
+                  <button type="button" className="comunidad-boton-secundario">
+                    Cancelar
+                  </button>
+                  <button type="submit" className="comunidad-boton-publicar">
+                    Publicar
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <p className="comunidad-aviso-temporal">
+              Versión de prueba: la publicación se conservará solamente durante
+              esta sesión hasta conectar la base de datos.
+            </p>
+          </section>
+
           <div className="comunidad-feed-encabezado">
             <div>
               <p className="comunidad-etiqueta">Foro</p>
