@@ -115,7 +115,7 @@ export default function CartDrawer() {
                 <strong>SUBTOTAL</strong>
                 <strong aria-live="polite">{formatoPrecio(subtotal)}</strong>
               </div>
-              <p>Envío y descuentos se calculan en el siguiente paso.</p>
+              <p>Subtotal sin gastos de envío ni descuentos. El pago online aún no está habilitado.</p>
               <button type="button" disabled title="El pago online no está habilitado">
                 FINALIZAR COMPRA · PRÓXIMAMENTE
               </button>

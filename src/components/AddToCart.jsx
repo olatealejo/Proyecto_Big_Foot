@@ -6,11 +6,14 @@ import { useCart } from '../cart/useCart'
 export default function AddToCart({ sku }) {
   const [talle, setTalle] = useState(null)
   const [agregado, setAgregado] = useState(false)
-  const { agregarProducto } = useCart()
+  const { items, maxCantidad, agregarProducto } = useCart()
+  const producto = PRODUCTOS[sku]
+  const cantidadActual = items.find((item) => item.sku === sku && item.talle === talle)?.cantidad || 0
+  const llegoAlLimite = talle !== null && cantidadActual >= maxCantidad
 
   function agregar() {
-    if (talle === null) return
-    if (agregarProducto(sku, talle)) setAgregado(true)
+    if (!producto || !producto.permiteTalle(talle) || llegoAlLimite) return
+    setAgregado(agregarProducto(sku, talle))
   }
 
   return (
@@ -31,13 +34,21 @@ export default function AddToCart({ sku }) {
           ))}
         </div>
         {talle === null && <p className="detalle-ayuda">Elegí un talle para continuar.</p>}
+        {llegoAlLimite && (
+          <p className="detalle-ayuda" role="status">
+            Llegaste al máximo de {maxCantidad} unidades por modelo y talle en el carrito.
+            Este límite es técnico y no representa disponibilidad de stock.
+          </p>
+        )}
       </div>
-      <button type="button" className="detalle-agregar" disabled={talle === null} onClick={agregar}>
+      <button type="button" className="detalle-agregar"
+        disabled={talle === null || llegoAlLimite}
+        onClick={agregar}>
         {agregado ? <><Check size={19} /> Agregar otra unidad</> : 'Agregar al carrito'}
       </button>
       {agregado && (
         <p className="detalle-confirmacion" role="status">
-          {PRODUCTOS[sku].nombre} · Talle {talle} agregado al carrito.
+          {producto.nombre} · Talle {talle} agregado al carrito.
         </p>
       )}
     </>
