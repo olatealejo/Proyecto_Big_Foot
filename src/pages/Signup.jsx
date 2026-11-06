@@ -1,18 +1,27 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check, Eye, EyeOff } from 'lucide-react'
 
 import BrandLogo from '../components/BrandLogo'
+import {
+  obtenerMensajeErrorAuth,
+  registrarUsuario,
+} from '../services/authService'
 import './Signup.css'
 
 function Signup() {
+  const navigate = useNavigate()
   const [errorContrasena, setErrorContrasena] = useState('')
+  const [errorRegistro, setErrorRegistro] = useState('')
   const [mostrarContrasena, setMostrarContrasena] = useState(false)
+  const [registrando, setRegistrando] = useState(false)
 
-  function manejarRegistro(evento) {
+  async function manejarRegistro(evento) {
     evento.preventDefault()
 
     const datos = new FormData(evento.currentTarget)
+    const nombre = datos.get('nombre').trim()
+    const correo = datos.get('correo').trim()
     const contrasena = datos.get('contrasena')
     const confirmarContrasena = datos.get('confirmarContrasena')
 
@@ -21,7 +30,23 @@ function Signup() {
       return
     }
 
-    setErrorContrasena('')
+    try {
+      setRegistrando(true)
+      setErrorContrasena('')
+      setErrorRegistro('')
+
+      await registrarUsuario({
+        nombre,
+        correo,
+        contrasena,
+      })
+
+      navigate('/comunidad')
+    } catch (error) {
+      setErrorRegistro(obtenerMensajeErrorAuth(error))
+    } finally {
+      setRegistrando(false)
+    }
   }
 
   return (
@@ -191,8 +216,18 @@ function Signup() {
                 </span>
               </label>
 
-              <button type="submit" className="signup-boton">
-                Crear cuenta
+              {errorRegistro && (
+                <p className="signup-error" role="alert">
+                  {errorRegistro}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="signup-boton"
+                disabled={registrando}
+              >
+                {registrando ? 'Creando cuenta...' : 'Crear cuenta'}
                 <ArrowRight size={19} strokeWidth={2} />
               </button>
             </form>

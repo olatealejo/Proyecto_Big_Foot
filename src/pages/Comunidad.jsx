@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import {
   MessageCircle,
   Plus,
@@ -10,6 +9,10 @@ import {
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import './Comunidad.css'
+import {
+  crearPublicacion,
+  obtenerPublicaciones,
+} from '../services/publicacionesService'
 
 const formularioInicial = {
   usuario: '',
@@ -21,47 +24,40 @@ const formularioInicial = {
   resumen: '',
 }
 
-const publicacionesIniciales = [
-  {
-    id: 1,
-    iniciales: 'AO',
-    usuario: 'Alejo',
-    modelo: 'Rayo Anaranjado',
-    tipo: 'Pregunta',
-    titulo: '¿Cómo responde este modelo en cancha exterior?',
-    resumen:
-      'Estoy buscando una zapatilla con buena tracción para cemento. ¿Alguien ya la probó durante varias semanas?',
-    votos: 24,
-    comentarios: 12,
-    calificacion: '4.8',
-  },
-  {
-    id: 2,
-    iniciales: 'GF',
-    usuario: 'Gino',
-    modelo: 'Chorizo Parmesano',
-    tipo: 'Reseña',
-    titulo: 'Cómodas desde el primer entrenamiento',
-    resumen:
-      'La amortiguación se siente firme y el ajuste del talón es muy bueno. El diseño llama bastante la atención.',
-    votos: 18,
-    comentarios: 7,
-    calificacion: '4.5',
-  },
-  {
-    id: 3,
-    iniciales: 'LV',
-    usuario: 'Lourdes',
-    modelo: 'Rayo Anaranjado',
-    tipo: 'Comparación',
-    titulo: 'Rayo Anaranjado frente a Chorizo Parmesano',
-    resumen:
-      'Los dos modelos tienen personalidades distintas. Comparto las diferencias que noté en comodidad y agarre.',
-    votos: 15,
-    comentarios: 9,
-    calificacion: '4.6',
-  },
-]
+const nombresTipo = {
+  resena: 'Reseña',
+  pregunta: 'Pregunta',
+  comparacion: 'Comparación',
+}
+
+function adaptarPublicacion(documento) {
+  const usuario = documento.autor || 'Usuario'
+  const tipo = nombresTipo[documento.tipo] || documento.tipo || 'Pregunta'
+
+  const iniciales = usuario
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((parte) => parte[0])
+    .join('')
+    .toUpperCase()
+
+  return {
+    id: documento.id,
+    iniciales,
+    usuario,
+    modelo:
+      tipo === 'Comparación'
+        ? `${documento.modelo} vs. ${documento.modeloComparado}`
+        : documento.modelo,
+    tipo,
+    titulo: documento.titulo,
+    resumen: documento.contenido,
+    votos: documento.votos || 0,
+    comentarios: documento.comentarios || 0,
+    calificacion:
+      tipo === 'Reseña' ? String(documento.calificacion || 0) : '—',
+  }
+}
 
 function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
@@ -69,9 +65,41 @@ function Comunidad() {
   const [formulario, setFormulario] = useState(formularioInicial)
   const [mensajePublicacion, setMensajePublicacion] = useState('')
   const [errorFormulario, setErrorFormulario] = useState('')
-  const [publicacionesActuales, setPublicacionesActuales] = useState(
-    publicacionesIniciales,
-  )
+  const [publicacionesActuales, setPublicacionesActuales] = useState([])
+  const [cargandoPublicaciones, setCargandoPublicaciones] = useState(true)
+  const [errorCarga, setErrorCarga] = useState('')
+  const [publicando, setPublicando] = useState(false)
+
+  useEffect(() => {
+  let componenteActivo = true
+
+  async function cargarPublicaciones() {
+    try {
+      const documentos = await obtenerPublicaciones()
+      const publicacionesAdaptadas = documentos.map(adaptarPublicacion)
+
+      if (componenteActivo) {
+        setPublicacionesActuales(publicacionesAdaptadas)
+      }
+    } catch (error) {
+      console.error(error)
+
+      if (componenteActivo) {
+        setErrorCarga('No se pudieron cargar las publicaciones.')
+      }
+    } finally {
+      if (componenteActivo) {
+        setCargandoPublicaciones(false)
+      }
+    }
+  }
+
+  cargarPublicaciones()
+
+  return () => {
+    componenteActivo = false
+  }
+}, [])
 
   const manejarCambio = (evento) => {
     const { name, value } = evento.target
@@ -98,7 +126,7 @@ function Comunidad() {
     setMostrarFormulario(false)
   }
 
-  const manejarPublicacion = (evento) => {
+  const manejarPublicacion = async (evento) => {
     evento.preventDefault()
 
     const usuario = formulario.usuario.trim()
@@ -106,6 +134,7 @@ function Comunidad() {
     const resumen = formulario.resumen.trim()
 
     if (!usuario || !titulo || !resumen) {
+      setErrorFormulario('Completá todos los campos obligatorios.')
       return
     }
 
@@ -122,38 +151,52 @@ function Comunidad() {
       return
     }
 
-    setErrorFormulario('')
-
-    const iniciales = usuario
-      .split(/\s+/)
-      .slice(0, 2)
-      .map((parte) => parte[0])
-      .join('')
-      .toUpperCase()
-
-    const nuevaPublicacion = {
-      id: Date.now(),
-      iniciales,
-      usuario,
-      modelo:
-        formulario.tipo === 'Comparación'
-          ? `${formulario.modelo} vs. ${formulario.modeloSecundario}`
-          : formulario.modelo,
-      tipo: formulario.tipo,
-      titulo,
-      resumen,
-      votos: 0,
-      comentarios: 0,
-      calificacion:
-        formulario.tipo === 'Reseña'
-          ? String(formulario.calificacion)
-          : '—',
+    const tiposFirebase = {
+      Reseña: 'resena',
+      Pregunta: 'pregunta',
+      Comparación: 'comparacion',
     }
 
-    setPublicacionesActuales((actuales) => [nuevaPublicacion, ...actuales])
-    setFormulario(formularioInicial)
-    setMostrarFormulario(false)
-    setMensajePublicacion('La publicación se agregó al comienzo del foro.')
+    const datosPublicacion = {
+      autor: usuario,
+      autorId: null,
+      tipo: tiposFirebase[formulario.tipo],
+      modelo: formulario.modelo,
+      modeloComparado:
+        formulario.tipo === 'Comparación'
+          ? formulario.modeloSecundario
+          : null,
+      calificacion:
+        formulario.tipo === 'Reseña'
+          ? Number(formulario.calificacion)
+          : null,
+      titulo,
+      contenido: resumen,
+    }
+
+    try {
+      setPublicando(true)
+      setErrorFormulario('')
+      setMensajePublicacion('')
+
+      const documentoCreado = await crearPublicacion(datosPublicacion)
+      const publicacionAdaptada = adaptarPublicacion(documentoCreado)
+
+      setPublicacionesActuales((actuales) => [
+        publicacionAdaptada,
+        ...actuales,
+      ])
+      setFormulario(formularioInicial)
+      setMostrarFormulario(false)
+      setMensajePublicacion('La publicación se guardó correctamente.')
+    } catch (error) {
+      console.error('Error al publicar:', error)
+      setErrorFormulario(
+        'No se pudo guardar la publicación en Firebase.',
+      )
+    } finally {
+      setPublicando(false)
+    }
   }
 
   const publicacionesFiltradas =
@@ -373,17 +416,17 @@ function Comunidad() {
                   >
                     Cancelar
                   </button>
-                  <button type="submit" className="comunidad-boton-publicar">
-                    Publicar
+                  <button
+                    type="submit"
+                    className="comunidad-boton-publicar"
+                    disabled={publicando}
+                  >
+                    {publicando ? 'Publicando...' : 'Publicar'}
                   </button>
                 </div>
               </div>
             </form>
 
-            <p className="comunidad-aviso-temporal">
-              Versión de prueba: la publicación se conservará solamente durante
-              esta sesión hasta conectar la base de datos.
-            </p>
           </section>
           )}
 
@@ -424,7 +467,20 @@ function Comunidad() {
           </div>
 
           <div className="comunidad-publicaciones" aria-live="polite">
-            {publicacionesFiltradas.length === 0 && (
+            {cargandoPublicaciones && (
+  <p className="comunidad-sin-resultados">
+    Cargando publicaciones...
+  </p>
+)}
+
+{errorCarga && (
+  <p className="comunidad-error-formulario" role="alert">
+    {errorCarga}
+  </p>
+)}
+            {!cargandoPublicaciones &&
+  !errorCarga &&
+  publicacionesFiltradas.length === 0 && (
               <p className="comunidad-sin-resultados">
                 Todavía no hay publicaciones en esta categoría.
               </p>
