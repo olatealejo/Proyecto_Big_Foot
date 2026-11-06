@@ -1,11 +1,44 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import logo from '../assets/Logo_Web_transparente.png'
 import loginGif from '../assets/video-login.gif'
+import {
+  iniciarSesion,
+  obtenerMensajeErrorAuth,
+} from '../services/authService'
 import './Login.css'
 
 function Login() {
+  const navigate = useNavigate()
+  const [errorIngreso, setErrorIngreso] = useState('')
+  const [ingresando, setIngresando] = useState(false)
+
+  async function manejarIngreso(evento) {
+    evento.preventDefault()
+
+    const datos = new FormData(evento.currentTarget)
+    const correo = datos.get('correo').trim()
+    const contrasena = datos.get('contrasena')
+
+    try {
+      setIngresando(true)
+      setErrorIngreso('')
+
+      await iniciarSesion({
+        correo,
+        contrasena,
+      })
+
+      navigate('/comunidad')
+    } catch (error) {
+      setErrorIngreso(obtenerMensajeErrorAuth(error))
+    } finally {
+      setIngresando(false)
+    }
+  }
+
   return (
     <div className="login-pagina">
       <nav className="login-navegacion" aria-label="Navegación de acceso">
@@ -45,7 +78,7 @@ function Login() {
               dejando tu huella.
             </p>
 
-            <form>
+            <form onSubmit={manejarIngreso}>
               <div className="login-campo">
                 <label htmlFor="correo">Correo electrónico</label>
                 <input
@@ -54,6 +87,7 @@ function Login() {
                   type="email"
                   placeholder="correo@ejemplo.com"
                   autoComplete="email"
+                  required
                 />
               </div>
 
@@ -65,11 +99,22 @@ function Login() {
                   type="password"
                   placeholder="Ingresá tu contraseña"
                   autoComplete="current-password"
+                  required
                 />
               </div>
 
-              <button type="button" className="login-boton">
-                Ingresar
+              {errorIngreso && (
+                <p className="login-error" role="alert">
+                  {errorIngreso}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="login-boton"
+                disabled={ingresando}
+              >
+                {ingresando ? 'Ingresando...' : 'Ingresar'}
                 <ArrowRight size={19} strokeWidth={2} />
               </button>
             </form>
