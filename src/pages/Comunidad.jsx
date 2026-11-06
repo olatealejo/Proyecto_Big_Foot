@@ -17,6 +17,8 @@ const formularioInicial = {
   usuario: '',
   tipo: 'Reseña',
   modelo: 'Chorizo Parmesano',
+  modeloSecundario: 'Molino 1',
+  calificacion: 0,
   titulo: '',
   resumen: '',
 }
