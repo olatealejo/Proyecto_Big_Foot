@@ -589,3 +589,69 @@
   color: #ff9a45;
 }
 
+/* Acceso para crear publicaciones */
+.comunidad-compositor {
+  margin-bottom: 34px;
+  padding: 20px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #ff7a18;
+  border-radius: 8px;
+}
+
+.comunidad-compositor-titulo {
+  margin: 0 0 5px;
+
+  color: #f7f4f1;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.comunidad-compositor-texto {
+  margin: 0;
+  color: #9e9690;
+  font-size: 13px;
+}
+
+.comunidad-crear-boton {
+  min-height: 42px;
+  padding: 0 17px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 0 0 auto;
+
+  color: #15100b;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+
+  background-color: #ff7a18;
+  border: 1px solid #ff7a18;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.comunidad-crear-boton:hover,
+.comunidad-crear-boton:focus-visible {
+  background-color: #ff9748;
+  border-color: #ff9748;
+  transform: translateY(-1px);
+}
