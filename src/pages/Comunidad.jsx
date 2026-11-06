@@ -69,6 +69,7 @@ function Comunidad() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
   const [formulario, setFormulario] = useState(formularioInicial)
   const [mensajePublicacion, setMensajePublicacion] = useState('')
+  const [errorFormulario, setErrorFormulario] = useState('')
   const [publicacionesActuales, setPublicacionesActuales] = useState(
     publicacionesIniciales,
   )
@@ -97,6 +98,21 @@ function Comunidad() {
     if (!usuario || !titulo || !resumen) {
       return
     }
+
+    if (formulario.tipo === 'Reseña' && formulario.calificacion === 0) {
+      setErrorFormulario('Elegí una calificación de 1 a 5 estrellas.')
+      return
+    }
+
+    if (
+      formulario.tipo === 'Comparación' &&
+      formulario.modelo === formulario.modeloSecundario
+    ) {
+      setErrorFormulario('Elegí dos modelos diferentes para comparar.')
+      return
+    }
+
+    setErrorFormulario('')
 
     const iniciales = usuario
       .split(/\s+/)
@@ -335,6 +351,12 @@ function Comunidad() {
                   required
                 />
               </label>
+
+              {errorFormulario && (
+                <p className="comunidad-error-formulario" role="alert">
+                  {errorFormulario}
+                </p>
+              )}
 
               <div className="comunidad-formulario-final">
                 <span className="comunidad-contador">
