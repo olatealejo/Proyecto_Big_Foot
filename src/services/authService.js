@@ -2,9 +2,28 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
 } from 'firebase/auth'
 
-import { auth } from './firebase'
+import { auth, googleProvider } from './firebase'
+
+export async function iniciarSesionConGoogle() {
+  const result = await signInWithPopup(auth, googleProvider);
+  const idToken = await result.user.getIdToken();
+
+  // Envía el token a tu backend de Node.js
+  const respuesta = await fetch("http://localhost:5000/api/ruta-protegida", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${idToken}`
+    }
+  });
+
+  
+  if (!respuesta.ok) throw new Error("Error de validación en el servidor");
+  return await respuesta.json();
+}
 
 export async function registrarUsuario({
   nombre,

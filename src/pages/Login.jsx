@@ -6,6 +6,7 @@ import BrandLogo from '../components/BrandLogo'
 import loginGif from '../assets/video-login.gif'
 import {
   iniciarSesion,
+  iniciarSesionConGoogle, // <-- Importado
   obtenerMensajeErrorAuth,
 } from '../services/authService'
 import './Login.css'
@@ -30,6 +31,22 @@ function Login() {
         correo,
         contrasena,
       })
+
+      navigate('/comunidad')
+    } catch (error) {
+      setErrorIngreso(obtenerMensajeErrorAuth(error))
+    } finally {
+      setIngresando(false)
+    }
+  }
+
+  // Manejador para iniciar sesión con Google
+  async function manejarIngresoGoogle() {
+    try {
+      setIngresando(true)
+      setErrorIngreso('')
+
+      await iniciarSesionConGoogle()
 
       navigate('/comunidad')
     } catch (error) {
@@ -116,6 +133,29 @@ function Login() {
                 <ArrowRight size={19} strokeWidth={2} />
               </button>
             </form>
+
+            {/* Separador y botón de inicio de sesión con Google */}
+            <div className="login-separador" style={{ margin: '1.5rem 0', textAlign: 'center', color: '#666' }}>
+              <span>o bien</span>
+            </div>
+
+            <button
+              type="button"
+              className="login-boton"
+              onClick={manejarIngresoGoogle}
+              disabled={ingresando}
+              style={{
+                backgroundColor: '#fff',
+                color: '#000',
+                border: '1px solid #ccc',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px'
+              }}
+            >
+              {ingresando ? 'Ingresando...' : 'Ingresar con Google'}
+            </button>
 
             <div className="login-registro">
               <span>¿No tenés una cuenta?</span>
