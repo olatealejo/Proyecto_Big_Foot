@@ -12,6 +12,7 @@ import { auth } from '../services/firebase'
 import { obtenerOCrearPerfil } from '../services/usuariosService'
 
 const AuthContext = createContext(null)
+const CORREO_ADMIN = 'alejoolate83@gmail.com'
 
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null)
@@ -59,17 +60,22 @@ export function AuthProvider({ children }) {
     }))
   }, [])
 
+  const esAdmin =
+    perfil?.rol === 'admin'
+    && usuario?.email?.trim().toLowerCase() === CORREO_ADMIN
+
   const valor = useMemo(
     () => ({
       usuario,
       perfil,
-      esAdmin: perfil?.rol === 'admin',
+      esAdmin,
       cargando,
       actualizarPerfilLocal,
     }),
     [
       usuario,
       perfil,
+      esAdmin,
       cargando,
       actualizarPerfilLocal,
     ],
