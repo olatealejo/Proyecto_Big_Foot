@@ -574,12 +574,109 @@
   outline-offset: 2px;
 }
 
+.admin-productos-subseccion {
+  margin: 0;
+  padding: 0 0 24px;
+
+  display: grid;
+  gap: 17px;
+
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
+}
+
+.admin-productos-subseccion:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.admin-productos-subseccion h4,
+.admin-productos-subseccion legend {
+  margin: 0;
+
+  color: #f4efeb;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.admin-productos-subseccion legend {
+  margin-bottom: 14px;
+}
+
+.admin-productos-talles > div {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(44px, 1fr));
+  gap: 8px;
+}
+
+.admin-productos-talle {
+  min-height: 42px;
+  padding: 6px;
+
+  color: #9e9690;
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.admin-productos-talle:hover,
+.admin-productos-talle:focus-visible,
+.admin-productos-talle-activo {
+  color: #150d07;
+  background-color: #ff7a18;
+  border-color: #ff7a18;
+}
+
+.admin-productos-galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-productos-imagen-campo {
+  padding: 14px;
+
+  display: grid;
+  gap: 11px;
+
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 5px;
+}
+
+.admin-productos-imagen-campo > strong {
+  color: #ff9d52;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.admin-productos-imagen-campo label {
+  font-size: 10px;
+}
+
+.admin-productos-imagen-campo input {
+  min-height: 40px;
+  font-size: 12px;
+}
+
+.admin-productos-preview {
+  position: sticky;
+  top: 22px;
+  align-self: start;
+}
+
 @media (max-width: 980px) {
   .admin-productos-formulario-contenido {
     grid-template-columns: 1fr;
   }
 
   .admin-productos-preview {
+    position: static;
     min-height: 250px;
   }
 
@@ -622,8 +719,13 @@
     grid-template-columns: 1fr;
   }
 
-  .admin-productos-grid {
+  .admin-productos-grid,
+  .admin-productos-galeria-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-productos-talles > div {
+    grid-template-columns: repeat(4, minmax(44px, 1fr));
   }
 
   .admin-productos-fila {
