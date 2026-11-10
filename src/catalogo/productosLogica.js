@@ -112,11 +112,13 @@ function normalizarImagenes(imagenes) {
 }
 
 function normalizarTalles(talles) {
-  const normalizados = Array.isArray(talles)
-    ? [...new Set(talles.map(Number))]
-        .filter((talle) => TALLES.includes(talle))
-        .sort((a, b) => a - b)
-    : []
+  if (!Array.isArray(talles)) {
+    return [...TALLES]
+  }
+
+  const normalizados = [...new Set(talles.map(Number))]
+    .filter((talle) => TALLES.includes(talle))
+    .sort((a, b) => a - b)
 
   if (normalizados.length === 0) {
     throw new Error('Seleccioná al menos un talle disponible.')
@@ -172,6 +174,16 @@ export function validarFormularioProducto(
     imagenes[0]?.url
     || String(datos.imagenUrl || '').trim()
   const talles = normalizarTalles(datos.talles)
+
+  if (
+    imagenUrl
+    && (
+      imagenUrl.length > 2048
+      || !/^https:\/\/[^\s]+$/i.test(imagenUrl)
+    )
+  ) {
+    throw new Error('Usá una URL de imagen HTTPS válida.')
+  }
 
   if (
     !Number.isSafeInteger(precio)
