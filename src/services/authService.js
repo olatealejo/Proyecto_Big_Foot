@@ -8,21 +8,9 @@ import {
 import { auth, googleProvider } from './firebase'
 
 export async function iniciarSesionConGoogle() {
-  const result = await signInWithPopup(auth, googleProvider);
-  const idToken = await result.user.getIdToken();
+  const credencial = await signInWithPopup(auth, googleProvider)
 
-  // Envía el token a tu backend de Node.js
-  const respuesta = await fetch("http://localhost:5000/api/ruta-protegida", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${idToken}`
-    }
-  });
-
-  
-  if (!respuesta.ok) throw new Error("Error de validación en el servidor");
-  return await respuesta.json();
+  return credencial.user
 }
 
 export async function registrarUsuario({
@@ -69,6 +57,16 @@ export function obtenerMensajeErrorAuth(error) {
       'Se realizaron demasiados intentos. Probá nuevamente más tarde.',
     'auth/network-request-failed':
       'No se pudo conectar con Firebase. Revisá la conexión a Internet.',
+    'auth/popup-closed-by-user':
+      'Se cerró la ventana de Google antes de completar el ingreso.',
+    'auth/popup-blocked':
+      'El navegador bloqueó la ventana de Google. Habilitá las ventanas emergentes.',
+    'auth/cancelled-popup-request':
+      'Se canceló el intento anterior. Volvé a intentarlo.',
+    'auth/account-exists-with-different-credential':
+      'Ya existe una cuenta con ese correo y otro método de ingreso.',
+    'auth/unauthorized-domain':
+      'Este dominio no está autorizado en Firebase Authentication.',
   }
 
   return (
