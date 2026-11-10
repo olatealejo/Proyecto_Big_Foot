@@ -735,7 +735,7 @@ export default function PanelAdminProductos() {
       )}
       {errorCatalogo && (
         <p className="admin-productos-error" role="alert">
-          {errorCatalogo}
+          {errorCatalogo} El editor permanece habilitado.
         </p>
       )}
       {mensaje && (
