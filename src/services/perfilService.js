@@ -1,16 +1,19 @@
 import {
+  deleteUser,
   EmailAuthProvider,
   reauthenticateWithCredential,
+  reauthenticateWithPopup,
   updatePassword,
   updateProfile,
 } from 'firebase/auth'
 import {
+  deleteDoc,
   doc,
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore'
 
-import { db } from './firebase'
+import { db, googleProvider } from './firebase'
 
 function crearError(codigo, mensaje) {
   const error = new Error(mensaje)
@@ -150,6 +153,43 @@ export async function cambiarContrasena({
   )
 }
 
+export async function eliminarCuenta({
+  usuario,
+  confirmacion,
+  usaContrasena,
+}) {
+  if (usaContrasena) {
+    const credencial = EmailAuthProvider.credential(
+      usuario.email,
+      confirmacion,
+    )
+
+    await conTiempoMaximo(
+      reauthenticateWithCredential(usuario, credencial),
+    )
+  } else {
+    const correoIngresado = confirmacion.trim().toLowerCase()
+    const correoUsuario = (usuario.email || '').toLowerCase()
+
+    if (correoIngresado !== correoUsuario) {
+      throw crearError(
+        'perfil/correo-no-coincide',
+        'El correo ingresado no coincide.',
+      )
+    }
+
+    await conTiempoMaximo(
+      reauthenticateWithPopup(usuario, googleProvider),
+      30000,
+    )
+  }
+
+  await conTiempoMaximo(
+    deleteDoc(doc(db, 'usuarios', usuario.uid)),
+  )
+  await conTiempoMaximo(deleteUser(usuario))
+}
+
 export function obtenerMensajeErrorPerfil(error) {
   const mensajes = {
     'auth/invalid-credential':
@@ -159,7 +199,17 @@ export function obtenerMensajeErrorPerfil(error) {
     'auth/weak-password':
       'La nueva contraseña es demasiado débil.',
     'auth/requires-recent-login':
-      'La sesión es antigua. Cerrá sesión e ingresá nuevamente.',
+      'La sesión es antigua. Volvé a autenticarte para continuar.',
+    'auth/popup-closed-by-user':
+      'Se cerró la ventana de Google antes de confirmar.',
+    'auth/cancelled-popup-request':
+      'La verificación con Google fue cancelada.',
+    'auth/network-request-failed':
+      'No se pudo conectar con Firebase.',
+    'auth/too-many-requests':
+      'Hubo demasiados intentos. Esperá unos minutos.',
+    'perfil/correo-no-coincide':
+      'El correo ingresado no coincide con tu cuenta.',
     'permission-denied':
       'Firestore rechazó la operación. Revisá y publicá las reglas.',
     unavailable:
@@ -174,6 +224,6 @@ export function obtenerMensajeErrorPerfil(error) {
 
   return (
     mensajes[error.code]
-    || 'No se pudieron guardar los cambios.'
+    || 'No se pudo completar la operación.'
   )
 }
