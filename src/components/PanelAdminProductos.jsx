@@ -487,7 +487,6 @@ export default function PanelAdminProductos() {
   const accionesDeshabilitadas =
     guardando
     || !firebaseConfigurado
-    || Boolean(errorCatalogo)
 
   function mostrarEditor() {
     requestAnimationFrame(() => {
