@@ -384,3 +384,73 @@
 @media (prefers-reduced-motion: reduce) {
   .producto, .producto-foto img, .producto-explorar, .producto-boton { transition: none; }
 }
+
+/* Acceso administrativo discreto y estados del catálogo remoto. */
+.productos-acciones-superiores {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 11px;
+}
+
+.productos-admin-acceso {
+  min-height: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #8f8882;
+  background: rgba(255, 255, 255, .025);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 999px;
+  font: 600 10px/1 "Oswald", Arial, sans-serif;
+  letter-spacing: .8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color .2s, background-color .2s, border-color .2s;
+}
+
+.productos-admin-acceso svg {
+  width: 14px;
+  height: 14px;
+}
+
+.productos-admin-acceso:hover,
+.productos-admin-acceso:focus-visible {
+  color: #ff9b50;
+  background-color: rgba(255, 122, 24, .06);
+  border-color: rgba(255, 122, 24, .35);
+}
+
+.productos-aviso {
+  width: min(1180px, 100%);
+  margin: 0 auto 20px;
+  padding: 12px 15px;
+  color: #d4cec8;
+  background: #151315;
+  border: 1px solid rgba(255, 122, 24, .28);
+  border-radius: 6px;
+}
+
+@media (max-width: 620px) {
+  .productos-acciones-superiores {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .productos-admin-acceso {
+    width: 34px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .productos-admin-acceso span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}
