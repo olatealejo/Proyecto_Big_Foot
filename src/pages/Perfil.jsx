@@ -5,12 +5,14 @@ import {
 } from 'react'
 import { Navigate } from 'react-router-dom'
 import {
+  AlertTriangle,
   Camera,
   KeyRound,
   MapPin,
   Phone,
   Save,
   ShieldCheck,
+  Trash2,
   UserRound,
 } from 'lucide-react'
 
@@ -19,6 +21,7 @@ import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
 import {
   cambiarContrasena,
+  eliminarCuenta,
   guardarPerfil,
   obtenerMensajeErrorPerfil,
   procesarFotoPerfil,
@@ -64,6 +67,13 @@ function Perfil() {
   const [errorContrasena, setErrorContrasena] =
     useState('')
 
+  const [confirmacionEliminacion, setConfirmacionEliminacion] =
+    useState('')
+  const [eliminandoCuenta, setEliminandoCuenta] =
+    useState(false)
+  const [errorEliminacion, setErrorEliminacion] =
+    useState('')
+
   useEffect(() => {
     if (!usuario) {
       return
@@ -105,7 +115,7 @@ function Perfil() {
   if (cargando) {
     return (
       <div className="perfil-pagina">
-        <Navbar />
+        <Navbar ocultarAlBajar />
         <main className="perfil-cargando">
           Cargando perfil...
         </main>
@@ -286,9 +296,50 @@ function Perfil() {
     }
   }
 
+  const manejarEliminacionCuenta = async (evento) => {
+    evento.preventDefault()
+
+    if (!confirmacionEliminacion) {
+      setErrorEliminacion(
+        usaContrasena
+          ? 'Ingresá tu contraseña actual.'
+          : 'Ingresá el correo de tu cuenta.',
+      )
+      return
+    }
+
+    if (
+      !usaContrasena
+      && confirmacionEliminacion.trim().toLowerCase()
+        !== (usuario.email || '').toLowerCase()
+    ) {
+      setErrorEliminacion(
+        'El correo ingresado no coincide con tu cuenta.',
+      )
+      return
+    }
+
+    try {
+      setEliminandoCuenta(true)
+      setErrorEliminacion('')
+
+      await eliminarCuenta({
+        usuario,
+        confirmacion: confirmacionEliminacion,
+        usaContrasena,
+      })
+    } catch (err) {
+      console.error('Error al eliminar la cuenta:', err)
+      setErrorEliminacion(
+        obtenerMensajeErrorPerfil(err),
+      )
+      setEliminandoCuenta(false)
+    }
+  }
+
   return (
     <div className="perfil-pagina">
-      <Navbar />
+      <Navbar ocultarAlBajar />
 
       <header className="perfil-encabezado">
         <div>
@@ -572,6 +623,86 @@ function Perfil() {
             )}
           </section>
         </div>
+
+        <section
+          className="perfil-eliminar-panel"
+          aria-labelledby="perfil-eliminar-titulo"
+        >
+          <div className="perfil-eliminar-encabezado">
+            <AlertTriangle aria-hidden="true" />
+            <div>
+              <p className="perfil-eliminar-etiqueta">
+                Zona de peligro
+              </p>
+              <h2 id="perfil-eliminar-titulo">
+                Eliminar cuenta
+              </h2>
+              <p>
+                Esta acción elimina tu perfil y tu acceso a
+                The Big Foot de forma permanente. Tus publicaciones
+                no se eliminan automáticamente.
+              </p>
+            </div>
+          </div>
+
+          <form
+            className="perfil-eliminar-formulario"
+            onSubmit={manejarEliminacionCuenta}
+          >
+            <label>
+              {usaContrasena
+                ? 'Contraseña actual'
+                : 'Confirmá tu correo electrónico'}
+              <input
+                type={usaContrasena ? 'password' : 'email'}
+                value={confirmacionEliminacion}
+                onChange={(evento) => {
+                  setConfirmacionEliminacion(evento.target.value)
+                  setErrorEliminacion('')
+                }}
+                autoComplete={
+                  usaContrasena
+                    ? 'current-password'
+                    : 'email'
+                }
+                placeholder={
+                  usaContrasena
+                    ? 'Ingresá tu contraseña'
+                    : usuario.email || 'tu@correo.com'
+                }
+                disabled={eliminandoCuenta}
+                required
+              />
+            </label>
+
+            {!usaContrasena && (
+              <p className="perfil-eliminar-ayuda">
+                Después de validar el correo, Google solicitará
+                confirmar nuevamente tu identidad.
+              </p>
+            )}
+
+            {errorEliminacion && (
+              <p
+                className="perfil-mensaje perfil-error"
+                role="alert"
+              >
+                {errorEliminacion}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="perfil-eliminar-boton"
+              disabled={eliminandoCuenta}
+            >
+              <Trash2 aria-hidden="true" />
+              {eliminandoCuenta
+                ? 'Eliminando cuenta...'
+                : 'Eliminar cuenta definitivamente'}
+            </button>
+          </form>
+        </section>
       </main>
 
       <Footer />
