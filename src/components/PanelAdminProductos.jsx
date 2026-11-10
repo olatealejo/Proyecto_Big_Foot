@@ -10,7 +10,10 @@ import {
   X,
 } from 'lucide-react'
 
-import { formatoPrecio } from '../cart/catalogo'
+import {
+  formatoPrecio,
+  TALLES,
+} from '../cart/catalogo'
 import { useCatalog } from '../catalogo/useCatalog'
 import { useAuth } from '../context/AuthContext'
 import {
@@ -19,12 +22,41 @@ import {
 } from '../services/productosService'
 import './PanelAdminProductos.css'
 
-const FORMULARIO_VACIO = {
-  nombre: '',
-  modelo: '',
-  precio: '',
-  descripcion: '',
-  imagenUrl: '',
+const NOMBRES_VISTAS = [
+  'Vista principal',
+  'Lateral derecha',
+  'Vista diagonal',
+  'Vista superior',
+  'Vista trasera',
+  'Suela',
+]
+
+function crearFormularioVacio() {
+  return {
+    nombre: '',
+    modelo: '',
+    categoria: '',
+    subtitulo: '',
+    precio: '',
+    descripcion: '',
+    descripcionCompleta: '',
+    talles: [...TALLES],
+    imagenes: NOMBRES_VISTAS.map((nombre) => ({
+      nombre,
+      url: '',
+    })),
+  }
+}
+
+function crearImagenesFormulario(producto) {
+  const imagenesRemotas = producto.imagenUrl
+    ? producto.imagenes
+    : []
+
+  return NOMBRES_VISTAS.map((nombre, indice) => ({
+    nombre: imagenesRemotas[indice]?.nombre || nombre,
+    url: imagenesRemotas[indice]?.src || '',
+  }))
 }
 
 function ordenarProductos(productos) {
@@ -82,11 +114,15 @@ function FormularioProducto({
   editando,
   guardando,
   onChange,
+  onImagenChange,
+  onTalleToggle,
   onClose,
   onSubmit,
 }) {
   const imagenPrevia =
-    formulario.imagenUrl || editando?.imagen || ''
+    formulario.imagenes.find((imagen) => imagen.url)?.url
+    || editando?.imagen
+    || ''
 
   return (
     <section
@@ -98,13 +134,13 @@ function FormularioProducto({
         <div>
           <p>
             {editando
-              ? 'Modificación de inventario'
-              : 'Alta de inventario'}
+              ? 'Modificación de ficha'
+              : 'Alta de producto'}
           </p>
           <h3 id="admin-productos-editor-titulo">
             {editando
               ? 'Editar ' + editando.nombre
-              : 'Agregar producto'}
+              : 'Agregar producto completo'}
           </h3>
         </div>
 
@@ -125,79 +161,180 @@ function FormularioProducto({
       >
         <div className="admin-productos-formulario-contenido">
           <div className="admin-productos-campos">
-            <div className="admin-productos-grid">
+            <section className="admin-productos-subseccion">
+              <h4>Información principal</h4>
+
+              <div className="admin-productos-grid">
+                <label>
+                  Nombre de la zapatilla
+                  <input
+                    name="nombre"
+                    value={formulario.nombre}
+                    onChange={onChange}
+                    minLength="3"
+                    maxLength="100"
+                    placeholder="Big Foot Nuevo Modelo"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Modelo o colección
+                  <input
+                    name="modelo"
+                    value={formulario.modelo}
+                    onChange={onChange}
+                    minLength="2"
+                    maxLength="60"
+                    placeholder="Molino 3"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Categoría visible
+                  <input
+                    name="categoria"
+                    value={formulario.categoria}
+                    onChange={onChange}
+                    minLength="3"
+                    maxLength="80"
+                    placeholder="Zapatillas / Molino 3"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Precio en pesos
+                  <input
+                    type="number"
+                    name="precio"
+                    value={formulario.precio}
+                    onChange={onChange}
+                    min="1"
+                    max="999999999"
+                    step="1"
+                    placeholder="150000"
+                    required
+                  />
+                </label>
+              </div>
+
               <label>
-                Nombre de la zapatilla
+                Frase destacada
                 <input
-                  name="nombre"
-                  value={formulario.nombre}
+                  name="subtitulo"
+                  value={formulario.subtitulo}
                   onChange={onChange}
-                  minLength="3"
-                  maxLength="100"
-                  placeholder="Big Foot Nuevo Modelo"
-                  required
+                  maxLength="180"
+                  placeholder="Diseño de cancha con identidad propia."
                 />
+              </label>
+            </section>
+
+            <section className="admin-productos-subseccion">
+              <h4>Contenido de la ficha</h4>
+
+              <label>
+                Descripción breve
+                <textarea
+                  name="descripcion"
+                  value={formulario.descripcion}
+                  onChange={onChange}
+                  maxLength="600"
+                  rows="4"
+                  placeholder="Resumen que aparece debajo del precio"
+                />
+                <span className="admin-productos-contador">
+                  {formulario.descripcion.length} / 600
+                </span>
               </label>
 
               <label>
-                Modelo o colección
-                <input
-                  name="modelo"
-                  value={formulario.modelo}
+                Descripción completa
+                <textarea
+                  name="descripcionCompleta"
+                  value={formulario.descripcionCompleta}
                   onChange={onChange}
-                  minLength="2"
-                  maxLength="60"
-                  placeholder="Edición cancha"
-                  required
+                  maxLength="1500"
+                  rows="6"
+                  placeholder="Detalles, materiales, colores y características"
                 />
+                <span className="admin-productos-contador">
+                  {formulario.descripcionCompleta.length} / 1500
+                </span>
               </label>
+            </section>
 
-              <label>
-                Precio en pesos
-                <input
-                  type="number"
-                  name="precio"
-                  value={formulario.precio}
-                  onChange={onChange}
-                  min="1"
-                  max="999999999"
-                  step="1"
-                  placeholder="150000"
-                  required
-                />
-              </label>
+            <fieldset className="admin-productos-subseccion admin-productos-talles">
+              <legend>Talles disponibles</legend>
+              <div>
+                {TALLES.map((talle) => (
+                  <button
+                    key={talle}
+                    type="button"
+                    className={
+                      formulario.talles.includes(talle)
+                        ? 'admin-productos-talle admin-productos-talle-activo'
+                        : 'admin-productos-talle'
+                    }
+                    aria-pressed={formulario.talles.includes(talle)}
+                    onClick={() => onTalleToggle(talle)}
+                  >
+                    {talle}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
 
-              <label>
-                URL pública de imagen
-                <input
-                  type="url"
-                  name="imagenUrl"
-                  value={formulario.imagenUrl}
-                  onChange={onChange}
-                  placeholder="https://sitio.com/zapatilla.png"
-                  required={!editando}
-                />
-              </label>
-            </div>
-
-            <label>
-              Descripción del producto
-              <textarea
-                name="descripcion"
-                value={formulario.descripcion}
-                onChange={onChange}
-                maxLength="600"
-                rows="6"
-                placeholder="Características, materiales y estilo del modelo"
-              />
-              <span className="admin-productos-contador">
-                {formulario.descripcion.length} / 600
-              </span>
-            </label>
+            <section className="admin-productos-subseccion">
+              <h4>Galería de imágenes</h4>
+              <div className="admin-productos-galeria-grid">
+                {formulario.imagenes.map((imagen, indice) => (
+                  <div
+                    className="admin-productos-imagen-campo"
+                    key={indice}
+                  >
+                    <strong>Imagen {indice + 1}</strong>
+                    <label>
+                      Nombre de la vista
+                      <input
+                        value={imagen.nombre}
+                        onChange={(evento) =>
+                          onImagenChange(
+                            indice,
+                            'nombre',
+                            evento.target.value,
+                          )
+                        }
+                        maxLength="50"
+                        placeholder="Lateral izquierda"
+                      />
+                    </label>
+                    <label>
+                      URL HTTPS
+                      <input
+                        type="url"
+                        value={imagen.url}
+                        onChange={(evento) =>
+                          onImagenChange(
+                            indice,
+                            'url',
+                            evento.target.value,
+                          )
+                        }
+                        placeholder="https://sitio.com/vista.png"
+                        required={indice === 0 && !editando}
+                      />
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
           <aside className="admin-productos-preview">
-            <span>Vista previa</span>
+            <span>Vista previa principal</span>
             {imagenPrevia ? (
               <img
                 src={imagenPrevia}
@@ -206,7 +343,7 @@ function FormularioProducto({
             ) : (
               <div className="admin-productos-preview-vacia">
                 <Package aria-hidden="true" />
-                <p>La imagen aparecerá en este espacio.</p>
+                <p>La primera imagen aparecerá en este espacio.</p>
               </div>
             )}
           </aside>
@@ -228,7 +365,7 @@ function FormularioProducto({
           >
             {guardando
               ? 'Guardando...'
-              : 'Guardar producto'}
+              : 'Guardar ficha completa'}
           </button>
         </div>
       </form>
@@ -318,7 +455,7 @@ export default function PanelAdminProductos() {
 
   const [editorVisible, setEditorVisible] = useState(false)
   const [formulario, setFormulario] =
-    useState(FORMULARIO_VACIO)
+    useState(crearFormularioVacio)
   const [editando, setEditando] = useState(null)
   const [productoAEliminar, setProductoAEliminar] =
     useState(null)
@@ -370,7 +507,7 @@ export default function PanelAdminProductos() {
 
   function abrirNuevo() {
     setEditando(null)
-    setFormulario({ ...FORMULARIO_VACIO })
+    setFormulario(crearFormularioVacio())
     setEditorVisible(true)
     setProductoAEliminar(null)
     limpiarEstado()
@@ -382,9 +519,14 @@ export default function PanelAdminProductos() {
     setFormulario({
       nombre: producto.nombre,
       modelo: producto.modelo,
+      categoria: producto.categoria || '',
+      subtitulo: producto.subtitulo || '',
       precio: String(producto.precio),
       descripcion: producto.descripcion || '',
-      imagenUrl: producto.imagenUrl || '',
+      descripcionCompleta:
+        producto.descripcionCompleta || '',
+      talles: [...producto.talles],
+      imagenes: crearImagenesFormulario(producto),
     })
     setEditorVisible(true)
     setProductoAEliminar(null)
@@ -399,7 +541,7 @@ export default function PanelAdminProductos() {
 
     setEditorVisible(false)
     setEditando(null)
-    setFormulario(FORMULARIO_VACIO)
+    setFormulario(crearFormularioVacio())
   }
 
   function abrirBaja(producto) {
@@ -416,6 +558,28 @@ export default function PanelAdminProductos() {
     setFormulario((actual) => ({
       ...actual,
       [name]: value,
+    }))
+    setError('')
+  }
+
+  function cambiarImagen(indice, campo, valor) {
+    setFormulario((actual) => ({
+      ...actual,
+      imagenes: actual.imagenes.map((imagen, posicion) =>
+        posicion === indice
+          ? { ...imagen, [campo]: valor }
+          : imagen,
+      ),
+    }))
+    setError('')
+  }
+
+  function alternarTalle(talle) {
+    setFormulario((actual) => ({
+      ...actual,
+      talles: actual.talles.includes(talle)
+        ? actual.talles.filter((numero) => numero !== talle)
+        : [...actual.talles, talle].sort((a, b) => a - b),
     }))
     setError('')
   }
@@ -445,7 +609,7 @@ export default function PanelAdminProductos() {
       )
       setEditorVisible(false)
       setEditando(null)
-      setFormulario(FORMULARIO_VACIO)
+      setFormulario(crearFormularioVacio())
     } catch (err) {
       setError(
         err.message || 'No se pudo guardar el producto.',
@@ -592,6 +756,8 @@ export default function PanelAdminProductos() {
           editando={editando}
           guardando={guardando}
           onChange={cambiarCampo}
+          onImagenChange={cambiarImagen}
+          onTalleToggle={alternarTalle}
           onClose={cerrarEditor}
           onSubmit={guardar}
         />
