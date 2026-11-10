@@ -69,6 +69,21 @@
   gap: 10px;
 }
 
+.navbar-admin {
+  padding: 5px 9px;
+
+  color: #080808;
+  background-color: #ff7a18;
+  border-radius: 4px;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 .navbar-iconos a {
   width: 40px;
   height: 40px;
