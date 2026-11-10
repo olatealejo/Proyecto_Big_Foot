@@ -1,17 +1,27 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Search,
+  Settings,
+  SlidersHorizontal,
+} from 'lucide-react'
 import CartTrigger from '../components/CartTrigger'
-import { PRODUCTOS, formatoPrecio } from '../cart/catalogo'
+import { formatoPrecio } from '../cart/catalogo'
+import { useCatalog } from '../catalogo/useCatalog'
 import { filtrarProductos } from '../cart/filtros.js'
 import BrandLogo from '../components/BrandLogo'
+import { useAuth } from '../context/AuthContext'
 import './Productos.css'
 
-const listaProductos = Object.values(PRODUCTOS)
-const modelos = [...new Set(listaProductos.map((producto) => producto.modelo))]
-const limitesPrecio = [...new Set(listaProductos.map((producto) => producto.precio))].sort((a, b) => a - b)
 
 function Productos() {
+  const { esAdmin } = useAuth()
+  const { productos, cargando, error } = useCatalog()
+  const listaProductos = useMemo(() => Object.values(productos), [productos])
+  const modelos = useMemo(() => [...new Set(listaProductos.map((p) => p.modelo))], [listaProductos])
+  const limitesPrecio = useMemo(() => [...new Set(listaProductos.map((p) => p.precio))].sort((a, b) => a - b), [listaProductos])
   const [texto, setTexto] = useState('')
   const [modelo, setModelo] = useState('todos')
   const [precioMaximo, setPrecioMaximo] = useState('todos')
@@ -39,7 +49,19 @@ function Productos() {
           <span>Volver al inicio</span>
         </Link>
         <BrandLogo className="productos-logo" />
-        <div className="productos-carrito"><CartTrigger /></div>
+        <div className="productos-acciones-superiores">
+          {esAdmin && (
+            <Link
+              to="/admin/productos"
+              className="productos-admin-acceso"
+              aria-label="Abrir gestión de productos"
+            >
+              <Settings aria-hidden="true" />
+              <span>Gestionar</span>
+            </Link>
+          )}
+          <CartTrigger />
+        </div>
       </nav>
 
       <main className="productos">
@@ -53,6 +75,7 @@ function Productos() {
           </div>
         </header>
 
+        {error && <p role="alert" className="productos-aviso">{error} Se muestra el catálogo disponible.</p>}
         <section className="productos-filtros" aria-label="Filtrar catálogo">
           <div className="productos-filtros-encabezado">
             <div className="productos-filtros-titulo">
@@ -112,7 +135,7 @@ function Productos() {
           </div>
         </section>
 
-        {visibles.length > 0 ? (
+        {cargando ? <p className="productos-aviso" role="status">Sincronizando productos...</p> : visibles.length > 0 ? (
           <section className="productos-lista" aria-label="Zapatillas del catálogo">
             {visibles.map((producto) => (
               <article className="producto" key={producto.sku}>
