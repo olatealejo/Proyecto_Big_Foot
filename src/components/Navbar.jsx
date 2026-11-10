@@ -12,7 +12,6 @@ export default function Navbar() {
 
       <div className="navbar-menu">
         <Link to="/productos">Modelos</Link>
-        <Link to="/personalizar">Personalizar</Link>
         <Link to="/comunidad">Comunidad</Link>
       </div>
 
