@@ -1,20 +1,27 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import CartTrigger from '../components/CartTrigger'
-import BrandLogo from '../components/BrandLogo'
-import AddToCart from '../components/AddToCart'
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 
-import lateralIzquierda from '../assets/molino-2-lateral-izquierda.png'
-import lateralDerecha from '../assets/molino-2-lateral-derecha.png'
 import diagonal from '../assets/molino-2-diagonal.png'
+import lateralDerecha from '../assets/molino-2-lateral-derecha.png'
+import lateralIzquierda from '../assets/molino-2-lateral-izquierda.png'
+import suela from '../assets/molino-2-suela.png'
 import superior from '../assets/molino-2-superior.png'
 import trasera from '../assets/molino-2-trasera.png'
-import suela from '../assets/molino-2-suela.png'
+import { useCatalog } from '../catalogo/useCatalog'
+import { formatoPrecio } from '../cart/catalogo'
+import AddToCart from '../components/AddToCart'
+import BrandLogo from '../components/BrandLogo'
+import CartTrigger from '../components/CartTrigger'
+import ProductoNoDisponible from './ProductoNoDisponible'
 import './ProductoDetalle.css'
 import './ProductoDetalle.galeria.css'
 
-const imagenes = [
+const imagenesLocales = [
   { src: lateralIzquierda, nombre: 'Lateral izquierda' },
   { src: lateralDerecha, nombre: 'Lateral derecha' },
   { src: diagonal, nombre: 'Vista diagonal' },
@@ -25,9 +32,34 @@ const imagenes = [
 
 function ProductoMolino2() {
   const [imagenActiva, setImagenActiva] = useState(0)
+  const { productos, cargando } = useCatalog()
+  const producto = productos['molino-2']
+
+  const galeria =
+    producto?.imagenUrl && producto.imagenes.length > 0
+      ? producto.imagenes
+      : imagenesLocales.map((imagen, indice) =>
+          indice === 0
+            ? { ...imagen, src: producto?.imagen || imagen.src }
+            : imagen,
+        )
+  const imagenMostrada = galeria[imagenActiva] || galeria[0]
+
   const cambiarImagen = (direccion) => {
-    setImagenActiva((indice) => (indice + direccion + imagenes.length) % imagenes.length)
+    setImagenActiva((indice) =>
+      (indice + direccion + galeria.length) % galeria.length,
+    )
   }
+
+  if (cargando) {
+    return (
+      <main className="detalle-pagina">
+        <p>Cargando producto...</p>
+      </main>
+    )
+  }
+
+  if (!producto) return <ProductoNoDisponible />
 
   return (
     <div className="detalle-pagina">
@@ -41,48 +73,93 @@ function ProductoMolino2() {
       </nav>
 
       <main className="detalle-contenido">
-        <section className="detalle-galeria" aria-label="Imágenes de Big Foot Molino 2">
+        <section
+          className="detalle-galeria"
+          aria-label={'Imágenes de ' + producto.nombre}
+        >
           <div className="detalle-imagen-principal">
-            <img src={imagenes[imagenActiva].src} alt={`Big Foot Molino 2 — ${imagenes[imagenActiva].nombre}`} />
-            <button type="button" className="detalle-flecha detalle-flecha-izquierda" onClick={() => cambiarImagen(-1)} aria-label="Imagen anterior">
-              <ChevronLeft size={24} />
-            </button>
-            <button type="button" className="detalle-flecha detalle-flecha-derecha" onClick={() => cambiarImagen(1)} aria-label="Imagen siguiente">
-              <ChevronRight size={24} />
-            </button>
+            <img
+              src={imagenMostrada.src}
+              alt={producto.nombre + ' — ' + imagenMostrada.nombre}
+            />
+            {galeria.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="detalle-flecha detalle-flecha-izquierda"
+                  onClick={() => cambiarImagen(-1)}
+                  aria-label="Imagen anterior"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  type="button"
+                  className="detalle-flecha detalle-flecha-derecha"
+                  onClick={() => cambiarImagen(1)}
+                  aria-label="Imagen siguiente"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </>
+            )}
           </div>
-          <div className="detalle-miniaturas molino-miniaturas" aria-label="Elegir vista de Molino 2">
-            {imagenes.map((imagen, indice) => (
-              <button
-                key={imagen.nombre}
-                type="button"
-                className={`detalle-miniatura${imagenActiva === indice ? ' detalle-miniatura-activa' : ''}`}
-                aria-label={`Mostrar ${imagen.nombre.toLowerCase()}`}
-                aria-pressed={imagenActiva === indice}
-                onClick={() => setImagenActiva(indice)}
-              >
-                <img src={imagen.src} alt="" loading="lazy" />
-              </button>
-            ))}
-          </div>
-          <p className="detalle-imagen-nota">{imagenes[imagenActiva].nombre} · THE BIG FOOT</p>
+
+          {galeria.length > 1 && (
+            <div
+              className="detalle-miniaturas molino-miniaturas"
+              aria-label="Elegir vista de Molino 2"
+            >
+              {galeria.map((imagen, indice) => (
+                <button
+                  key={imagen.nombre + imagen.src}
+                  type="button"
+                  className={
+                    'detalle-miniatura'
+                    + (imagenActiva === indice
+                      ? ' detalle-miniatura-activa'
+                      : '')
+                  }
+                  aria-label={
+                    'Mostrar ' + imagen.nombre.toLowerCase()
+                  }
+                  aria-pressed={imagenActiva === indice}
+                  onClick={() => setImagenActiva(indice)}
+                >
+                  <img src={imagen.src} alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+
+          <p className="detalle-imagen-nota">
+            {imagenMostrada.nombre} · THE BIG FOOT
+          </p>
         </section>
 
         <section className="detalle-info">
-          <p className="detalle-categoria">ZAPATILLAS / MOLINO 2</p>
-          <h1>Big Foot Molino 2</h1>
-          <p className="detalle-subtitulo">Diseño iridiscente en plateado, con detalles negros, violetas y turquesa.</p>
-          <p className="detalle-precio">$150.000</p>
-          <p className="detalle-descripcion">
-            Conocé Molino 2 desde todos sus ángulos: laterales, frente en perspectiva,
-            parte superior, talón y suela. Su diseño combina una capellada negra con
-            detalles blancos y una suela de perfil deportivo.
+          <p className="detalle-categoria">
+            {producto.categoria.toUpperCase()}
           </p>
+          <h1>{producto.nombre}</h1>
+          <p className="detalle-subtitulo">
+            {producto.subtitulo}
+          </p>
+          <p className="detalle-precio">
+            {formatoPrecio(producto.precio)}
+          </p>
+          <p className="detalle-descripcion">
+            {producto.descripcion || 'Modelo The Big Foot.'}
+          </p>
+
           <AddToCart sku="molino-2" />
+
           <div className="detalle-acordeon">
             <details>
               <summary>Descripción del producto</summary>
-              <p>Big Foot Molino 2, modelo plateado iridiscente. Galería de seis fotografías.</p>
+              <p>
+                {producto.descripcionCompleta
+                  || producto.descripcion}
+              </p>
             </details>
           </div>
         </section>
