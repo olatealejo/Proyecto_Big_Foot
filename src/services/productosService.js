@@ -96,9 +96,17 @@ export async function cambiarEstadoProducto({
     {
       nombre: producto.nombre,
       modelo: producto.modelo,
+      categoria: producto.categoria,
+      subtitulo: producto.subtitulo,
       descripcion: producto.descripcion,
+      descripcionCompleta: producto.descripcionCompleta,
       precio: producto.precio,
       imagenUrl: producto.imagenUrl || '',
+      imagenes: producto.imagenes.map((imagen) => ({
+        url: imagen.src,
+        nombre: imagen.nombre,
+      })),
+      talles: producto.talles,
     },
     false,
     Boolean(PRODUCTOS[producto.sku]),
