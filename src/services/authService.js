@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth'
 
 import { auth, googleProvider } from './firebase'
@@ -39,6 +40,10 @@ export async function iniciarSesion({ correo, contrasena }) {
   )
 
   return credencial.user
+}
+
+export async function cerrarSesion() {
+  await signOut(auth)
 }
 
 export function obtenerMensajeErrorAuth(error) {
