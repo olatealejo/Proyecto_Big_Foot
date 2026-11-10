@@ -1,0 +1,193 @@
+.admin-catalogo-pagina,
+.admin-catalogo-pagina * {
+  box-sizing: border-box;
+}
+
+.admin-catalogo-pagina {
+  min-height: 100vh;
+  color: #f7f4f1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 122, 24, 0.035) 1px,
+      transparent 1px
+    ),
+    #080808;
+  background-size: 72px 72px;
+}
+
+.admin-catalogo-navegacion {
+  min-height: 84px;
+  padding: 8px clamp(20px, 4vw, 64px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+
+  background-color: rgba(5, 5, 5, 0.98);
+  border-bottom: 1px solid rgba(255, 122, 24, 0.4);
+}
+
+.admin-catalogo-volver,
+.admin-catalogo-sesion {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.admin-catalogo-volver {
+  justify-self: start;
+  color: #d9d2cc;
+  text-decoration: none;
+}
+
+.admin-catalogo-volver:hover,
+.admin-catalogo-volver:focus-visible {
+  color: #ff9748;
+}
+
+.admin-catalogo-volver svg,
+.admin-catalogo-sesion svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admin-catalogo-logo {
+  justify-self: center;
+  width: clamp(210px, 20vw, 276px);
+  height: 72px;
+}
+
+.admin-catalogo-sesion {
+  justify-self: end;
+  color: #ffc18f;
+}
+
+.admin-catalogo-contenido {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+  padding: 58px clamp(20px, 5vw, 72px) 96px;
+}
+
+.admin-catalogo-presentacion {
+  margin-bottom: 30px;
+  padding: 0 0 32px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 36px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.admin-catalogo-etiqueta {
+  margin: 0 0 13px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ff7a18;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.admin-catalogo-etiqueta svg {
+  width: 17px;
+  height: 17px;
+}
+
+.admin-catalogo-presentacion h1 {
+  margin: 0;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: clamp(46px, 7vw, 82px);
+  font-weight: 650;
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+
+.admin-catalogo-presentacion > div > p:last-child {
+  max-width: 660px;
+  margin: 19px 0 0;
+
+  color: #a79e97;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.admin-catalogo-identidad {
+  min-width: 250px;
+  padding: 16px 18px;
+
+  display: grid;
+  gap: 5px;
+
+  background-color: #111111;
+  border: 1px solid rgba(255, 122, 24, 0.22);
+  border-radius: 6px;
+}
+
+.admin-catalogo-identidad span {
+  color: #817972;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.admin-catalogo-identidad strong {
+  overflow: hidden;
+  color: #f7f4f1;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-catalogo-estado {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: #aaa29b;
+  background-color: #080808;
+}
+
+@media (max-width: 760px) {
+  .admin-catalogo-navegacion {
+    grid-template-columns: 1fr auto;
+  }
+
+  .admin-catalogo-logo {
+    display: none;
+  }
+
+  .admin-catalogo-presentacion {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-catalogo-identidad {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-catalogo-sesion {
+    font-size: 0;
+  }
+
+  .admin-catalogo-sesion svg {
+    width: 21px;
+    height: 21px;
+  }
+}
