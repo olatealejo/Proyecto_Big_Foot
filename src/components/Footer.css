@@ -3,8 +3,8 @@
   padding: clamp(52px, 7vw, 88px) clamp(24px, 3vw, 48px) 24px;
 
   color: #ffffff;
-  background-color: #020402;
-  border-top: 1px solid rgba(53, 181, 53, 0.45);
+  background-color: #050505;
+  border-top: 1px solid rgba(255, 122, 24, 0.42);
 }
 
 .footer-contenido {
@@ -34,7 +34,7 @@
 
 .footer-marca > p {
   margin: 0;
-  color: #929d94;
+  color: #9b928c;
   font-size: 14px;
   line-height: 1.65;
 }
@@ -48,7 +48,7 @@
 
 .footer-seccion h3 {
   margin: 0 0 7px;
-  color: #7f8b81;
+  color: #ff7a18;
   font-family: "Oswald", Arial, sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -59,7 +59,7 @@
 .footer-seccion a {
   position: relative;
 
-  color: #f0f3f0;
+  color: #f3f0ed;
   font-family: "Oswald", Arial, sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -75,7 +75,7 @@
   left: 0;
 
   height: 1px;
-  background-color: #4bc354;
+  background-color: #ff7a18;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.2s ease;
@@ -83,7 +83,7 @@
 
 .footer-seccion a:hover,
 .footer-seccion a:focus-visible {
-  color: #62d66a;
+  color: #ff9748;
 }
 
 .footer-seccion a:hover::after,
@@ -99,19 +99,19 @@
   gap: 14px 15px;
 
   background:
-    linear-gradient(135deg, rgba(53, 181, 53, 0.12), rgba(255, 255, 255, 0.025));
-  border: 1px solid rgba(75, 195, 84, 0.32);
+    linear-gradient(135deg, rgba(255, 122, 24, 0.12), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(255, 122, 24, 0.34);
   border-radius: 8px;
 }
 
 .footer-contacto > svg {
   margin-top: 2px;
-  color: #62d66a;
+  color: #ff9748;
 }
 
 .footer-contacto p {
   margin: 0 0 3px;
-  color: #929d94;
+  color: #9b928c;
   font-size: 13px;
 }
 
@@ -149,7 +149,7 @@
 
 .footer-contacto a:hover,
 .footer-contacto a:focus-visible {
-  color: #62d66a;
+  color: #ff9748;
 }
 
 .footer-contacto a:hover svg,
@@ -184,7 +184,7 @@
   justify-content: space-between;
   gap: 20px;
 
-  color: #687169;
+  color: #756d68;
   font-size: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.11);
 }
