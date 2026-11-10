@@ -8,6 +8,7 @@ service cloud.firestore {
 
     function esAdmin() {
       return estaAutenticado()
+        && request.auth.token.email == 'alejoolate83@gmail.com'
         && exists(
           /databases/$(database)/documents/usuarios/$(request.auth.uid)
         )
