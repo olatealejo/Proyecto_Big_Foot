@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -51,14 +52,27 @@ export function AuthProvider({ children }) {
     return cancelarObservador
   }, [])
 
+  const actualizarPerfilLocal = useCallback((cambios) => {
+    setPerfil((perfilActual) => ({
+      ...(perfilActual || {}),
+      ...cambios,
+    }))
+  }, [])
+
   const valor = useMemo(
     () => ({
       usuario,
       perfil,
       esAdmin: perfil?.rol === 'admin',
       cargando,
+      actualizarPerfilLocal,
     }),
-    [usuario, perfil, cargando],
+    [
+      usuario,
+      perfil,
+      cargando,
+      actualizarPerfilLocal,
+    ],
   )
 
   return (
