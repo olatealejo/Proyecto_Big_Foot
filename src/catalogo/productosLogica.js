@@ -1,22 +1,33 @@
-import { Producto } from '../cart/Producto.js'
+import {
+  Producto,
+  TALLES,
+} from '../cart/Producto.js'
 
-// Se conserva el catálogo original hasta que se cargue la colección de Firestore.
-// Los documentos persistidos sustituyen a los predefinidos; las bajas no reaparecen.
 export function combinarCatalogos(base, documentos) {
   const activos = { ...base }
   const archivados = []
+
   for (const documento of documentos) {
-    if (!documento || typeof documento.sku !== 'string') continue
+    if (!documento || typeof documento.sku !== 'string') {
+      continue
+    }
+
     const original = base[documento.sku]
-    const imagen = documento.imagenUrl || original?.imagen || ''
+    const imagen =
+      documento.imagenUrl
+      || documento.imagenes?.[0]?.url
+      || original?.imagen
+      || ''
     const datos = {
       ...original,
       ...documento,
       imagen,
       ruta: '/productos/' + documento.sku,
     }
+
     try {
       const producto = new Producto(datos)
+
       if (documento.activo === false) {
         delete activos[documento.sku]
         archivados.push(producto)
@@ -24,26 +35,172 @@ export function combinarCatalogos(base, documentos) {
         activos[documento.sku] = producto
       }
     } catch {
-      // Documentos ajenos al esquema no se publican en el catálogo.
+      // Los documentos que no cumplen el esquema no se publican.
     }
   }
-  return { productos: activos, archivados }
+
+  return {
+    productos: activos,
+    archivados,
+  }
 }
 
-export function validarFormularioProducto(datos, esNuevo, esModeloBase = false) {
-  const nombre = String(datos.nombre || '').trim()
-  const modelo = String(datos.modelo || '').trim()
-  const descripcion = String(datos.descripcion || '').trim()
-  const imagenUrl = String(datos.imagenUrl || '').trim()
+function validarTexto(valor, {
+  nombre,
+  minimo = 0,
+  maximo,
+  requerido = false,
+}) {
+  const texto = String(valor || '').trim()
+
+  if (requerido && texto.length < minimo) {
+    throw new Error(
+      nombre + ' debe tener al menos ' + minimo + ' caracteres.',
+    )
+  }
+
+  if (texto.length > maximo) {
+    throw new Error(
+      nombre + ' no debe superar los ' + maximo + ' caracteres.',
+    )
+  }
+
+  return texto
+}
+
+function normalizarImagenes(imagenes) {
+  if (!Array.isArray(imagenes)) {
+    return []
+  }
+
+  const normalizadas = imagenes
+    .map((imagen, indice) => {
+      const url = String(imagen?.url || '').trim()
+      const nombre =
+        String(imagen?.nombre || '').trim()
+        || 'Vista ' + (indice + 1)
+
+      return {
+        url,
+        nombre,
+      }
+    })
+    .filter((imagen) => imagen.url)
+
+  if (normalizadas.length > 6) {
+    throw new Error('La galería admite hasta 6 imágenes.')
+  }
+
+  for (const imagen of normalizadas) {
+    if (
+      imagen.url.length > 2048
+      || !/^https:\/\/[^\s]+$/i.test(imagen.url)
+    ) {
+      throw new Error(
+        'Todas las imágenes deben usar una URL HTTPS válida.',
+      )
+    }
+
+    if (imagen.nombre.length > 50) {
+      throw new Error(
+        'El nombre de cada vista admite hasta 50 caracteres.',
+      )
+    }
+  }
+
+  return normalizadas
+}
+
+function normalizarTalles(talles) {
+  const normalizados = Array.isArray(talles)
+    ? [...new Set(talles.map(Number))]
+        .filter((talle) => TALLES.includes(talle))
+        .sort((a, b) => a - b)
+    : []
+
+  if (normalizados.length === 0) {
+    throw new Error('Seleccioná al menos un talle disponible.')
+  }
+
+  return normalizados
+}
+
+export function validarFormularioProducto(
+  datos,
+  esNuevo,
+  esModeloBase = false,
+) {
+  const nombre = validarTexto(datos.nombre, {
+    nombre: 'El nombre',
+    minimo: 3,
+    maximo: 100,
+    requerido: true,
+  })
+  const modelo = validarTexto(datos.modelo, {
+    nombre: 'El modelo',
+    minimo: 2,
+    maximo: 60,
+    requerido: true,
+  })
+  const categoria = validarTexto(
+    datos.categoria || 'Zapatillas / ' + modelo,
+    {
+      nombre: 'La categoría',
+      minimo: 3,
+      maximo: 80,
+      requerido: true,
+    },
+  )
+  const subtitulo = validarTexto(datos.subtitulo, {
+    nombre: 'El subtítulo',
+    maximo: 180,
+  })
+  const descripcion = validarTexto(datos.descripcion, {
+    nombre: 'La descripción breve',
+    maximo: 600,
+  })
+  const descripcionCompleta = validarTexto(
+    datos.descripcionCompleta,
+    {
+      nombre: 'La descripción completa',
+      maximo: 1500,
+    },
+  )
   const precio = Number(datos.precio)
-  if (nombre.length < 3 || nombre.length > 100) throw new Error('El nombre debe tener de 3 a 100 caracteres.')
-  if (modelo.length < 2 || modelo.length > 60) throw new Error('El modelo debe tener de 2 a 60 caracteres.')
-  if (!Number.isSafeInteger(precio) || precio < 1 || precio > 999999999)
-    throw new Error('Ingresá un precio entero mayor a cero.')
-  if (descripcion.length > 600) throw new Error('La descripción no debe superar los 600 caracteres.')
-  if (imagenUrl.length > 2048 || (imagenUrl && !/^https:\/\/[^\s]+$/i.test(imagenUrl)))
-    throw new Error('Usá una URL de imagen HTTPS válida.')
-  if (!esModeloBase && !imagenUrl)
-    throw new Error(esNuevo ? 'Para un producto nuevo es necesaria una imagen HTTPS.' : 'Conservá una imagen HTTPS para este producto.')
-  return { nombre, modelo, descripcion, precio, imagenUrl }
+  const imagenes = normalizarImagenes(datos.imagenes)
+  const imagenUrl =
+    imagenes[0]?.url
+    || String(datos.imagenUrl || '').trim()
+  const talles = normalizarTalles(datos.talles)
+
+  if (
+    !Number.isSafeInteger(precio)
+    || precio < 1
+    || precio > 999999999
+  ) {
+    throw new Error(
+      'Ingresá un precio entero mayor que cero.',
+    )
+  }
+
+  if (!esModeloBase && imagenes.length === 0 && !imagenUrl) {
+    throw new Error(
+      esNuevo
+        ? 'Agregá al menos una imagen para el producto.'
+        : 'El producto debe conservar una imagen.',
+    )
+  }
+
+  return {
+    nombre,
+    modelo,
+    categoria,
+    subtitulo,
+    descripcion,
+    descripcionCompleta,
+    precio,
+    imagenUrl,
+    imagenes,
+    talles,
+  }
 }
