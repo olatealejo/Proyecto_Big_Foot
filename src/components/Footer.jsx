@@ -21,7 +21,6 @@ function Footer() {
 
         <nav className="footer-seccion" aria-label="The Big Foot">
           <h3>The Big Foot</h3>
-          <Link to="/nosotros">Nosotros</Link>
           <Link to="/productos">Modelos</Link>
         </nav>
 
