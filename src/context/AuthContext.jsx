@@ -60,9 +60,9 @@ export function AuthProvider({ children }) {
     }))
   }, [])
 
-  const esAdmin =
-    perfil?.rol === 'admin'
-    && usuario?.email?.trim().toLowerCase() === CORREO_ADMIN
+  const correoUsuario =
+    usuario?.email?.trim().toLowerCase() || ''
+  const esAdmin = correoUsuario === CORREO_ADMIN
 
   const valor = useMemo(
     () => ({
