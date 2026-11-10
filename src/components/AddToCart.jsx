@@ -26,7 +26,7 @@ export default function AddToCart({ sku }) {
           <span>AR</span>
         </div>
         <div className="detalle-talles-grid">
-          {TALLES.map((numero) => (
+          {(producto?.talles || TALLES).map((numero) => (
             <button key={numero} type="button"
               className={talle === numero ? 'talle talle-activo' : 'talle'}
               aria-pressed={talle === numero}
