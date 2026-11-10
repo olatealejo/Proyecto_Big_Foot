@@ -389,7 +389,7 @@ function Comunidad() {
 
   return (
     <div className="comunidad-pagina">
-      <Navbar />
+      <Navbar ocultarAlBajar />
 
       <header className="comunidad-encabezado">
         <div className="comunidad-encabezado-contenido">

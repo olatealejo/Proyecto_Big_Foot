@@ -434,3 +434,20 @@
     transition: none;
   }
 }
+
+
+/* Ocultamiento según la dirección del desplazamiento */
+.navbar-ocultable {
+  will-change: transform;
+  transition: transform 0.28s ease;
+}
+
+.navbar-ocultable.navbar-oculta {
+  transform: translateY(calc(-100% - 2px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-ocultable {
+    transition: none;
+  }
+}

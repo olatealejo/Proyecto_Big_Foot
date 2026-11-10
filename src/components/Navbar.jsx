@@ -17,12 +17,14 @@ import CartTrigger from './CartTrigger'
 import './Navbar.css'
 
 // Barra de navegación compartida por las páginas principales.
-export default function Navbar() {
+export default function Navbar({ ocultarAlBajar = false }) {
   const { usuario, perfil, esAdmin } = useAuth()
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [cerrandoSesion, setCerrandoSesion] = useState(false)
   const [errorSesion, setErrorSesion] = useState('')
+  const [navbarOculta, setNavbarOculta] = useState(false)
   const cuentaRef = useRef(null)
+  const ultimaPosicionRef = useRef(0)
 
   useEffect(() => {
     if (!menuAbierto) {
@@ -59,6 +61,47 @@ export default function Navbar() {
     }
   }, [menuAbierto])
 
+  useEffect(() => {
+    if (!ocultarAlBajar) {
+      setNavbarOculta(false)
+      return undefined
+    }
+
+    ultimaPosicionRef.current = window.scrollY
+
+    const manejarDesplazamiento = () => {
+      const posicionActual = window.scrollY
+      const diferencia =
+        posicionActual - ultimaPosicionRef.current
+
+      if (posicionActual <= 80) {
+        setNavbarOculta(false)
+      } else if (diferencia > 6) {
+        setNavbarOculta(true)
+        setMenuAbierto(false)
+      } else if (diferencia < -6) {
+        setNavbarOculta(false)
+      }
+
+      if (Math.abs(diferencia) > 6) {
+        ultimaPosicionRef.current = posicionActual
+      }
+    }
+
+    window.addEventListener(
+      'scroll',
+      manejarDesplazamiento,
+      { passive: true },
+    )
+
+    return () => {
+      window.removeEventListener(
+        'scroll',
+        manejarDesplazamiento,
+      )
+    }
+  }, [ocultarAlBajar])
+
   const manejarCierreSesion = async () => {
     try {
       setCerrandoSesion(true)
@@ -84,8 +127,18 @@ export default function Navbar() {
     || usuario?.photoURL
     || ''
 
+  const clasesNavbar = [
+    'navbar',
+    ocultarAlBajar && 'navbar-ocultable',
+    navbarOculta && 'navbar-oculta',
+  ].filter(Boolean).join(' ')
+
   return (
-    <nav className="navbar" aria-label="Navegación principal">
+    <nav
+      className={clasesNavbar}
+      aria-label="Navegación principal"
+      onFocusCapture={() => setNavbarOculta(false)}
+    >
       <BrandLogo />
 
       <div className="navbar-menu">
@@ -113,6 +166,7 @@ export default function Navbar() {
               aria-haspopup="menu"
               onClick={() => {
                 setMenuAbierto((abierto) => !abierto)
+                setNavbarOculta(false)
                 setErrorSesion('')
               }}
             >
