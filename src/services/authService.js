@@ -2,9 +2,16 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
 } from 'firebase/auth'
 
-import { auth } from './firebase'
+import { auth, googleProvider } from './firebase'
+
+export async function iniciarSesionConGoogle() {
+  const credencial = await signInWithPopup(auth, googleProvider)
+
+  return credencial.user
+}
 
 export async function registrarUsuario({
   nombre,
@@ -50,6 +57,16 @@ export function obtenerMensajeErrorAuth(error) {
       'Se realizaron demasiados intentos. Probá nuevamente más tarde.',
     'auth/network-request-failed':
       'No se pudo conectar con Firebase. Revisá la conexión a Internet.',
+    'auth/popup-closed-by-user':
+      'Se cerró la ventana de Google antes de completar el ingreso.',
+    'auth/popup-blocked':
+      'El navegador bloqueó la ventana de Google. Habilitá las ventanas emergentes.',
+    'auth/cancelled-popup-request':
+      'Se canceló el intento anterior. Volvé a intentarlo.',
+    'auth/account-exists-with-different-credential':
+      'Ya existe una cuenta con ese correo y otro método de ingreso.',
+    'auth/unauthorized-domain':
+      'Este dominio no está autorizado en Firebase Authentication.',
   }
 
   return (
