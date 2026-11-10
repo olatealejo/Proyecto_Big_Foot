@@ -76,8 +76,7 @@
 }
 
 .perfil-resumen {
-  position: sticky;
-  top: 105px;
+  position: static;
 
   padding: 28px 22px;
 
