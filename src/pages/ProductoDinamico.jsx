@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from 'react'
+import { useState } from 'react'
 import {
   ArrowLeft,
   ChevronLeft,
@@ -21,15 +18,10 @@ import ProductoNoDisponible from './ProductoNoDisponible'
 import './ProductoDetalle.css'
 import './ProductoDetalle.galeria.css'
 
-export default function ProductoDinamico() {
-  const { sku } = useParams()
+function ProductoDinamicoContenido({ sku }) {
   const { productos, cargando } = useCatalog()
   const [imagenActiva, setImagenActiva] = useState(0)
   const producto = productos[sku]
-
-  useEffect(() => {
-    setImagenActiva(0)
-  }, [sku])
 
   if (cargando) {
     return (
@@ -183,5 +175,17 @@ export default function ProductoDinamico() {
         </section>
       </main>
     </div>
+  )
+}
+
+
+export default function ProductoDinamico() {
+  const { sku } = useParams()
+
+  return (
+    <ProductoDinamicoContenido
+      key={sku}
+      sku={sku}
+    />
   )
 }
