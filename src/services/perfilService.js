@@ -9,62 +9,126 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore'
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from 'firebase/storage'
 
-import { db, storage } from './firebase'
+import { db } from './firebase'
 
-export async function subirFotoPerfil(uid, archivo) {
-  const extension =
-    archivo.name.split('.').pop()?.toLowerCase() || 'jpg'
-  const ruta =
-    `perfiles/${uid}/foto-${Date.now()}.${extension}`
-  const referencia = ref(storage, ruta)
-
-  await uploadBytes(referencia, archivo, {
-    contentType: archivo.type,
-  })
-
-  const url = await getDownloadURL(referencia)
-
-  return { url, ruta }
+function crearError(codigo, mensaje) {
+  const error = new Error(mensaje)
+  error.code = codigo
+  return error
 }
 
-export async function eliminarFotoAnterior(ruta) {
-  if (!ruta) {
-    return
+function conTiempoMaximo(promesa, milisegundos = 15000) {
+  return Promise.race([
+    promesa,
+    new Promise((_, rechazar) => {
+      setTimeout(() => {
+        rechazar(
+          crearError(
+            'perfil/tiempo-agotado',
+            'La operación tardó demasiado.',
+          ),
+        )
+      }, milisegundos)
+    }),
+  ])
+}
+
+function leerArchivo(archivo) {
+  return new Promise((resolver, rechazar) => {
+    const lector = new FileReader()
+
+    lector.onload = () => resolver(lector.result)
+    lector.onerror = () =>
+      rechazar(
+        crearError(
+          'perfil/imagen-invalida',
+          'No se pudo leer la imagen.',
+        ),
+      )
+
+    lector.readAsDataURL(archivo)
+  })
+}
+
+function cargarImagen(origen) {
+  return new Promise((resolver, rechazar) => {
+    const imagen = new Image()
+
+    imagen.onload = () => resolver(imagen)
+    imagen.onerror = () =>
+      rechazar(
+        crearError(
+          'perfil/imagen-invalida',
+          'No se pudo procesar la imagen.',
+        ),
+      )
+
+    imagen.src = origen
+  })
+}
+
+export async function procesarFotoPerfil(archivo) {
+  const origen = await leerArchivo(archivo)
+  const imagen = await cargarImagen(origen)
+  const limite = 320
+  const escala = Math.min(
+    1,
+    limite / imagen.naturalWidth,
+    limite / imagen.naturalHeight,
+  )
+
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.max(
+    1,
+    Math.round(imagen.naturalWidth * escala),
+  )
+  canvas.height = Math.max(
+    1,
+    Math.round(imagen.naturalHeight * escala),
+  )
+
+  const contexto = canvas.getContext('2d')
+  contexto.drawImage(
+    imagen,
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+  )
+
+  const fotoComprimida = canvas.toDataURL(
+    'image/webp',
+    0.8,
+  )
+
+  if (fotoComprimida.length > 650000) {
+    throw crearError(
+      'perfil/foto-demasiado-grande',
+      'La imagen procesada sigue siendo demasiado grande.',
+    )
   }
 
-  try {
-    await deleteObject(ref(storage, ruta))
-  } catch (error) {
-    if (error.code !== 'storage/object-not-found') {
-      console.warn(
-        'No se pudo eliminar la foto anterior:',
-        error,
-      )
-    }
-  }
+  return fotoComprimida
 }
 
 export async function guardarPerfil(usuario, datosPerfil) {
-  await updateProfile(usuario, {
-    displayName: datosPerfil.nombre,
-    photoURL: datosPerfil.fotoURL || null,
-  })
+  await conTiempoMaximo(
+    updateProfile(usuario, {
+      displayName: datosPerfil.nombre,
+    }),
+  )
 
-  await setDoc(
-    doc(db, 'usuarios', usuario.uid),
-    {
-      ...datosPerfil,
-      email: usuario.email || '',
-      fechaActualizacion: serverTimestamp(),
-    },
-    { merge: true },
+  await conTiempoMaximo(
+    setDoc(
+      doc(db, 'usuarios', usuario.uid),
+      {
+        ...datosPerfil,
+        email: usuario.email || '',
+        fechaActualizacion: serverTimestamp(),
+      },
+      { merge: true },
+    ),
   )
 }
 
@@ -78,8 +142,12 @@ export async function cambiarContrasena({
     contrasenaActual,
   )
 
-  await reauthenticateWithCredential(usuario, credencial)
-  await updatePassword(usuario, contrasenaNueva)
+  await conTiempoMaximo(
+    reauthenticateWithCredential(usuario, credencial),
+  )
+  await conTiempoMaximo(
+    updatePassword(usuario, contrasenaNueva),
+  )
 }
 
 export function obtenerMensajeErrorPerfil(error) {
@@ -92,12 +160,16 @@ export function obtenerMensajeErrorPerfil(error) {
       'La nueva contraseña es demasiado débil.',
     'auth/requires-recent-login':
       'La sesión es antigua. Cerrá sesión e ingresá nuevamente.',
-    'storage/unauthorized':
-      'No tenés permiso para subir la imagen.',
-    'storage/quota-exceeded':
-      'Se alcanzó el límite de almacenamiento.',
-    'storage/retry-limit-exceeded':
-      'La carga tardó demasiado. Intentá nuevamente.',
+    'permission-denied':
+      'Firestore rechazó la operación. Revisá y publicá las reglas.',
+    unavailable:
+      'No se pudo conectar con Firebase.',
+    'perfil/foto-demasiado-grande':
+      'La imagen es demasiado grande para el perfil.',
+    'perfil/imagen-invalida':
+      'No se pudo procesar la imagen seleccionada.',
+    'perfil/tiempo-agotado':
+      'Firebase tardó demasiado en responder. Revisá la conexión y las reglas.',
   }
 
   return (
