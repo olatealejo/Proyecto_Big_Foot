@@ -83,6 +83,8 @@ function normalizarImagenes(imagenes) {
       return {
         url,
         nombre,
+        storagePath:
+          String(imagen?.storagePath || '').trim(),
       }
     })
     .filter((imagen) => imagen.url)
