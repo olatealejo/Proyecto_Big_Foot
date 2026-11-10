@@ -19,10 +19,9 @@ import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
 import {
   cambiarContrasena,
-  eliminarFotoAnterior,
   guardarPerfil,
   obtenerMensajeErrorPerfil,
-  subirFotoPerfil,
+  procesarFotoPerfil,
 } from '../services/perfilService'
 import './Perfil.css'
 
@@ -182,8 +181,6 @@ function Perfil() {
       return
     }
 
-    let fotoSubida = null
-
     try {
       setGuardando(true)
       setError('')
@@ -193,17 +190,9 @@ function Perfil() {
         perfil?.fotoURL
         || usuario.photoURL
         || ''
-      let fotoRutaStorage =
-        perfil?.fotoRutaStorage
-        || ''
 
       if (archivoFoto) {
-        fotoSubida = await subirFotoPerfil(
-          usuario.uid,
-          archivoFoto,
-        )
-        fotoURL = fotoSubida.url
-        fotoRutaStorage = fotoSubida.ruta
+        fotoURL = await procesarFotoPerfil(archivoFoto)
       }
 
       const datosActualizados = {
@@ -212,21 +201,11 @@ function Perfil() {
         ubicacion: datos.ubicacion.trim(),
         bio: datos.bio.trim(),
         fotoURL,
-        fotoRutaStorage,
       }
 
       await guardarPerfil(usuario, datosActualizados)
       actualizarPerfilLocal(datosActualizados)
 
-      if (
-        fotoSubida
-        && perfil?.fotoRutaStorage
-        && perfil.fotoRutaStorage !== fotoSubida.ruta
-      ) {
-        await eliminarFotoAnterior(
-          perfil.fotoRutaStorage,
-        )
-      }
 
       setArchivoFoto(null)
       setVersionInputFoto((version) => version + 1)
@@ -234,9 +213,6 @@ function Perfil() {
     } catch (err) {
       console.error('Error al guardar el perfil:', err)
 
-      if (fotoSubida?.ruta) {
-        await eliminarFotoAnterior(fotoSubida.ruta)
-      }
 
       setError(obtenerMensajeErrorPerfil(err))
     } finally {
@@ -395,7 +371,7 @@ function Perfil() {
                     onChange={seleccionarFoto}
                   />
                   <p>
-                    JPG, PNG o WEBP. Máximo 5 MB.
+                    JPG, PNG o WEBP. Se reduce automáticamente.
                   </p>
                 </div>
               </div>
