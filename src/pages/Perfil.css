@@ -488,6 +488,155 @@
   font-size: 14px;
 }
 
+.perfil-eliminar-panel {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  padding: clamp(24px, 4vw, 36px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.75fr);
+  align-items: end;
+  gap: 32px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(202, 55, 36, 0.12),
+      transparent 46%
+    ),
+    #100d0c;
+  border: 1px solid rgba(235, 81, 57, 0.38);
+  border-radius: 8px;
+}
+
+.perfil-eliminar-encabezado {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.perfil-eliminar-encabezado > svg {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  color: #f06449;
+}
+
+.perfil-eliminar-etiqueta {
+  margin: 0 0 8px;
+
+  color: #f06449;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+}
+
+.perfil-eliminar-encabezado h2 {
+  margin: 0;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.perfil-eliminar-encabezado div > p:last-child {
+  max-width: 610px;
+  margin: 12px 0 0;
+
+  color: #a59b95;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.perfil-eliminar-formulario {
+  display: grid;
+  gap: 12px;
+}
+
+.perfil-eliminar-formulario label {
+  display: grid;
+  gap: 8px;
+
+  color: #e4dcd7;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.65px;
+}
+
+.perfil-eliminar-formulario input {
+  width: 100%;
+  padding: 12px 13px;
+
+  color: #f5f2ef;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  background-color: #080707;
+  border: 1px solid rgba(235, 81, 57, 0.32);
+  border-radius: 4px;
+  outline: none;
+}
+
+.perfil-eliminar-formulario input:focus {
+  border-color: #f06449;
+  box-shadow: 0 0 0 3px rgba(240, 100, 73, 0.12);
+}
+
+.perfil-eliminar-formulario input:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.perfil-eliminar-ayuda {
+  margin: 0;
+  color: #8f8580;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.perfil-eliminar-boton {
+  min-height: 44px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  color: #ffffff;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  background-color: #b73527;
+  border: 1px solid #d84a37;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.perfil-eliminar-boton:hover,
+.perfil-eliminar-boton:focus-visible {
+  background-color: #cf4332;
+  border-color: #f06449;
+}
+
+.perfil-eliminar-boton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.perfil-eliminar-boton svg {
+  width: 17px;
+  height: 17px;
+}
+
 @media (max-width: 900px) {
   .perfil-contenido {
     grid-template-columns: 1fr;
@@ -519,6 +668,13 @@
 }
 
 @media (max-width: 650px) {
+  .perfil-eliminar-panel {
+    padding: 22px 18px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 24px;
+  }
+
   .perfil-encabezado {
     padding: 54px 20px 46px;
   }
