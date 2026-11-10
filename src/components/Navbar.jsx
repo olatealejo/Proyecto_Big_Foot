@@ -218,6 +218,16 @@ export default function Navbar({ ocultarAlBajar = false }) {
                   </span>
                 </div>
 
+                <Link
+                  to="/perfil"
+                  className="navbar-perfil-enlace"
+                  role="menuitem"
+                  onClick={() => setMenuAbierto(false)}
+                >
+                  <UserRound aria-hidden="true" />
+                  Administrar perfil
+                </Link>
+
                 {errorSesion && (
                   <p className="navbar-cuenta-error" role="alert">
                     {errorSesion}
