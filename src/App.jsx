@@ -11,6 +11,7 @@ import ProductoDetalle from './pages/ProductoDetalle'
 import ProductoMolino1 from './pages/ProductoMolino1'
 import ProductoMolino2 from './pages/ProductoMolino2'
 import Contacto from './pages/Contacto'
+import Perfil from './pages/Perfil'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/productos/molino-1" element={<ProductoMolino1 />} />
         <Route path="/productos/molino-2" element={<ProductoMolino2 />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
       <CartDrawer />
     </CartProvider>

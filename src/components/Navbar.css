@@ -451,3 +451,40 @@
     transition: none;
   }
 }
+
+
+.navbar-cuenta-menu .navbar-perfil-enlace {
+  width: 100%;
+  height: 40px;
+  margin-top: 14px;
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  color: #f5f2ef;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+
+  background-color: rgba(255, 122, 24, 0.08);
+  border: 1px solid rgba(255, 122, 24, 0.3);
+  border-radius: 4px;
+}
+
+.navbar-cuenta-menu .navbar-perfil-enlace:hover,
+.navbar-cuenta-menu .navbar-perfil-enlace:focus-visible {
+  color: #ffffff;
+  background-color: rgba(255, 122, 24, 0.2);
+  border-color: rgba(255, 122, 24, 0.62);
+}
+
+.navbar-cuenta-menu .navbar-perfil-enlace svg {
+  width: 17px;
+  height: 17px;
+}
