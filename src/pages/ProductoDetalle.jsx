@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import CartTrigger from '../components/CartTrigger'
 import BrandLogo from '../components/BrandLogo'
 import AddToCart from '../components/AddToCart'
+import { useCatalog } from '../catalogo/useCatalog'
+import { formatoPrecio } from '../cart/catalogo'
+import ProductoNoDisponible from './ProductoNoDisponible'
 import { ArrowLeft, ChevronLeft, ChevronRight, ShieldCheck, Truck } from 'lucide-react'
 
 import zapatilla from '../assets/chorizo-parmesano-lateral-izquierda.png'
@@ -21,10 +24,15 @@ const imagenes = [
 
 function ProductoDetalle() {
   const [imagenActiva, setImagenActiva] = useState(0)
+  const { productos, cargando } = useCatalog()
+  const producto = productos['chorizo-parmesano']
 
   const cambiarImagen = (direccion) => {
     setImagenActiva((indice) => (indice + direccion + imagenes.length) % imagenes.length)
   }
+
+  if (cargando) return <main className="detalle-pagina"><p>Cargando producto...</p></main>
+  if (!producto) return <ProductoNoDisponible />
 
   return (
     <div className="detalle-pagina">
@@ -40,7 +48,7 @@ function ProductoDetalle() {
       <main className="detalle-contenido">
         <section className="detalle-galeria" aria-label="Imágenes del producto">
           <div className="detalle-imagen-principal">
-            <img src={imagenes[imagenActiva].src} alt={`Big Foot Chorizo Parmesano — ${imagenes[imagenActiva].nombre}`} />
+            <img src={imagenActiva === 0 ? producto.imagen : imagenes[imagenActiva].src} alt={`Big Foot Chorizo Parmesano — ${imagenes[imagenActiva].nombre}`} />
             {imagenes.length > 1 && <>
               <button type="button" className="detalle-flecha detalle-flecha-izquierda" onClick={() => cambiarImagen(-1)} aria-label="Imagen anterior"><ChevronLeft size={24} /></button>
               <button type="button" className="detalle-flecha detalle-flecha-derecha" onClick={() => cambiarImagen(1)} aria-label="Imagen siguiente"><ChevronRight size={24} /></button>
@@ -49,7 +57,7 @@ function ProductoDetalle() {
           {imagenes.length > 1 && <div className="detalle-miniaturas" aria-label="Elegir vista de la zapatilla">
             {imagenes.map((imagen, indice) => (
               <button key={imagen.nombre} type="button" className={`detalle-miniatura${imagenActiva === indice ? ' detalle-miniatura-activa' : ''}`} aria-label={`Mostrar ${imagen.nombre.toLowerCase()}`} aria-pressed={imagenActiva === indice} onClick={() => setImagenActiva(indice)}>
-                <img src={imagen.src} alt="" loading="lazy" />
+                <img src={indice === 0 ? producto.imagen : imagen.src} alt="" loading="lazy" />
               </button>
             ))}
           </div>}
@@ -58,15 +66,11 @@ function ProductoDetalle() {
 
         <section className="detalle-info">
           <p className="detalle-categoria">BÁSQUET / HIGH-TOP</p>
-          <h1>Big Foot Chorizo Parmesano</h1>
+          <h1>{producto.nombre}</h1>
           <p className="detalle-subtitulo">Un clásico de cancha con identidad propia.</p>
-          <p className="detalle-precio">$80.000</p>
+          <p className="detalle-precio">{formatoPrecio(producto.precio)}</p>
 
-          <p className="detalle-descripcion">
-            Diseñadas para destacar dentro y fuera de la cancha. Su silueta de
-            caña alta y su combinación de azul, blanco y detalles Big Foot le
-            dan personalidad a cada paso.
-          </p>
+          <p className="detalle-descripcion">{producto.descripcion || "Modelo The Big Foot."}</p>
 
           <AddToCart sku="chorizo-parmesano" />
 

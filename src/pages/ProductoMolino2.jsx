@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import CartTrigger from '../components/CartTrigger'
 import BrandLogo from '../components/BrandLogo'
 import AddToCart from '../components/AddToCart'
+import { useCatalog } from '../catalogo/useCatalog'
+import { formatoPrecio } from '../cart/catalogo'
+import ProductoNoDisponible from './ProductoNoDisponible'
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 
 import lateralIzquierda from '../assets/molino-2-lateral-izquierda.png'
@@ -25,9 +28,14 @@ const imagenes = [
 
 function ProductoMolino2() {
   const [imagenActiva, setImagenActiva] = useState(0)
+  const { productos, cargando } = useCatalog()
+  const producto = productos['molino-2']
   const cambiarImagen = (direccion) => {
     setImagenActiva((indice) => (indice + direccion + imagenes.length) % imagenes.length)
   }
+
+  if (cargando) return <main className="detalle-pagina"><p>Cargando producto...</p></main>
+  if (!producto) return <ProductoNoDisponible />
 
   return (
     <div className="detalle-pagina">
@@ -43,7 +51,7 @@ function ProductoMolino2() {
       <main className="detalle-contenido">
         <section className="detalle-galeria" aria-label="Imágenes de Big Foot Molino 2">
           <div className="detalle-imagen-principal">
-            <img src={imagenes[imagenActiva].src} alt={`Big Foot Molino 2 — ${imagenes[imagenActiva].nombre}`} />
+            <img src={imagenActiva === 0 ? producto.imagen : imagenes[imagenActiva].src} alt={`Big Foot Molino 2 — ${imagenes[imagenActiva].nombre}`} />
             <button type="button" className="detalle-flecha detalle-flecha-izquierda" onClick={() => cambiarImagen(-1)} aria-label="Imagen anterior">
               <ChevronLeft size={24} />
             </button>
@@ -61,7 +69,7 @@ function ProductoMolino2() {
                 aria-pressed={imagenActiva === indice}
                 onClick={() => setImagenActiva(indice)}
               >
-                <img src={imagen.src} alt="" loading="lazy" />
+                <img src={indice === 0 ? producto.imagen : imagen.src} alt="" loading="lazy" />
               </button>
             ))}
           </div>
@@ -70,14 +78,10 @@ function ProductoMolino2() {
 
         <section className="detalle-info">
           <p className="detalle-categoria">ZAPATILLAS / MOLINO 2</p>
-          <h1>Big Foot Molino 2</h1>
+          <h1>{producto.nombre}</h1>
           <p className="detalle-subtitulo">Diseño iridiscente en plateado, con detalles negros, violetas y turquesa.</p>
-          <p className="detalle-precio">$150.000</p>
-          <p className="detalle-descripcion">
-            Conocé Molino 2 desde todos sus ángulos: laterales, frente en perspectiva,
-            parte superior, talón y suela. Su diseño combina una capellada negra con
-            detalles blancos y una suela de perfil deportivo.
-          </p>
+          <p className="detalle-precio">{formatoPrecio(producto.precio)}</p>
+          <p className="detalle-descripcion">{producto.descripcion || "Modelo The Big Foot."}</p>
           <AddToCart sku="molino-2" />
           <div className="detalle-acordeon">
             <details>

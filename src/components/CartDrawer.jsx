@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Minus, Plus, ShoppingBasket, Trash2, X } from 'lucide-react'
-import { PRODUCTOS, formatoPrecio } from '../cart/catalogo'
+import { formatoPrecio } from '../cart/catalogo'
+import { useCatalog } from '../catalogo/useCatalog'
 import { useCart } from '../cart/useCart'
 import './Carrito.css'
 
 export default function CartDrawer() {
+  const { productos } = useCatalog()
   const {
     items, abierto, cantidadTotal, subtotal,
     cerrarCarrito, cambiarCantidad, quitarProducto,
@@ -73,7 +75,7 @@ export default function CartDrawer() {
           <>
             <div className="carrito-lista">
               {items.map((item) => {
-                const producto = PRODUCTOS[item.sku]
+                const producto = productos[item.sku]
                 return (
                   <article className="carrito-item" key={item.sku + ':' + item.talle}>
                     <Link to={producto.ruta} onClick={cerrarCarrito} aria-label={'Ver ' + producto.nombre}>

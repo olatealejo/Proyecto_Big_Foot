@@ -1,0 +1,119 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function estaAutenticado() {
+      return request.auth != null;
+    }
+
+    function esAdmin() {
+      return estaAutenticado()
+        && exists(
+          /databases/$(database)/documents/usuarios/$(request.auth.uid)
+        )
+        && get(
+          /databases/$(database)/documents/usuarios/$(request.auth.uid)
+        ).data.rol == 'admin';
+    }
+
+    function esPropietario(autorId) {
+      return estaAutenticado()
+        && request.auth.uid == autorId;
+    }
+
+    match /usuarios/{usuarioId} {
+      allow read: if estaAutenticado()
+        && (
+          request.auth.uid == usuarioId
+          || esAdmin()
+        );
+
+      allow create: if estaAutenticado()
+        && request.auth.uid == usuarioId
+        && request.resource.data.rol == 'usuario';
+
+      allow update: if esAdmin()
+        || (
+          estaAutenticado()
+          && request.auth.uid == usuarioId
+          && request.resource.data.rol == resource.data.rol
+        );
+
+      allow delete: if esAdmin()
+        || (
+          estaAutenticado()
+          && request.auth.uid == usuarioId
+        );
+    }
+
+    function validarProducto(productoId) {
+      let p = request.resource.data;
+      return p.keys().hasOnly([
+          'sku', 'nombre', 'modelo', 'precio', 'descripcion', 'imagenUrl',
+          'activo', 'motivoBaja', 'modificadoPor', 'fechaCreacion', 'fechaActualizacion'
+        ])
+        && p.keys().hasAll([
+          'sku', 'nombre', 'modelo', 'precio', 'descripcion', 'imagenUrl',
+          'activo', 'motivoBaja', 'modificadoPor', 'fechaActualizacion'
+        ])
+        && p.sku == productoId
+        && p.sku is string
+        && p.nombre is string && p.nombre.size() >= 3 && p.nombre.size() <= 100
+        && p.modelo is string && p.modelo.size() >= 2 && p.modelo.size() <= 60
+        && p.descripcion is string && p.descripcion.size() <= 600
+        && p.precio is int && p.precio > 0 && p.precio <= 999999999
+        && p.imagenUrl is string && p.imagenUrl.size() <= 2048
+        && (p.imagenUrl == '' || p.imagenUrl.matches('https://.+'))
+        && (p.imagenUrl != '' || productoId in ['chorizo-parmesano', 'molino-1', 'molino-2'])
+        && p.activo is bool
+        && p.motivoBaja is string && p.motivoBaja.size() <= 400
+        && (p.activo || p.motivoBaja.size() >= 10)
+        && p.modificadoPor == request.auth.uid
+        && p.fechaActualizacion == request.time;
+    }
+
+    match /productos/{productoId} {
+      allow read: if true;
+      allow create: if esAdmin() && validarProducto(productoId);
+      allow update: if esAdmin()
+        && validarProducto(productoId)
+        && request.resource.data.sku == resource.data.sku;
+      // Se utiliza baja lógica con justificación, no eliminación física.
+      allow delete: if false;
+    }
+
+    match /publicaciones/{publicacionId} {
+      allow read: if true;
+
+      allow create: if estaAutenticado()
+        && request.resource.data.autorId == request.auth.uid;
+
+      allow update: if esPropietario(resource.data.autorId)
+        && request.resource.data.autorId == resource.data.autorId;
+
+      allow delete: if esAdmin();
+    }
+
+    match /moderaciones/{moderacionId} {
+      allow create, read: if esAdmin();
+    }
+
+    match /comentarios/{comentarioId} {
+      allow read: if true;
+
+      allow create: if estaAutenticado()
+        && request.resource.data.autorId == request.auth.uid;
+
+      allow update, delete: if esAdmin()
+        || esPropietario(resource.data.autorId);
+    }
+
+    match /pedidos/{pedidoId} {
+      allow create: if estaAutenticado()
+        && request.resource.data.usuarioId == request.auth.uid;
+
+      allow read, update, delete: if esAdmin()
+        || esPropietario(resource.data.usuarioId);
+    }
+  }
+}

@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { Check } from 'lucide-react'
-import { TALLES, PRODUCTOS } from '../cart/catalogo'
+import { TALLES } from '../cart/catalogo'
+import { useCatalog } from '../catalogo/useCatalog'
 import { useCart } from '../cart/useCart'
 
 export default function AddToCart({ sku }) {
   const [talle, setTalle] = useState(null)
   const [agregado, setAgregado] = useState(false)
-  const { items, maxCantidad, agregarProducto } = useCart()
-  const producto = PRODUCTOS[sku]
+  const { items, maxCantidad, agregarProducto, cargando } = useCart()
+  const { productos } = useCatalog()
+  const producto = productos[sku]
   const cantidadActual = items.find((item) => item.sku === sku && item.talle === talle)?.cantidad || 0
   const llegoAlLimite = talle !== null && cantidadActual >= maxCantidad
 
@@ -42,13 +44,13 @@ export default function AddToCart({ sku }) {
         )}
       </div>
       <button type="button" className="detalle-agregar"
-        disabled={talle === null || llegoAlLimite}
+        disabled={talle === null || llegoAlLimite || cargando || !producto}
         onClick={agregar}>
         {agregado ? <><Check size={19} /> Agregar otra unidad</> : 'Agregar al carrito'}
       </button>
       {agregado && (
         <p className="detalle-confirmacion" role="status">
-          {producto.nombre} · Talle {talle} agregado al carrito.
+          {producto?.nombre} · Talle {talle} agregado al carrito.
         </p>
       )}
     </>
