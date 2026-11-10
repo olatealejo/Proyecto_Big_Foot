@@ -9,6 +9,42 @@ export const TALLES = Object.freeze([
   45,
 ])
 
+function normalizarImagenes(imagenes, imagenPrincipal) {
+  const galeria = Array.isArray(imagenes)
+    ? imagenes
+        .map((imagen, indice) => ({
+          src: String(imagen?.url || imagen?.src || '').trim(),
+          nombre:
+            String(imagen?.nombre || '').trim()
+            || 'Vista ' + (indice + 1),
+        }))
+        .filter((imagen) => imagen.src)
+    : []
+
+  if (galeria.length > 0) {
+    return galeria
+  }
+
+  return imagenPrincipal
+    ? [{
+        src: imagenPrincipal,
+        nombre: 'Vista principal',
+      }]
+    : []
+}
+
+function normalizarTalles(talles) {
+  const disponibles = Array.isArray(talles)
+    ? talles
+        .map(Number)
+        .filter((talle) => TALLES.includes(talle))
+    : []
+
+  return disponibles.length > 0
+    ? [...new Set(disponibles)].sort((a, b) => a - b)
+    : [...TALLES]
+}
+
 export class Producto {
   constructor({
     sku,
@@ -17,8 +53,13 @@ export class Producto {
     precio,
     imagen,
     ruta,
+    categoria = '',
+    subtitulo = '',
     descripcion = '',
+    descripcionCompleta = '',
     imagenUrl = '',
+    imagenes = [],
+    talles = TALLES,
     activo = true,
     motivoBaja = '',
   }) {
@@ -40,8 +81,14 @@ export class Producto {
     this.precio = precio
     this.imagen = imagen
     this.ruta = ruta
+    this.categoria = categoria || 'Zapatillas / ' + modelo
+    this.subtitulo = subtitulo
     this.descripcion = descripcion
+    this.descripcionCompleta =
+      descripcionCompleta || descripcion
     this.imagenUrl = imagenUrl
+    this.imagenes = normalizarImagenes(imagenes, imagen)
+    this.talles = normalizarTalles(talles)
     this.activo = activo
     this.motivoBaja = motivoBaja
   }
@@ -51,7 +98,7 @@ export class Producto {
 
     return (
       Number.isInteger(talleNumerico)
-      && TALLES.includes(talleNumerico)
+      && this.talles.includes(talleNumerico)
     )
   }
 
