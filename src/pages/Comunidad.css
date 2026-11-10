@@ -1031,3 +1031,227 @@
   background-color: #ff9748;
   border-color: #ff9748;
 }
+
+
+/* Permisos y acciones de las publicaciones */
+.comunidad-crear-boton {
+  text-decoration: none;
+}
+
+.comunidad-crear-boton[aria-disabled="true"],
+.comunidad-boton-publicar:disabled,
+.comunidad-boton-secundario:disabled,
+.comunidad-boton-eliminar:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+}
+
+.comunidad-publicacion-superior {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.comunidad-publicacion-superior .comunidad-publicacion-meta {
+  margin-bottom: 0;
+}
+
+.comunidad-publicacion-acciones {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+}
+
+.comunidad-accion-editar,
+.comunidad-accion-eliminar {
+  min-height: 32px;
+  padding: 0 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+
+  background-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.comunidad-accion-editar {
+  color: #e5ded8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.comunidad-accion-editar:hover,
+.comunidad-accion-editar:focus-visible {
+  color: #ffffff;
+  background-color: rgba(255, 122, 24, 0.1);
+  border-color: rgba(255, 122, 24, 0.58);
+}
+
+.comunidad-accion-eliminar {
+  color: #ffb194;
+  border: 1px solid rgba(255, 92, 43, 0.34);
+}
+
+.comunidad-accion-eliminar:hover,
+.comunidad-accion-eliminar:focus-visible {
+  color: #ffffff;
+  background-color: rgba(194, 48, 22, 0.22);
+  border-color: rgba(255, 92, 43, 0.7);
+}
+
+/* Panel obligatorio de justificación administrativa */
+.comunidad-modal-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  padding: 20px;
+
+  display: grid;
+  place-items: center;
+
+  background-color: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.comunidad-moderacion-panel {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 40px);
+  padding: clamp(24px, 4vw, 36px);
+  overflow-y: auto;
+
+  color: #f5f2ef;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(181, 45, 20, 0.13),
+      transparent 45%
+    ),
+    #111111;
+  border: 1px solid rgba(255, 92, 43, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.comunidad-moderacion-panel h2 {
+  margin: 4px 0 12px;
+
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.comunidad-moderacion-panel > p:not(.comunidad-etiqueta) {
+  margin: 0 0 24px;
+
+  color: #aaa29b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.comunidad-moderacion-panel form {
+  display: grid;
+  gap: 12px;
+}
+
+.comunidad-moderacion-panel label {
+  color: #ded7d1;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.comunidad-moderacion-panel textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 13px;
+  resize: vertical;
+
+  color: #f5f2ef;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+
+  background-color: #090909;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 4px;
+  outline: none;
+}
+
+.comunidad-moderacion-panel textarea:focus {
+  border-color: #ff5c2b;
+  box-shadow: 0 0 0 3px rgba(255, 92, 43, 0.12);
+}
+
+.comunidad-moderacion-acciones {
+  margin-top: 8px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.comunidad-boton-eliminar {
+  min-height: 41px;
+  padding: 0 17px;
+
+  color: #ffffff;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  background-color: #b8321d;
+  border: 1px solid #d94a2d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comunidad-boton-eliminar:hover,
+.comunidad-boton-eliminar:focus-visible {
+  background-color: #d64325;
+  border-color: #f16543;
+}
+
+@media (max-width: 700px) {
+  .comunidad-publicacion-superior {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .comunidad-publicacion-acciones {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 440px) {
+  .comunidad-moderacion-acciones {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .comunidad-moderacion-acciones button {
+    width: 100%;
+  }
+}

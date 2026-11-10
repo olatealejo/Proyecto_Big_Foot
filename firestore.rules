@@ -57,8 +57,14 @@ service cloud.firestore {
       allow create: if estaAutenticado()
         && request.resource.data.autorId == request.auth.uid;
 
-      allow update, delete: if esAdmin()
-        || esPropietario(resource.data.autorId);
+      allow update: if esPropietario(resource.data.autorId)
+        && request.resource.data.autorId == resource.data.autorId;
+
+      allow delete: if esAdmin();
+    }
+
+    match /moderaciones/{moderacionId} {
+      allow create, read: if esAdmin();
     }
 
     match /comentarios/{comentarioId} {
