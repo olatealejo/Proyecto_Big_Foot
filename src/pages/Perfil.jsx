@@ -426,8 +426,10 @@ function Perfil() {
 
               <div className="perfil-campos-dobles">
                 <label>
-                  <Phone aria-hidden="true" />
-                  Teléfono
+                  <span className="perfil-label-con-icono">
+                    <Phone aria-hidden="true" />
+                    Teléfono
+                  </span>
                   <input
                     type="tel"
                     name="telefono"
@@ -440,8 +442,10 @@ function Perfil() {
                 </label>
 
                 <label>
-                  <MapPin aria-hidden="true" />
-                  Ubicación
+                  <span className="perfil-label-con-icono">
+                    <MapPin aria-hidden="true" />
+                    Ubicación
+                  </span>
                   <input
                     type="text"
                     name="ubicacion"
