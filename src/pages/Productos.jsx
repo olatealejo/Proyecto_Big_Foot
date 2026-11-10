@@ -29,7 +29,7 @@ function Productos() {
 
   const visibles = useMemo(
     () => filtrarProductos(listaProductos, { texto, modelo, precioMaximo, orden }),
-    [texto, modelo, precioMaximo, orden]
+    [listaProductos, texto, modelo, precioMaximo, orden]
   )
 
   const filtrosActivos = texto !== '' || modelo !== 'todos' || precioMaximo !== 'todos' || orden !== 'destacados'
